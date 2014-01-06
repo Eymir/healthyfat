@@ -26,6 +26,14 @@
             android:name="com.healthyfat.PreLoginActivity"
             android:label="@string/title_activity_pre_login" >
         </activity>
+        <activity
+            android:name="com.healthyfat.LoginActivity"
+            android:label="@string/title_activity_login"
+            android:parentActivityName="com.healthyfat.PreLoginActivity" >
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.healthyfat.PreLoginActivity" />
+        </activity>
     </application>
 
 </manifest>
