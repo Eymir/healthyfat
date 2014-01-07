@@ -11,6 +11,7 @@ import android.widget.Button;
 public class PreLoginActivity extends Activity implements OnClickListener {
 
 	Button b;
+	Intent i;
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -29,7 +30,7 @@ public class PreLoginActivity extends Activity implements OnClickListener {
 	
 	@Override
 	public void onClick(View v) {
-		Intent i = new Intent(this,LoginActivity.class);
+		i = new Intent(this,LoginActivity.class);
 		startActivity(i);
 	}
 

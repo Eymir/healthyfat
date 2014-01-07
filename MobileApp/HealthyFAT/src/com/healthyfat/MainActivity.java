@@ -10,6 +10,7 @@ import android.view.Menu;
 public class MainActivity extends Activity {
 
 	SharedPreferences prefs = null;
+	Intent i;
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -36,7 +37,7 @@ public class MainActivity extends Activity {
 		
 		if (prefs.getBoolean("firstrun", true)) {
 			
-			Intent i = new Intent (this, PreLoginActivity.class);
+			i = new Intent (this, PreLoginActivity.class);
 			startActivity(i);
 			
 			prefs.edit().putBoolean("firstrun", false).commit();
