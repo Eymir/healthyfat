@@ -40,7 +40,7 @@ public class MainActivity extends Activity {
 			i = new Intent (this, PreLoginActivity.class);
 			startActivity(i);
 			
-			prefs.edit().putBoolean("firstrun", false).commit();
+			//prefs.edit().putBoolean("firstrun", false).commit();
 		}
 	}
 

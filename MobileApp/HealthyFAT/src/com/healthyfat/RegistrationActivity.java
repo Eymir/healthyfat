@@ -2,28 +2,18 @@ package com.healthyfat;
 
 import android.os.Bundle;
 import android.app.Activity;
-import android.content.Intent;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.view.View;
-import android.view.View.OnClickListener;
-import android.widget.Button;
 import android.support.v4.app.NavUtils;
 
-public class LoginActivity extends Activity implements OnClickListener{
+public class RegistrationActivity extends Activity {
 
-	Intent i;
-	Button b;
-	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		setContentView(R.layout.activity_login);
-		setTitle("Sign In");
+		setContentView(R.layout.activity_registration);
 		// Show the Up button in the action bar.
 		setupActionBar();
-		b = (Button) findViewById(R.id.button1);
-		b.setOnClickListener(this);
 	}
 
 	/**
@@ -38,7 +28,7 @@ public class LoginActivity extends Activity implements OnClickListener{
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
 		// Inflate the menu; this adds items to the action bar if it is present.
-		getMenuInflater().inflate(R.menu.login, menu);
+		getMenuInflater().inflate(R.menu.registration, menu);
 		return true;
 	}
 
@@ -57,12 +47,6 @@ public class LoginActivity extends Activity implements OnClickListener{
 			return true;
 		}
 		return super.onOptionsItemSelected(item);
-	}
-	
-	@Override
-	public void onClick(View v){
-		i = new Intent(this,PreMainActivity.class);
-		startActivity(i);
 	}
 
 }
