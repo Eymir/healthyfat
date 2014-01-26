@@ -1,0 +1,165 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/background"
+    tools:context=".PreActivity" >
+
+    <!-- Default Profile Picture + Add Button -->
+    <ImageView
+	    android:id="@+id/def_pic"
+	    android:layout_width="270dip"
+	    android:layout_height="180dip"
+	    android:layout_alignParentTop="true"
+	    android:layout_centerHorizontal="true"
+	    android:layout_marginTop="50dip"
+	    android:contentDescription="@string/pic_desc"
+	    android:src="@drawable/default_profile_pic" />
+
+    <ImageButton
+	    android:id="@+id/add"
+	    android:layout_width="60dip"
+	    android:layout_height="60dip"
+	    android:layout_alignBottom="@+id/def_pic"
+	    android:layout_alignRight="@+id/def_pic"
+	    android:layout_marginRight="33dip"
+	    android:contentDescription="@string/add"
+	    android:background="@null"
+	    android:src="@drawable/add_ani" />
+    
+    <!-- Username Layout -->
+    <LinearLayout
+        android:id="@+id/name_linear"
+        android:layout_width="match_parent"
+        android:layout_height="40dip"
+        android:layout_below="@+id/def_pic"
+        android:layout_marginTop="40dip"
+        android:baselineAligned="false"
+        android:background="@drawable/rectangle_box" >
+        <LinearLayout 
+            android:layout_width="0dip"
+            android:layout_height="match_parent"
+            android:gravity="center_vertical"
+            android:layout_weight="1">
+            <TextView
+            	android:id="@+id/username"
+            	android:layout_width="wrap_content"
+            	android:layout_height="match_parent"
+            	android:paddingLeft="10dip"
+            	android:gravity="center_vertical"
+            	android:labelFor="@+id/username_Edit"
+            	android:text="@string/username"
+            	android:textColor="#787878" />
+        </LinearLayout>
+		<LinearLayout
+		    android:layout_width="0dip"
+            android:layout_height="match_parent"
+            android:layout_weight="2">
+		    <EditText
+            	android:id="@+id/username_Edit"
+            	android:layout_width="match_parent"
+            	android:layout_height="match_parent"
+            	android:ellipsize="end"
+            	android:ems="10"
+            	android:gravity="right"
+            	android:singleLine="true" 
+            	android:textSize="12sp"
+            	android:inputType="textPersonName" />
+		</LinearLayout>
+
+    </LinearLayout>
+    
+    <!-- Date of Birth Layout -->
+    <LinearLayout
+        android:id="@+id/dob_linear"
+        android:layout_width="match_parent"
+        android:layout_height="40dip"
+        android:layout_below="@+id/name_linear"
+        android:layout_marginTop="0dip"
+        android:baselineAligned="false"
+        android:background="@drawable/rectangle_box" >
+        <LinearLayout 
+            android:layout_width="0dip"
+            android:layout_height="match_parent"
+            android:gravity="center_vertical"
+            android:layout_weight="1">
+        	<TextView
+            	android:id="@+id/dob"
+            	android:layout_width="wrap_content"
+            	android:layout_height="match_parent"
+            	android:gravity="center_vertical"
+            	android:paddingLeft="10dip"
+            	android:labelFor="@+id/dob_Edit"
+            	android:text="@string/dob"
+            	android:textColor="#787878" />
+        </LinearLayout>
+		<LinearLayout
+		    android:layout_width="0dip"
+            android:layout_height="match_parent"
+            android:layout_weight="2">
+        	<EditText
+            	android:id="@+id/dob_Edit"
+            	android:layout_width="match_parent"
+            	android:layout_height="match_parent"
+            	android:ellipsize="end"
+            	android:ems="10"
+            	android:gravity="right"
+            	android:singleLine="true"
+            	android:textSize="12sp" 
+            	android:inputType="date" />
+        </LinearLayout>
+    </LinearLayout>
+    
+    <!-- Gender Layout -->
+    <LinearLayout
+        android:id="@+id/gender_linear"
+        android:layout_width="match_parent"
+        android:layout_height="40dip"
+        android:layout_below="@+id/dob_linear"
+        android:layout_marginTop="0dip"
+        android:baselineAligned="false"
+        android:background="@drawable/rectangle_box" >
+		
+        <LinearLayout 
+            android:layout_width="0dip"
+            android:layout_height="match_parent"
+            android:gravity="center_vertical"
+            android:layout_weight="1">
+        	<TextView
+            	android:id="@+id/gender"
+            	android:layout_width="wrap_content"
+            	android:layout_height="match_parent"
+            	android:gravity="center_vertical"
+            	android:paddingLeft="10dip"
+           		android:text="@string/gender"
+            	android:textColor="#787878" />
+		</LinearLayout>
+		<LinearLayout
+		    android:layout_width="0dip"
+            android:layout_height="match_parent"
+            android:layout_weight="2"
+            android:gravity="right"
+            android:paddingRight="3dip">
+        	<RadioGroup
+	    		android:id="@+id/radio_Gender"
+	    		android:layout_width="wrap_content"
+	    		android:layout_height="match_parent"
+	    		android:orientation="horizontal">
+
+	    		<RadioButton
+	        		android:id="@+id/radio_male"
+	        		android:layout_width="wrap_content"
+	        		android:layout_height="match_parent"
+	        		android:checked="true"
+	        		android:text="@string/radio_male" />
+
+	    		<RadioButton
+	        		android:id="@+id/radio_female"
+	        		android:layout_width="wrap_content"
+	        		android:layout_height="match_parent"
+	        		android:text="@string/radio_female" />
+			</RadioGroup>
+		</LinearLayout>
+    </LinearLayout>
+    
+</RelativeLayout>

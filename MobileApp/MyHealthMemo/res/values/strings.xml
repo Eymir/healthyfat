@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="app_name">MyHealthMemo</string>
+    <string name="action_settings">Settings</string>
+    <string name="logo_desc">MyHealthMemo Logo</string>
+    <string name="init">Initializing&#8230;</string>
+    <string name="title_activity_first_timer">User Profile</string>
+    <string name="pic_desc">Default Profile Picture</string>
+    <string name="username">Name:</string>
+    <string name="add">Add a Profile Picture</string>
+    <string name="dob">Date of Birth:</string>
+    <string name="gender">Gender:</string>
+    <string name="radio_male">Male</string>
+    <string name="radio_female">Female</string>
+    <string name="height">Height:</string>
+    <string name="height_metric">Cm</string>
+    <string name="weight">Weight:</string>
+    <string name="weight_metric">Kg</string>
+    <string name="education">Education:</string>
+    <string name="radio_primary">Primary</string>
+    <string name="radio_secondary">Secondary</string>
+    <string name="school">School:</string>
+    <string name="cl">Class:</string>
+    <string name="reg_no">Register No.:</string>
+    <string name="activity_level">Activity Level:</string>
+    <string name="nav_fwd">Navigation to FirstTimer2Activity</string>
+    <string name="accept">Navigation to MainActivity</string>
+    <string name="drawer_open">Slider Menu Opened</string>
+    <string name="drawer_close">Slider Menu Closed</string>
+    <string name="done">Done</string>
+    <string name="decimal_Point">.</string>
+    <string name="weightfirsttab">Weight</string>
+    <string name="weightsecondtab">BMI</string>
+    <string name="weightthirdtab">History</string>
+    <string name="healthyplatefirsttab">Daily</string>
+    <string name="healthyplatesecondtab">Breakfast</string>
+    <string name="healthyplatethirdtab">Lunch</string>
+    <string name="healthyplateforthtab">Dinner</string>
+    <string name="guidetipsfirsttab">General</string>
+    <string name="guidetipssecondtab">Food</string>
+    <string name="guidetipsthirdtab">Activity</string>
+
+    <!-- Nav Drawer Menu Items -->
+    <string-array name="nav_drawer_items">
+        <item>Home</item>
+        <item>Diet Diary</item>
+        <item>Activity Diary</item>
+        <item>Weight Tracker</item>
+        <item>My Healthy Plate</item>
+        <item>Guides/Tips</item>
+        <item>Settings</item>
+    </string-array>
+
+    <!-- Nav Drawer List Item Icons -->
+    <!-- Keep them in order as the titles are in -->
+    <array name="nav_drawer_icons">
+        <item>@drawable/ic_home</item>
+        <item>@drawable/ic_diet_diary</item>
+        <item>@drawable/ic_activity_diary</item>
+        <item>@drawable/ic_weight_tracker</item>
+        <item>@drawable/ic_healthy_plate</item>
+        <item>@drawable/ic_guides_tips</item>
+        <item>@drawable/ic_settings</item>
+    </array>
+
+    <!-- Content Description -->
+    <string name="desc_list_item_icon">Item Icon</string>
+    <string name="hello_world">Hello world!</string>
+    <string name="title_activity_home_fragment">HomeFragment</string>
+    <string name="title_activity_bmifragment">BMIFragment</string>
+    <string name="title_activity_weight_tracker_home_fragment">WeightTrackerHomeFragment</string>
+    <string name="title_activity_weight_history_fragment">WeightHistoryFragment</string>
+    <string name="title_activity_dummy_fragment">DummyFragment</string>
+    <string name="activity_level_prompt">Choose one of the below</string>
+
+    <string-array name="activity_level_arrays">
+        <item>little or no exercise</item>
+        <item>light exercise/sports</item>
+        <item>moderate exercise/sports</item>
+        <item>hard exercise/sports</item>
+        <item>very hard exercise/sports</item>
+    </string-array>
+
+    <string name="title_activity_diet_diary_fragment">DietDiaryFragment</string>
+    <string name="title_activity_dummy_diet_fragment">DummyDietFragment</string>
+    <string name="title_activity_activity_diary_fragment">ActivityDiaryFragment</string>
+    <string name="title_activity_dummy_activity_fragment">DummyActivityFragment</string>
+    <string name="title_activity_healthy_plate_fragment">HealthyPlateFragment</string>
+    <string name="title_activity_healthy_plate_daily_fragment">HealthyPlateDailyFragment</string>
+    <string name="title_activity_healthy_plate_breakfast_fragment">HealthyPlateBreakfastFragment</string>
+    <string name="title_activity_healthy_plate_lunch_fragment">HealthyPlateLunchFragment</string>
+    <string name="title_activity_healthy_plate_dinner_fragment">HealthyPlateDinnerFragment</string>
+    <string name="title_activity_guide_tips_fragment">GuideTipsFragment</string>
+    <string name="title_activity_guide_tips_general_fragment">GuideTipsGeneralFragment</string>
+    <string name="title_activity_guide_tips_food_fragment">GuideTipsFoodFragment</string>
+    <string name="title_activity_guide_tips_activity_fragment">GuideTipsActivityFragment</string>
+
+</resources>
