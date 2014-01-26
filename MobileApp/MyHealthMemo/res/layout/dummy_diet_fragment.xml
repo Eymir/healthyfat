@@ -1,0 +1,58 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/background"
+    tools:context=".DummyDietFragment" >
+
+    <RelativeLayout
+        android:id="@+id/top2"
+        android:layout_width="match_parent"
+        android:layout_height="40dip">
+        
+         <TextView
+        	android:id="@+id/dateArgument2"
+        	android:layout_width="wrap_content"
+        	android:layout_height="wrap_content"
+        	android:layout_centerHorizontal="true"
+        	android:textStyle="bold"
+        	android:layout_centerVertical="true"
+        	android:textColor="@color/sporty_orange"
+        	android:text="@string/hello_world" />
+         
+         <Button
+             android:id="@+id/left_arrow2"
+             android:layout_alignParentLeft="true"
+             android:layout_centerVertical="true"
+             android:layout_width="10dip"
+             android:layout_height="10dip"
+             android:adjustViewBounds="true"
+             android:paddingLeft="2dip"
+             android:background="@drawable/arrow_shape"
+             android:rotation="270"
+             android:scaleType="fitCenter" />
+         
+         <Button
+             android:id="@+id/right_arrow2"
+             android:layout_alignParentRight="true"
+             android:layout_centerVertical="true"
+             android:layout_width="10dip"
+             android:layout_height="10dip"
+             android:adjustViewBounds="true"
+             android:paddingRight="2dip"
+             android:background="@drawable/arrow_shape"
+             android:rotation="90"
+             android:scaleType="fitCenter" />
+         
+    </RelativeLayout>
+    
+    <LinearLayout
+        android:id="@+id/divider2"
+        android:layout_width="fill_parent"
+		android:layout_height="0.05dip"
+		android:layout_below="@+id/top2"
+		android:background="#999999" 
+		android:orientation="horizontal"/>
+    
+
+</RelativeLayout>
