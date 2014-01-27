@@ -4,6 +4,7 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import org.joda.time.DateTime;
 import org.joda.time.Days;
+import android.annotation.SuppressLint;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
@@ -15,6 +16,7 @@ import android.view.MenuInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+@SuppressLint("SimpleDateFormat")
 public class MainFragment extends Fragment {
 
 	HomePagerAdapter HomePagerAdapter;
@@ -29,7 +31,7 @@ public class MainFragment extends Fragment {
 	public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		View rootView = inflater.inflate(R.layout.home_fragment, container, false);
-		HomePagerAdapter = new HomePagerAdapter(getFragmentManager());
+		HomePagerAdapter = new HomePagerAdapter(getChildFragmentManager());
 		mViewPager = (ViewPager) rootView.findViewById(R.id.pager);
 		mViewPager.setAdapter(HomePagerAdapter);
 		mViewPager.setCurrentItem(i);

@@ -31,7 +31,7 @@ public class ActivityDiaryFragment extends Fragment {
 	public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		View rootView = inflater.inflate(R.layout.activity_diary_fragment, container, false);
-		ActivityPagerAdapter = new ActivityPagerAdapter(getFragmentManager());
+		ActivityPagerAdapter = new ActivityPagerAdapter(getChildFragmentManager());
 		mViewPager = (ViewPager) rootView.findViewById(R.id.pager3);
 		mViewPager.setAdapter(ActivityPagerAdapter);
 		mViewPager.setCurrentItem(i);

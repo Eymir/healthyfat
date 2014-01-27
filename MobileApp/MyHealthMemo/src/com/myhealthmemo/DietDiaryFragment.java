@@ -34,7 +34,7 @@ public class DietDiaryFragment extends Fragment {
 	public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		View rootView = inflater.inflate(R.layout.diet_diary_fragment, container, false);
-		DietPagerAdapter = new DietPagerAdapter(getFragmentManager());
+		DietPagerAdapter = new DietPagerAdapter(getChildFragmentManager());
 		mViewPager = (ViewPager) rootView.findViewById(R.id.pager2);
 		mViewPager.setAdapter(DietPagerAdapter);
 		mViewPager.setCurrentItem(i);
