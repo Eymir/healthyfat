@@ -7,9 +7,11 @@ import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.provider.MediaStore;
 import android.annotation.SuppressLint;
+import android.app.AlertDialog;
 import android.app.Dialog;
 import android.app.DatePickerDialog.OnDateSetListener;
 import android.content.ContentValues;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.database.Cursor;
@@ -54,6 +56,7 @@ public class PreActivity extends FragmentActivity implements OnDateSetListener {
 	private String filename;
 	private Uri mCapturedImageURI;
 	private Bitmap photo;
+	private boolean a;
 	
 	
 	@Override
@@ -149,22 +152,33 @@ public class PreActivity extends FragmentActivity implements OnDateSetListener {
 	public boolean onOptionsItemSelected(MenuItem item){
 		switch (item.getItemId()){
 		case R.id.navigation_forward:
-			mPrefsEdit.putString("userName", mUn.getText().toString());
-			mPrefsEdit.putString("dob", mDOB.getText().toString());
-			switch (mGender.getCheckedRadioButtonId()) {
-			case R.id.radio_male:
-				mRD = (RadioButton) findViewById(R.id.radio_male);
-				break;
-			case R.id.radio_female:
-				mRD = (RadioButton) findViewById(R.id.radio_female);
-				break;
-			default:
-				break;
-			} 
-			mPrefsEdit.putBoolean("gender", mRD.isChecked());
-			mPrefsEdit.commit();
-			mIntent = new Intent(this, Pre2Activity.class);
-			startActivity(mIntent);
+			a = isEmpty(mUn.getText().toString());
+			if (a==true){
+				showAlert();
+			}
+			else if (a!=true){
+				a = isEmpty(mDOB.getText().toString());
+				if (a==true){
+					showAlert();
+				}else{
+					mPrefsEdit.putString("userName", mUn.getText().toString());
+					mPrefsEdit.putString("dob", mDOB.getText().toString());
+					switch (mGender.getCheckedRadioButtonId()) {
+					case R.id.radio_male:
+						mRD = (RadioButton) findViewById(R.id.radio_male);
+						break;
+					case R.id.radio_female:
+						mRD = (RadioButton) findViewById(R.id.radio_female);
+						break;
+					default:
+						break;
+					} 
+					mPrefsEdit.putBoolean("gender", mRD.isChecked());
+					mPrefsEdit.commit();
+					mIntent = new Intent(this, Pre2Activity.class);
+					startActivity(mIntent);
+				}
+			}
 			break;
 		default:
 			break;
@@ -223,8 +237,36 @@ public class PreActivity extends FragmentActivity implements OnDateSetListener {
 		}
 	}
 	
-	public void Validation(){
-		
+	public boolean isEmpty(String a){
+		if (a.matches("")){
+			return true;
+		} else {
+			return false;
+		}
+	}
+	
+	public void showAlert(){
+		AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(this);
+		//set title
+		alertDialogBuilder.setTitle("Attention!");
+		//set dialog message
+		alertDialogBuilder
+		.setMessage("Please fill up all required fields before proceeding...")
+		.setPositiveButton("Done", new DialogInterface.OnClickListener() {
+			@Override
+			public void onClick(DialogInterface dialog, int which) {
+				/*
+				 * if this button is clicked, just close
+				 * the dialog box and do nothing
+				 */
+				dialog.cancel();
+				
+			}
+		});
+		//create alert dialog
+		AlertDialog alertDialog = alertDialogBuilder.create();
+		//show it
+		alertDialog.show();
 	}
 	
 }

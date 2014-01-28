@@ -3,7 +3,9 @@ package com.myhealthmemo;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.app.Activity;
+import android.app.AlertDialog;
 import android.app.Dialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.util.Log;
@@ -37,8 +39,7 @@ public class Pre2Activity extends Activity implements NumberPicker.OnValueChange
 	private RadioGroup mGroup;
 	private RadioButton mRB;
 	private SharedPreferences.Editor mPrefsEdit;
-	private String mSave;
-	
+
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -126,25 +127,51 @@ public class Pre2Activity extends Activity implements NumberPicker.OnValueChange
 			NavUtils.navigateUpFromSameTask(this);
 			break;
 		case R.id.accept:
-			mPrefsEdit.putString("height", mhEdit.getText().toString());
-			mPrefsEdit.putString("weight", mwEdit.getText().toString());
-			switch (mGroup.getCheckedRadioButtonId()) {
-			case R.id.radio_primary:
-				mRB = (RadioButton) findViewById(R.id.radio_primary);
-				break;
-			case R.id.radio_secondary:
-				mRB = (RadioButton) findViewById(R.id.radio_secondary);
-				break;
-			default:
-				break;
-			} 
-			mPrefsEdit.putBoolean("education", mRB.isChecked());
-			mPrefsEdit.putString("school", mAuto.getText().toString());
-			mPrefsEdit.putString("class", mcEdit.getText().toString());
-			mPrefsEdit.putString("reg_no", mrnEdit.getText().toString());
-			mIntent = new Intent (this, NavDrawerActivity.class);
-			startActivity(mIntent);
-			mPrefs.edit().putBoolean("firstrun", false).commit();
+			boolean a = isEmpty(mhEdit.getText().toString());
+			if(a==true){
+				showAlert();
+			} else {
+				a = isEmpty(mwEdit.getText().toString());
+				if (a==true){
+					showAlert();
+				} else {
+					a = isEmpty(mAuto.getText().toString());
+					if(a==true){
+						showAlert();
+					} else {
+						a = isEmpty(mcEdit.getText().toString());
+						if (a==true){
+							showAlert();
+						} else {
+							a = isEmpty(mrnEdit.getText().toString());
+							if (a==true){
+								showAlert();
+							} else {
+								mPrefsEdit.putString("height", mhEdit.getText().toString());
+								mPrefsEdit.putString("weight", mwEdit.getText().toString());
+								switch (mGroup.getCheckedRadioButtonId()) {
+								case R.id.radio_primary:
+									mRB = (RadioButton) findViewById(R.id.radio_primary);
+									break;
+								case R.id.radio_secondary:
+									mRB = (RadioButton) findViewById(R.id.radio_secondary);
+									break;
+								default:
+									break;
+								} 
+								mPrefsEdit.putBoolean("education", mRB.isChecked());
+								mPrefsEdit.putString("school", mAuto.getText().toString());
+								mPrefsEdit.putString("class", mcEdit.getText().toString());
+								mPrefsEdit.putString("reg_no", mrnEdit.getText().toString());
+								mPrefsEdit.putString("activity_level", mSpinner.getSelectedItem().toString());
+								mIntent = new Intent (this, NavDrawerActivity.class);
+								startActivity(mIntent);
+								mPrefs.edit().putBoolean("firstrun", false).commit();
+							}
+						}
+					}
+				}
+			}
 			break;
 			
 		}
@@ -206,6 +233,38 @@ public class Pre2Activity extends Activity implements NumberPicker.OnValueChange
 	@Override
 	public void onNothingSelected(AdapterView<?> parent) {
 		
+	}
+	
+	public boolean isEmpty(String a){
+		if (a.matches("")){
+			return true;
+		} else {
+			return false;
+		}
+	}
+	
+	public void showAlert(){
+		AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(this);
+		//set title
+		alertDialogBuilder.setTitle("Attention!");
+		//set dialog message
+		alertDialogBuilder
+		.setMessage("Please fill up all required fields before proceeding...")
+		.setPositiveButton("Done", new DialogInterface.OnClickListener() {
+			@Override
+			public void onClick(DialogInterface dialog, int which) {
+				/*
+				 * if this button is clicked, just close
+				 * the dialog box and do nothing
+				 */
+				dialog.cancel();
+				
+			}
+		});
+		//create alert dialog
+		AlertDialog alertDialog = alertDialogBuilder.create();
+		//show it
+		alertDialog.show();
 	}
 
 }
