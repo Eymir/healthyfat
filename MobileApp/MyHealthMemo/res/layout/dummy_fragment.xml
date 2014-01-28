@@ -53,4 +53,6 @@
 		android:layout_below="@+id/top"
 		android:background="#999999" 
 		android:orientation="horizontal"/>
+    
+    
 </RelativeLayout>
