@@ -13,8 +13,7 @@
 	    android:layout_alignParentTop="true"
 	    android:layout_centerHorizontal="true"
 	    android:layout_marginTop="50dip"
-	    android:contentDescription="@string/pic_desc"
-	    android:src="@drawable/default_profile_pic" />
+	    android:contentDescription="@string/pic_desc" />
 
     <ImageButton
 	    android:id="@+id/add"

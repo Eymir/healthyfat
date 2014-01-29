@@ -63,6 +63,20 @@
         <item>@drawable/ic_guides_tips</item>
         <item>@drawable/ic_settings</item>
     </array>
+    
+    <!-- SettingsFragment List Item Title-->
+    <string-array name="stg_list_items">
+        <item>User Profile</item>
+        <item>FAQs</item>
+        <item>About Us</item>
+    </string-array>
+    
+    <!-- SettingsFragment List Item Icons -->
+    <array name="stg_list_icons">
+        <item>@drawable/ic_user_profile</item>
+        <item>@drawable/ic_faqs</item>
+        <item>@drawable/ic_abtus</item>
+    </array>
 
     <!-- Content Description -->
     <string name="desc_list_item_icon">Item Icon</string>
@@ -95,5 +109,6 @@
     <string name="title_activity_guide_tips_general_fragment">GuideTipsGeneralFragment</string>
     <string name="title_activity_guide_tips_food_fragment">GuideTipsFoodFragment</string>
     <string name="title_activity_guide_tips_activity_fragment">GuideTipsActivityFragment</string>
+    <string name="title_activity_settings_fragment">SettingsFragment</string>
 
 </resources>
