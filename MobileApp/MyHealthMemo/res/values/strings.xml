@@ -40,6 +40,20 @@
     <string name="guidetipsfirsttab">General</string>
     <string name="guidetipssecondtab">Food</string>
     <string name="guidetipsthirdtab">Activity</string>
+    
+    <string name="title_section1">Weight</string>
+    <string name="title_section2">BMI</string>
+    <string name="title_section3">History</string>
+    <string name="total">Total Weight Change</string>
+    <string name="remaining">Remaining</string>
+    <string name="kg">Kg</string>
+    <string name="starting">Starting Weight</string>
+    <string name="present">Present Weight</string>
+    <string name="target">Target Weight</string>
+    <string name="title_activity_bmi_">BMI_Activity</string>
+    
+    <string name="bmi">Body Mass Index</string>
+    
 
     <!-- Nav Drawer Menu Items -->
     <string-array name="nav_drawer_items">
