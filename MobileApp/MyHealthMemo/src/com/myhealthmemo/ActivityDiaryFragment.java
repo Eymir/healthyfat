@@ -2,7 +2,7 @@ package com.myhealthmemo;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
-
+import com.myhealthmemo.R;
 import org.joda.time.DateTime;
 import org.joda.time.Days;
 
