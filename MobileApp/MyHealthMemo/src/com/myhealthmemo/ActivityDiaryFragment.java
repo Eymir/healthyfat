@@ -63,7 +63,7 @@ public class ActivityDiaryFragment extends Fragment {
 			
 		@Override
 		public Fragment getItem(int position) {
-			Fragment fragment = new DummyDietFragment();
+			Fragment fragment = new DummyActivityFragment();
 			Bundle args = new Bundle();
 			DateTime oldPlus = old.plusDays(position);
 			Date oldPlusDate = oldPlus.toDate();

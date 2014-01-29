@@ -186,6 +186,7 @@ public class NavDrawerActivity extends FragmentActivity {
 			fragment = new GuideTipsFragment();
 			break;
 		case 6:
+			fragment = new SettingsFragment();
 			break;
 		default:
 			break;

@@ -39,13 +39,12 @@
                 android:value="com.myhealthmemo.FirstTimerActivity" />
         </activity>
         <activity
-            android:name="com.myhealthmemo.UserProfileActivity"
-            android:parentActivityName="com.myhealthmemo.SettingsActivity" >
+            android:name="com.myhealthmemo.UserProfileActivity" 
+			android:label="@string/app_name" >
             <intent-filter>
-                <action android:name=".UserProfileActivity" />
-
-                <category android:name="android.intent.category.DEFAULT" />
-            </intent-filter>
+            <action android:name=".UserProfileActivity" />
+            <category android:name="android.intent.category.DEFAULT" />
+        </intent-filter>
         </activity>
         <activity
             android:name="com.myhealthmemo.MainFragment"
@@ -118,6 +117,10 @@
         <activity
             android:name="com.myhealthmemo.GuideTipsActivityFragment"
             android:label="@string/title_activity_guide_tips_activity_fragment" >
+        </activity>
+        <activity
+            android:name="com.myhealthmemo.SettingsFragment"
+            android:label="@string/title_activity_settings_fragment" >
         </activity>
     </application>
 

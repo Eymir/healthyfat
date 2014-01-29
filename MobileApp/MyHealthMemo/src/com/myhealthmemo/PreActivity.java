@@ -1,19 +1,23 @@
 package com.myhealthmemo;
 
+import java.io.ByteArrayOutputStream;
 import java.text.DateFormatSymbols;
 
 import android.net.Uri;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.provider.MediaStore;
+import android.provider.MediaStore.Images;
 import android.annotation.SuppressLint;
 import android.app.AlertDialog;
 import android.app.Dialog;
 import android.app.DatePickerDialog.OnDateSetListener;
 import android.content.ContentValues;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.content.res.Resources;
 import android.database.Cursor;
 import android.support.v4.app.DialogFragment;
 import android.support.v4.app.FragmentActivity;
@@ -57,7 +61,7 @@ public class PreActivity extends FragmentActivity implements OnDateSetListener {
 	private Uri mCapturedImageURI;
 	private Bitmap photo;
 	private boolean a;
-	
+	private String path;
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -67,6 +71,9 @@ public class PreActivity extends FragmentActivity implements OnDateSetListener {
 		mGender = (RadioGroup) findViewById(R.id.radio_Gender);
 		mDOB = (EditText) findViewById(R.id.dob_Edit);
 		mPic = (ImageView) findViewById(R.id.def_pic);
+		photo = BitmapFactory.decodeResource(getResources(), R.drawable.default_profile_pic);
+		mPic.setImageBitmap(photo);
+		path = getImageUri(this, photo);
 		//Use the SharedPreferences from our own created xml preferences
 		PreferenceManager.setDefaultValues(PreActivity.this, R.xml.user_profile, false);
 		mPrefs = PreferenceManager.getDefaultSharedPreferences(this);
@@ -113,8 +120,7 @@ public class PreActivity extends FragmentActivity implements OnDateSetListener {
 						ContentValues values = new ContentValues();
 						filename = "photo.jpg";
 						values.put(MediaStore.Images.Media.TITLE, filename);
-						mCapturedImageURI = getContentResolver().insert(MediaStore.Images.Media.EXTERNAL_CONTENT_URI, values); 
-						
+						mCapturedImageURI = getContentResolver().insert(MediaStore.Images.Media.EXTERNAL_CONTENT_URI, values); 				
 						mIntent = new Intent("android.media.action.IMAGE_CAPTURE");
 						mIntent.putExtra(MediaStore.EXTRA_OUTPUT, mCapturedImageURI);
 						startActivityForResult(mIntent, mCamReq_ID);
@@ -161,6 +167,7 @@ public class PreActivity extends FragmentActivity implements OnDateSetListener {
 				if (a==true){
 					showAlert();
 				}else{
+					mPrefsEdit.putString("profilePic",path);
 					mPrefsEdit.putString("userName", mUn.getText().toString());
 					mPrefsEdit.putString("dob", mDOB.getText().toString());
 					switch (mGender.getCheckedRadioButtonId()) {
@@ -204,14 +211,13 @@ public class PreActivity extends FragmentActivity implements OnDateSetListener {
                 cursor.moveToFirst();
 
                 int columnIndex = cursor.getColumnIndex(filePathColumn[0]);
-                String filePath = cursor.getString(columnIndex);
+                path = cursor.getString(columnIndex);
                 cursor.close();
 
                 //Bitmap photo = BitmapFactory.decodeFile(filePath);
                 Options options = null;
-                photo = BitmapFactory.decodeFile(filePath,options);
+                photo = BitmapFactory.decodeFile(path,options);
                 mPic.setImageBitmap(photo);
-                mPrefsEdit.putString("profilePic", filePath);
 			}
 			break;
 		case mCamReq_ID:
@@ -220,15 +226,14 @@ public class PreActivity extends FragmentActivity implements OnDateSetListener {
 				Cursor cursor = this.getContentResolver().query(mCapturedImageURI, projection, null, null, null); 
                 int column_index_data = cursor.getColumnIndexOrThrow(MediaStore.Images.Media.DATA); 
                 cursor.moveToFirst(); 
-                String capturedImageFilePath = cursor.getString(column_index_data);
-                Log.d("photos*******"," in camera take int  "+capturedImageFilePath);
+                path = cursor.getString(column_index_data);
+                Log.d("photos*******"," in camera take int  "+path);
                 
                 Options options = null;
-				photo = BitmapFactory.decodeFile(capturedImageFilePath, options);
+				photo = BitmapFactory.decodeFile(path, options);
                 
                 if(data != null) {
                 		mPic.setImageBitmap(photo);
-                        mPrefsEdit.putString("profilePic",capturedImageFilePath);
                 }
 			}
 			break;
@@ -267,6 +272,13 @@ public class PreActivity extends FragmentActivity implements OnDateSetListener {
 		AlertDialog alertDialog = alertDialogBuilder.create();
 		//show it
 		alertDialog.show();
+	}
+	
+	public String getImageUri(Context inContext, Bitmap inImage) {
+		  ByteArrayOutputStream bytes = new ByteArrayOutputStream();
+		  inImage.compress(Bitmap.CompressFormat.JPEG, 100, bytes);
+		  String path = Images.Media.insertImage(inContext.getContentResolver(), inImage, "Title", null);
+		  return path;
 	}
 	
 }
