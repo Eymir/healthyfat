@@ -89,6 +89,33 @@
         <item>@drawable/ic_faqs</item>
         <item>@drawable/ic_abtus</item>
     </array>
+    
+    <!-- Meal Item List -->
+    <string-array name="mealitem">
+        <item>Breakfast</item>
+        <item>Lunch</item>
+        <item>Snack</item>
+        <item>Dinner</item>
+        <item>Supper</item>
+    </string-array>
+    
+    <!-- Meal Item List -->
+    <string-array name="mealicon">
+        <item>@drawable/ic_triangle_arrow</item>
+        <item>@drawable/ic_triangle_arrow</item>
+        <item>@drawable/ic_triangle_arrow</item>
+        <item>@drawable/ic_triangle_arrow</item>
+        <item>@drawable/ic_triangle_arrow</item>
+    </string-array>
+    
+    <!-- Meal Item List -->
+    <string-array name="mealicon2">
+        <item>@drawable/ic_breakfast</item>
+        <item>@drawable/ic_lunch</item>
+        <item>@drawable/ic_snack</item>
+        <item>@drawable/ic_dinner</item>
+        <item>@drawable/ic_supper</item>
+    </string-array>
 
     <!-- Content Description -->
     <string name="desc_list_item_icon">Item Icon</string>

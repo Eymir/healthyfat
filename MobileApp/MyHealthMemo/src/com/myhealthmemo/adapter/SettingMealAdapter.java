@@ -28,9 +28,10 @@ public class SettingMealAdapter extends ArrayAdapter<MealsItem> {
          LayoutInflater inflater = (LayoutInflater) context
              .getSystemService(Context.LAYOUT_INFLATER_SERVICE);
          // 2. Get rowView from inflater
-         View rowView = inflater.inflate(R.layout.target_item, parent, false);
+         View rowView = inflater.inflate(R.layout.target_item2, parent, false);
          // 3. Get icon,title & counter views from the rowView
          ImageView imgView = (ImageView) rowView.findViewById(R.id.item_icon); 
+         ImageView imgView2 = (ImageView) rowView.findViewById(R.id.item_icon2);
          TextView titleView = (TextView) rowView.findViewById(R.id.item_title);
 
          // 4. Set the text for textView 
