@@ -61,11 +61,11 @@ public class SettingsFragment extends Fragment {
 	}
 	
 	private void displayView(int position) {
-		Intent mIntent;
+		Intent mIntent = null;
 		switch (position) {
 		case 0:
-			mIntent = new Intent(getActivity(), UserProfileActivity.class);
-			getActivity().startActivity(mIntent);
+			mIntent = new Intent(getActivity().getApplicationContext(), UserProfileActivity.class);
+			startActivity(mIntent);
 			break;
 		case 1:
 			break;

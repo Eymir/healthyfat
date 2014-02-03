@@ -40,7 +40,7 @@
     <string name="guidetipsfirsttab">General</string>
     <string name="guidetipssecondtab">Food</string>
     <string name="guidetipsthirdtab">Activity</string>
-    
+    <string name="rda_remaining">Daily Calories Needed Remaining</string>
     <string name="title_section1">Weight</string>
     <string name="title_section2">BMI</string>
     <string name="title_section3">History</string>
@@ -51,9 +51,7 @@
     <string name="present">Present Weight</string>
     <string name="target">Target Weight</string>
     <string name="title_activity_bmi_">BMI_Activity</string>
-    
     <string name="bmi">Body Mass Index</string>
-    
 
     <!-- Nav Drawer Menu Items -->
     <string-array name="nav_drawer_items">
@@ -77,14 +75,14 @@
         <item>@drawable/ic_guides_tips</item>
         <item>@drawable/ic_settings</item>
     </array>
-    
-    <!-- SettingsFragment List Item Title-->
+
+    <!-- SettingsFragment List Item Title -->
     <string-array name="stg_list_items">
         <item>User Profile</item>
         <item>FAQs</item>
         <item>About Us</item>
     </string-array>
-    
+
     <!-- SettingsFragment List Item Icons -->
     <array name="stg_list_icons">
         <item>@drawable/ic_user_profile</item>
@@ -124,5 +122,6 @@
     <string name="title_activity_guide_tips_food_fragment">GuideTipsFoodFragment</string>
     <string name="title_activity_guide_tips_activity_fragment">GuideTipsActivityFragment</string>
     <string name="title_activity_settings_fragment">SettingsFragment</string>
+    <string name="title_activity_user_profile">UserProfile</string>
 
 </resources>

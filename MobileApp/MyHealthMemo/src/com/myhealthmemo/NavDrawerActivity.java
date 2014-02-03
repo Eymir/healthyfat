@@ -6,6 +6,7 @@ import com.myhealthmemo.adapter.NavDrawerListAdapter;
 import com.myhealthmemo.model.NavDrawerItem;
 
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.app.ActionBar;
 import android.support.v4.app.Fragment;
 import android.content.Intent;
@@ -45,7 +46,8 @@ public class NavDrawerActivity extends FragmentActivity {
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_main);
-		mPrefs = getSharedPreferences("com.myhealthmemo", MODE_PRIVATE);
+		PreferenceManager.setDefaultValues(NavDrawerActivity.this, R.xml.user_profile, false);
+		mPrefs = PreferenceManager.getDefaultSharedPreferences(this);
 		mTitle = mDrawerTitle = getTitle();
 		
 		//load slide menu items

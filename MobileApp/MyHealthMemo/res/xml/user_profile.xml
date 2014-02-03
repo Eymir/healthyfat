@@ -1,98 +1,53 @@
 <?xml version="1.0" encoding="utf-8"?>
-<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout="@layout/user_profile_layout" >
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
     
    	<EditTextPreference
-   	    android:key = "userName"
-        android:title = "Username" 
-        android:persistent="true"
-        android:defaultValue="Mr/Mrs"
-        android:layout="@layout/user_profile_layout"/>
+   	    android:key = "userName" />
    	
    	<EditTextPreference
-   	    android:key = "profilePic"
-        android:title = "Profile Picture" 
-        android:defaultValue="@drawable/default_profile_pic"
-        android:persistent="true"
-        android:layout="@layout/user_profile_layout"/>
+   	    android:key = "profilePic" />
    	
    	<EditTextPreference
-   	    android:key = "dob"
-   	    android:title = "Date of Birth"
-   	    android:defaultValue="1 January 1990"
-   	    android:persistent="true"
-   	    android:layout="@layout/user_profile_layout"/>
+   	    android:key = "dob" />
    	
    	<EditTextPreference
-   	    android:key = "gender"
-   	    android:title = "Gender" 
-   	    android:persistent="true"
-   	    android:layout="@layout/user_profile_layout"/>
+   	    android:key = "gender" />
    	
    	<EditTextPreference
-   	    android:key = "height"
-   	    android:title = "Height" 
-   	    android:persistent="true"
-   	    android:layout="@layout/user_profile_layout"/>
+   	    android:key = "height" />
    	
    	<EditTextPreference
-   	    android:key = "weight"
-   	    android:title = "Weight" 
-   	    android:persistent="true"
-   	    android:layout="@layout/user_profile_layout"/>
+   	    android:key = "weight" />
    	
    	<EditTextPreference
-   	    android:key = "education"
-   	    android:title = "Education" 
-   	    android:persistent="true"
-   	    android:layout="@layout/user_profile_layout"/>
+   	    android:key = "bmi" />
+   	
+   	<EditTextPreference
+   	    android:key = "education" />
    	
    	<EditTextPreference
    	    android:key = "school"
-   	    android:title = "School" 
-   	    android:persistent="true"
-   	    android:layout="@layout/user_profile_layout"/>
+   	    android:title = "School" />
    	
    	<EditTextPreference
-   	    android:key = "class"
-   	    android:title = "Class" 
-   	    android:persistent="true"
-   	    android:layout="@layout/user_profile_layout"/>
+   	    android:key = "class" />
    	
    	<EditTextPreference
-   	    android:key = "reg_no"
-   	    android:title = "Register No." 
-   	    android:persistent="true"
-   	    android:layout="@layout/user_profile_layout"/>
+   	    android:key = "reg_no"/>
    	
    	<EditTextPreference
-   	    android:key = "activity_level"
-   	    android:title = "Activity Level"
-   	    android:persistent="true"
-   	    android:layout="@layout/user_profile_layout"/>
+   	    android:key = "activity_level" />
+
+   	<EditTextPreference
+   	    android:key = "starting_weight" />
    	
    	<EditTextPreference
-   	    android:key = "bmi"
-   	    android:title = "BMI"
-   	    android:persistent="true"
-   	    android:layout="@layout/user_profile_layout"/>
+   	    android:key = "targeted_weight" />
    	
    	<EditTextPreference
-   	    android:key = "starting_weight"
-   	    android:title = "Starting Weight" 
-   	    android:persistent="true"
-   	    android:layout="@layout/user_profile_layout"/>
+   	    android:key = "daily_calories_need" />
    	
    	<EditTextPreference
-   	    android:key = "targeted_weight"
-   	    android:title = "Targeted Weight"
-   	    android:persistent="true"
-   	    android:layout="@layout/user_profile_layout"/>
-   	
-   	<EditTextPreference
-   	    android:key = "daily_calories_need"
-   	    android:title = "Daily Calories Need"
-   	    android:persistent="true"
-   	    android:layout="@layout/user_profile_layout"/>
+   	    android:key = "firstrun" />
 
 </PreferenceScreen>

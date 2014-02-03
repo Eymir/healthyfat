@@ -11,4 +11,10 @@
     <color name="dark_light_black">#272727</color>
     <color name="background">#efefefff</color>
     <color name="black_overlay">#66000000</color>
+    
+    <string-array name="colors">
+        <item>#ff4d00</item>
+        <item>#66000000</item>
+        <item>#FFB42D</item>
+    </string-array>
 </resources>
