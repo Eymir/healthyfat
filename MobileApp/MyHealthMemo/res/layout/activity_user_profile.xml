@@ -35,7 +35,8 @@
             	android:layout_height="wrap_content"
             	android:layout_centerVertical="true"
             	android:paddingRight="10dip"
-            	android:textSize="15sp"/>
+            	android:textSize="15sp"
+            	android:textColor="@color/sporty_orange"/>
         
     	</RelativeLayout>
     
@@ -114,7 +115,8 @@
             	android:layout_height="wrap_content"
             	android:layout_centerVertical="true"
             	android:paddingRight="10dip"
-            	android:textSize="15sp"/>
+            	android:textSize="15sp"
+            	android:textColor="@color/sporty_orange"/>
         
     	</RelativeLayout>
 
@@ -152,7 +154,8 @@
             	android:layout_height="wrap_content"
             	android:layout_centerVertical="true"
             	android:paddingRight="10dip"
-            	android:textSize="15sp"/>
+            	android:textSize="15sp"
+            	android:textColor="@color/sporty_orange"/>
         
     	</RelativeLayout>
     
@@ -190,7 +193,8 @@
             	android:layout_height="wrap_content"
             	android:layout_centerVertical="true"
             	android:paddingRight="10dip"
-            	android:textSize="15sp"/>
+            	android:textSize="15sp"
+            	android:textColor="@color/sporty_orange"/>
         
     	</RelativeLayout>
     
@@ -228,7 +232,8 @@
             	android:layout_height="wrap_content"
             	android:layout_centerVertical="true"
             	android:paddingRight="10dip"
-            	android:textSize="15sp"/>
+            	android:textSize="15sp"
+            	android:textColor="@color/sporty_orange"/>
         
     	</RelativeLayout>
     
@@ -266,7 +271,8 @@
             	android:layout_height="wrap_content"
             	android:layout_centerVertical="true"
             	android:paddingRight="10dip"
-            	android:textSize="15sp"/>
+            	android:textSize="15sp"
+            	android:textColor="@color/sporty_orange"/>
         
     	</RelativeLayout>
     
@@ -304,7 +310,8 @@
             	android:layout_height="wrap_content"
             	android:layout_centerVertical="true"
             	android:paddingRight="10dip"
-            	android:textSize="15sp"/>
+            	android:textSize="15sp"
+            	android:textColor="@color/sporty_orange"/>
         
     	</RelativeLayout>
     
@@ -333,16 +340,18 @@
 	            android:layout_centerVertical="true"
 	            android:paddingLeft="10dip"
 	            android:text="School"
-	            android:textSize="20sp"/>
+	            android:textSize="20sp" />
 	        
 	        <TextView 
 	            android:id="@+id/school_value"
 	            android:layout_alignParentRight="true"
-	            android:layout_width="wrap_content"
+	            android:layout_width="150dip"
 	            android:layout_height="wrap_content"
 	            android:layout_centerVertical="true"
 	            android:paddingRight="10dip"
-	            android:textSize="15sp"/>
+	            android:gravity="right"
+	            android:textSize="15sp"
+	            android:textColor="@color/sporty_orange" />
 	        
 	    </RelativeLayout>
 	    
@@ -380,7 +389,8 @@
 	            android:layout_height="wrap_content"
 	            android:layout_centerVertical="true"
 	            android:paddingRight="10dip"
-	            android:textSize="15sp"/>
+	            android:textSize="15sp"
+	            android:textColor="@color/sporty_orange"/>
 	        
 	    </RelativeLayout>
 	    
@@ -418,7 +428,8 @@
 	            android:layout_height="wrap_content"
 	            android:layout_centerVertical="true"
 	            android:paddingRight="10dip"
-	            android:textSize="15sp"/>
+	            android:textSize="15sp"
+	            android:textColor="@color/sporty_orange"/>
 	        
 	    </RelativeLayout>
 	    
@@ -456,7 +467,8 @@
 	            android:layout_height="wrap_content"
 	            android:layout_centerVertical="true"
 	            android:paddingRight="10dip"
-	            android:textSize="15sp"/>
+	            android:textSize="15sp"
+	            android:textColor="@color/sporty_orange"/>
 	        
 	    </RelativeLayout>
 	    

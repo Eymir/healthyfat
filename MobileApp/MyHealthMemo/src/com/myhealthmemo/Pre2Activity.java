@@ -1,19 +1,22 @@
 package com.myhealthmemo;
 
-import android.os.Bundle;
-import android.preference.PreferenceManager;
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.Dialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.os.Bundle;
+import android.preference.PreferenceManager;
+import android.support.v4.app.NavUtils;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.View.OnFocusChangeListener;
+import android.widget.AdapterView;
+import android.widget.AdapterView.OnItemSelectedListener;
 import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
 import android.widget.Button;
@@ -21,10 +24,8 @@ import android.widget.EditText;
 import android.widget.NumberPicker;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
+import android.widget.RadioGroup.OnCheckedChangeListener;
 import android.widget.Spinner;
-import android.widget.AdapterView;
-import android.widget.AdapterView.OnItemSelectedListener;
-import android.support.v4.app.NavUtils;
 
 public class Pre2Activity extends Activity implements NumberPicker.OnValueChangeListener, OnItemSelectedListener {
 
@@ -53,6 +54,7 @@ public class Pre2Activity extends Activity implements NumberPicker.OnValueChange
 				.getStringArray(R.array.primary_school_arrays);
 		mSecSch = getResources()
 				.getStringArray(R.array.secondary_school_arrays);
+		setPriAdapter();
 		mGroup = (RadioGroup) findViewById(R.id.radio_Education);
 		mcEdit = (EditText) findViewById(R.id.class_Edit);
 		mrnEdit = (EditText) findViewById(R.id.reg_no_Edit);
@@ -81,19 +83,21 @@ public class Pre2Activity extends Activity implements NumberPicker.OnValueChange
 				} 
 		      }
 		});
-		
-		switch (mGroup.getCheckedRadioButtonId()) {
-		case R.id.radio_primary:
-			mAuto.setAdapter(new ArrayAdapter<String>(this,R.layout.auto_list_details,mPriSch));
-			break;
-		case R.id.radio_secondary:
-			mAuto.setAdapter(new ArrayAdapter<String>(this,R.layout.auto_list_details,mSecSch));
-			break;
-		default:
-			break;
-		}
-
-		mPrefs = getSharedPreferences("com.myhealthmemo", MODE_PRIVATE);
+		mGroup.setOnCheckedChangeListener(new OnCheckedChangeListener() 
+	    {
+	        public void onCheckedChanged(RadioGroup group, int checkedId) {
+	        	switch (checkedId) {
+	    		case R.id.radio_primary:
+	    			setPriAdapter();
+	    			break;
+	    		case R.id.radio_secondary:
+	    			setSecAdapter();
+	    			break;
+	    		default:
+	    			break;
+	    		}
+	        }
+	    });
 	}
 
 	/**
@@ -269,6 +273,14 @@ public class Pre2Activity extends Activity implements NumberPicker.OnValueChange
 		AlertDialog alertDialog = alertDialogBuilder.create();
 		//show it
 		alertDialog.show();
+	}
+	
+	public void setPriAdapter(){
+		mAuto.setAdapter(new ArrayAdapter<String>(this,R.layout.auto_list_details,mPriSch));
+	}
+	
+	public void setSecAdapter(){
+		mAuto.setAdapter(new ArrayAdapter<String>(this,R.layout.auto_list_details,mSecSch));
 	}
 
 }

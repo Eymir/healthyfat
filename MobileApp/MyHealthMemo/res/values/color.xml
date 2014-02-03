@@ -14,7 +14,7 @@
     
     <string-array name="colors">
         <item>#ff4d00</item>
-        <item>#66000000</item>
-        <item>#FFB42D</item>
+        <item>#0dcb2b</item>
+        <item>#ff0000</item>
     </string-array>
 </resources>

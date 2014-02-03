@@ -280,6 +280,29 @@
     	    android:orientation="vertical">
     	    
     	    <RelativeLayout
+    	        android:id="@+id/dcn_legend"
+    	        android:layout_width="fill_parent"
+    	        android:layout_height="wrap_content"
+    	        android:paddingLeft="5dip"
+    	        android:orientation="horizontal">
+    	        
+    	        <RelativeLayout
+    	            android:id="@+id/dcn_square"
+    	            android:layout_width="10dip"
+    	            android:layout_height="10dip"
+    	            android:background="#ff4d00" />
+    	        
+    	        <TextView 
+    	            android:id="@+id/dcn_legend_text"
+    	            android:layout_width="wrap_content"
+    	            android:layout_height="wrap_content"
+    	            android:layout_toRightOf="@+id/dcn_square"
+    	            android:text="Daily Calories Need"
+    	            android:paddingLeft="2dip"
+    	            android:textSize="12sp"/>
+    	        
+    	    </RelativeLayout>
+    	    <RelativeLayout
     	        android:id="@+id/tci_legend"
     	        android:layout_width="fill_parent"
     	        android:layout_height="wrap_content"
@@ -290,14 +313,14 @@
     	            android:id="@+id/tci_square"
     	            android:layout_width="10dip"
     	            android:layout_height="10dip"
-    	            android:background="#ff40de" />
+    	            android:background="#0dcb2b" />
     	        
     	        <TextView 
     	            android:id="@+id/tci_legend_text"
     	            android:layout_width="wrap_content"
     	            android:layout_height="wrap_content"
     	            android:layout_toRightOf="@+id/tci_square"
-    	            android:text="Daily Calories Need"
+    	            android:text="Calories Intake"
     	            android:paddingLeft="2dip"
     	            android:textSize="12sp"/>
     	        
@@ -305,44 +328,21 @@
     	    <RelativeLayout
     	        android:id="@+id/tcb_legend"
     	        android:layout_width="fill_parent"
-    	        android:layout_height="wrap_content"
     	        android:paddingLeft="5dip"
+    	        android:layout_height="wrap_content"
     	        android:orientation="horizontal">
     	        
     	        <RelativeLayout
     	            android:id="@+id/tcb_square"
     	            android:layout_width="10dip"
     	            android:layout_height="10dip"
-    	            android:background="#ff40de" />
+    	            android:background="#ff0000" />
     	        
     	        <TextView 
     	            android:id="@+id/tcb_legend_text"
     	            android:layout_width="wrap_content"
     	            android:layout_height="wrap_content"
     	            android:layout_toRightOf="@+id/tcb_square"
-    	            android:text="Calories Intake"
-    	            android:paddingLeft="2dip"
-    	            android:textSize="12sp"/>
-    	        
-    	    </RelativeLayout>
-    	    <RelativeLayout
-    	        android:id="@+id/wc_legend"
-    	        android:layout_width="fill_parent"
-    	        android:paddingLeft="5dip"
-    	        android:layout_height="wrap_content"
-    	        android:orientation="horizontal">
-    	        
-    	        <RelativeLayout
-    	            android:id="@+id/wc_square"
-    	            android:layout_width="10dip"
-    	            android:layout_height="10dip"
-    	            android:background="#ff40de" />
-    	        
-    	        <TextView 
-    	            android:id="@+id/wc_legend_text"
-    	            android:layout_width="wrap_content"
-    	            android:layout_height="wrap_content"
-    	            android:layout_toRightOf="@+id/wc_square"
     	            android:text="Calories Burned"
     	            android:paddingLeft="2dip"
     	            android:textSize="12sp"/>
