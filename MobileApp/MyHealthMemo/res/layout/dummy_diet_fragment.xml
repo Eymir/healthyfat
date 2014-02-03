@@ -54,5 +54,49 @@
 		android:background="#999999" 
 		android:orientation="horizontal"/>
     
-
+  <ExpandableListView
+        android:id="@+id/expand"
+        android:layout_width="match_parent"
+        android:layout_height="286dp" 
+        android:layout_below="@+id/divider2">
+        </ExpandableListView>
+        
+   <LinearLayout
+       android:id="@+id/linearLayout2"
+       android:layout_width="match_parent"
+       android:layout_height="34dp"
+       android:layout_marginTop="300dp"
+       android:background="@drawable/rectangle_box" >
+       
+      <TextView
+           android:id="@+id/Totalcalintake"
+           android:layout_width="wrap_content"
+           android:layout_height="match_parent"
+           android:gravity="center_vertical"
+           android:text="Total Calories Intake"
+           android:textAppearance="?android:attr/textAppearanceMedium"
+           android:textColor="#7f7f7f" />
+          
+     <TextView 
+         android:id="@+id/calvalue"
+         android:layout_width="wrap_content"
+         android:layout_height="match_parent"
+         android:gravity="center_vertical"       
+         android:text=""  
+         android:textSize="18sp" 
+         android:textColor="#0dcb2b" 
+         android:layout_marginLeft="75dp"
+         android:layout_marginTop="5dp"/>
+     
+    
+      <TextView
+         android:id="@+id/kcal"
+         android:layout_width="wrap_content"
+         android:layout_height="match_parent"     
+         android:gravity="center_vertical"  
+         android:text="Kcal" 
+         android:layout_marginLeft="10dp"
+         android:textColor="#7f7f7f"
+         android:layout_marginTop="7dp" />
+  </LinearLayout>
 </RelativeLayout>
