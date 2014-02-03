@@ -123,5 +123,9 @@
     <string name="title_activity_guide_tips_activity_fragment">GuideTipsActivityFragment</string>
     <string name="title_activity_settings_fragment">SettingsFragment</string>
     <string name="title_activity_user_profile">UserProfile</string>
+    
+    <!-- Diet items icon -->
+     <string name= "nav_add" > Navigation to DietMenuList</string>
+    <string name="nav_edit" >Navigation to edit Main page</string>
 
 </resources>
