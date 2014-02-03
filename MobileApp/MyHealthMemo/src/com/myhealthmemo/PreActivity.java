@@ -1,7 +1,8 @@
 package com.myhealthmemo;
 
 import java.io.ByteArrayOutputStream;
-import java.text.DateFormatSymbols;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
 
 import android.annotation.SuppressLint;
 import android.app.AlertDialog;
@@ -139,13 +140,24 @@ public class PreActivity extends FragmentActivity implements OnDateSetListener {
 	
 	@SuppressLint("SimpleDateFormat")
 	public String getMonthForInt(int m) {
-	    String month = "invalid";
-	    DateFormatSymbols dfs = new DateFormatSymbols();
-	    String[] months = dfs.getMonths();
-	    if (m >= 0 && m <= 11 ) {
-	        month = months[m];
-	    }
-	    return month;
+		String monthName="";
+		 
+		 if(m>=0 && m<12)
+		 try
+		 {
+		 Calendar calendar = Calendar.getInstance();
+		 calendar.set(Calendar.MONTH, m);
+		 
+		 SimpleDateFormat simpleDateFormat = new SimpleDateFormat("MMM");
+		 simpleDateFormat.setCalendar(calendar);
+		 monthName = simpleDateFormat.format(calendar.getTime());
+		 }
+		 catch (Exception e)
+		 {
+		 if(e!=null)
+		 e.printStackTrace();
+		 }
+		 return monthName;
 	}
 	
 	@Override
