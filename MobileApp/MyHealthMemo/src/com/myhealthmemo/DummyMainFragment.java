@@ -10,7 +10,9 @@ import com.myhealthmemo.adapter.DateUtils;
 import com.myhealthmemo.piechart.PieChart;
 import com.myhealthmemo.piechart.PieChart.OnSelectedLisenter;
 import android.annotation.SuppressLint;
+import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.support.v4.app.Fragment;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -27,10 +29,11 @@ import android.view.View.OnClickListener;
 public class DummyMainFragment extends Fragment implements OnClickListener {
 
 	public static final String ARG_SECTION_NUMBER = "section_number";
-	private TextView mTxtView;
+	private TextView mTxtView, rda_No;
 	private Button Btn1, Btn2;
 	Date date, date2;
 	PieChart pie;
+	protected SharedPreferences mPrefs;
 	
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -38,6 +41,11 @@ public class DummyMainFragment extends Fragment implements OnClickListener {
 		View rootView = inflater.inflate(R.layout.dummy_fragment, container, false);
 		pie = (PieChart) rootView.findViewById(R.id.chart);
 		mTxtView = (TextView) rootView.findViewById(R.id.dateArgument);
+		rda_No = (TextView) rootView.findViewById(R.id.rda_no);
+		//Use the SharedPreferences from our own created xml preferences
+		PreferenceManager.setDefaultValues(getActivity(), R.xml.user_profile, false);
+		mPrefs = PreferenceManager.getDefaultSharedPreferences(getActivity());
+		rda_No.setText(mPrefs.getString("daily_calories_need", "") + " Kcal");
 		mTxtView.setText(getArguments().getString(ARG_SECTION_NUMBER));
 		Btn1 = (Button) rootView.findViewById(R.id.left_arrow);
 		Btn1.setOnClickListener(this);

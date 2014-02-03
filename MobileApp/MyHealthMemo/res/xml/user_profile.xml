@@ -49,5 +49,8 @@
    	
    	<EditTextPreference
    	    android:key = "firstrun" />
+   	
+   	<EditTextPreference
+   	    android:key = "targetweightset" />
 
 </PreferenceScreen>
