@@ -159,14 +159,18 @@ public class Pre2Activity extends Activity implements NumberPicker.OnValueChange
 								default:
 									break;
 								} 
-								mPrefsEdit.putBoolean("education", mRB.isChecked());
+								mPrefsEdit.putString("education", mRB.getText().toString());
 								mPrefsEdit.putString("school", mAuto.getText().toString());
 								mPrefsEdit.putString("class", mcEdit.getText().toString());
 								mPrefsEdit.putString("reg_no", mrnEdit.getText().toString());
 								mPrefsEdit.putString("activity_level", mSpinner.getSelectedItem().toString());
+							
 								mIntent = new Intent (this, NavDrawerActivity.class);
 								startActivity(mIntent);
-								mPrefs.edit().putBoolean("firstrun", false).commit();
+								
+								mPrefsEdit.putBoolean("firstrun", false);
+								mPrefsEdit.commit();
+								
 							}
 						}
 					}

@@ -3,22 +3,26 @@ package com.myhealthmemo;
 import java.io.ByteArrayOutputStream;
 import java.text.DateFormatSymbols;
 
-import android.net.Uri;
-import android.os.Bundle;
-import android.preference.PreferenceManager;
-import android.provider.MediaStore;
-import android.provider.MediaStore.Images;
 import android.annotation.SuppressLint;
 import android.app.AlertDialog;
-import android.app.Dialog;
 import android.app.DatePickerDialog.OnDateSetListener;
+import android.app.Dialog;
 import android.content.ContentValues;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.content.res.Resources;
 import android.database.Cursor;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.graphics.BitmapFactory.Options;
+import android.graphics.drawable.BitmapDrawable;
+import android.graphics.drawable.Drawable;
+import android.net.Uri;
+import android.os.Bundle;
+import android.preference.PreferenceManager;
+import android.provider.MediaStore;
+import android.provider.MediaStore.Images;
 import android.support.v4.app.DialogFragment;
 import android.support.v4.app.FragmentActivity;
 import android.util.Base64;
@@ -26,9 +30,9 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.view.Window;
 import android.view.View.OnClickListener;
 import android.view.View.OnFocusChangeListener;
+import android.view.Window;
 import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
@@ -36,9 +40,6 @@ import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
-import android.graphics.BitmapFactory.Options;
 
 public class PreActivity extends FragmentActivity implements OnDateSetListener {
 
@@ -62,6 +63,7 @@ public class PreActivity extends FragmentActivity implements OnDateSetListener {
 	private Bitmap photo;
 	private boolean a;
 	private String path;
+	private Drawable d;
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -71,9 +73,13 @@ public class PreActivity extends FragmentActivity implements OnDateSetListener {
 		mGender = (RadioGroup) findViewById(R.id.radio_Gender);
 		mDOB = (EditText) findViewById(R.id.dob_Edit);
 		mPic = (ImageView) findViewById(R.id.def_pic);
-		photo = BitmapFactory.decodeResource(getResources(), R.drawable.default_profile_pic);
+		d = getResources().getDrawable(R.drawable.default_profile_pic);
+		photo = ((BitmapDrawable)d).getBitmap();
+		ByteArrayOutputStream stream = new ByteArrayOutputStream();
+		photo.compress(Bitmap.CompressFormat.PNG, 100, stream);
+		byte[] bitmapdata = stream.toByteArray();
+		path = Base64.encodeToString(bitmapdata, Base64.DEFAULT);
 		mPic.setImageBitmap(photo);
-		path = getImageUri(this, photo);
 		//Use the SharedPreferences from our own created xml preferences
 		PreferenceManager.setDefaultValues(PreActivity.this, R.xml.user_profile, false);
 		mPrefs = PreferenceManager.getDefaultSharedPreferences(this);
@@ -180,7 +186,8 @@ public class PreActivity extends FragmentActivity implements OnDateSetListener {
 					default:
 						break;
 					} 
-					mPrefsEdit.putBoolean("gender", mRD.isChecked());
+					
+					mPrefsEdit.putString("gender", mRD.getText().toString());
 					mPrefsEdit.commit();
 					mIntent = new Intent(this, Pre2Activity.class);
 					startActivity(mIntent);
