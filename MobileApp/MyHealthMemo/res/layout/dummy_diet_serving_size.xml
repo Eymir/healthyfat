@@ -1,0 +1,281 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/layout_selector"
+    android:orientation="vertical" >
+
+    <RelativeLayout
+        android:id="@+id/pp_container"
+        android:layout_width="match_parent"
+        android:layout_height="70dip"
+        android:layout_below="@+id/divider"
+        android:clickable="true"
+        android:orientation="horizontal" >
+
+        <TextView
+            android:id="@+id/serving_size_text"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:paddingLeft="10dip"
+            android:text="Serving Size" />
+
+        <EditText
+            android:id="@+id/boxnumber"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:layout_below="@+id/serving_size_text"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="12dp"
+            android:background="@drawable/rectangle_box"
+            android:inputType="number"
+            android:paddingLeft="70dip" />
+
+        <TextView
+            android:id="@+id/food_item"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_toRightOf="@+id/serving_size_text"
+            android:paddingLeft="90dip"
+            android:text="" />
+
+        <ImageView
+            android:id="@+id/food_image"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/food_item"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="200dp"
+            android:adjustViewBounds="true"
+            android:maxHeight="42dp"
+            android:maxWidth="42dp"
+            android:paddingRight="10dip"
+            android:scaleType="fitCenter" />
+        
+    </RelativeLayout>
+
+    <LinearLayout
+        android:id="@+id/divider2"
+        android:layout_width="fill_parent"
+        android:layout_height="1dip"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentTop="true"
+        android:layout_marginTop="94dp"
+        android:background="@color/black"
+        android:orientation="horizontal" >
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/linearLayout2"
+        android:layout_width="match_parent"
+        android:layout_height="34dp"
+        android:layout_alignParentLeft="true"
+        android:layout_below="@+id/divider2"
+        android:layout_marginTop="8dp"
+        android:orientation="horizontal"
+        android:background="@drawable/header_rectangle_box" >
+
+        <TextView
+            android:id="@+id/Ingredient_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Ingredient"
+            android:textAppearance="?android:attr/textAppearanceMedium"
+            android:textColor="#ffffff" 
+            android:paddingLeft="10dip"
+            android:paddingTop="5dip"/>
+  
+    </LinearLayout>
+    
+    <ListView
+        android:id="@+id/ingredient_list"
+        android:layout_width="match_parent"
+        android:layout_height="64dp"
+        android:layout_below="@+id/linearLayout2"
+        android:layout_gravity="start"
+        android:background="@color/background"
+        android:choiceMode="singleChoice"
+        android:divider="@color/light_grey"
+        android:listSelector="@drawable/list_selector"
+        android:text="@+id/ingredient_list"
+        android:textSize="12sp" />
+    
+    
+     <LinearLayout
+        android:id="@+id/linearLayout3"
+        android:layout_width="match_parent"
+        android:layout_height="34dp"
+        android:layout_alignParentLeft="true"
+        android:layout_below="@+id/ingredient_list"
+        android:layout_marginTop="8dp"
+        android:orientation="horizontal"
+        android:background="@drawable/header_rectangle_box" >
+     
+      <TextView
+            android:id="@+id/nutrition_value_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Nutrition Value"
+            android:textAppearance="?android:attr/textAppearanceMedium"
+            android:textColor="#ffffff" 
+            android:paddingLeft="10dip"
+            android:layout_centerVertical="true"
+            android:paddingTop="5dip"/>    
+     
+     </LinearLayout>
+     
+      <LinearLayout
+          android:id="@+id/linearLayout4"
+          android:layout_width="match_parent"
+          android:layout_height="200dp"
+          android:layout_alignParentLeft="true"
+          android:layout_alignParentRight="true"
+          android:layout_below="@+id/linearLayout3"
+          android:layout_marginTop="8dp"
+          android:background="@drawable/nutrition_value_container"
+          android:orientation="horizontal" >
+
+          <TableLayout
+              android:layout_width="wrap_content"
+              android:layout_height="match_parent" >
+
+              <TableRow>
+                  
+              <TextView
+                  android:id="@+id/calories_text" 
+           		  android:layout_width="wrap_content"
+            	  android:layout_height="wrap_content"
+                  android:text="Calories" 
+                  android:layout_centerVertical="true"
+                  android:paddingLeft="15dip"
+                  android:layout_marginTop="30dp"  />
+              </TableRow>
+
+              <TableRow>
+                
+                <TextView
+           	      android:id="@+id/fats_text"
+		          android:layout_width="wrap_content"
+		          android:layout_height="wrap_content"  
+		          android:text="Fats" 
+		          android:layout_centerVertical="true"
+		          android:paddingLeft="15dip" /> 
+              </TableRow>
+
+              <TableRow>
+                 <TextView 
+                  android:id="@+id/carbohydrates_text"
+		          android:layout_width="wrap_content"
+		          android:layout_height="wrap_content"  
+		          android:text="Carbohydrates" 
+		          android:layout_centerVertical="true"
+		          android:paddingLeft="15dip"  />
+              </TableRow>
+
+              <TableRow>
+                 <TextView 
+                  android:id="@+id/protein_text"
+		          android:layout_width="wrap_content"
+		          android:layout_height="wrap_content"  
+		          android:text="Protein" 
+		          android:layout_centerVertical="true"
+		          android:paddingLeft="15dip"  />
+              </TableRow>
+               <TableRow>
+                 <TextView 
+                  android:id="@+id/dietary_fibre_text"
+		          android:layout_width="wrap_content"
+		          android:layout_height="wrap_content"  
+		          android:text="Dietary Fibre" 
+		          android:layout_centerVertical="true"
+		          android:paddingLeft="15dip"  />
+              </TableRow>
+              
+                <TableRow>
+                 <TextView 
+                  android:id="@+id/sodium_text"
+		          android:layout_width="wrap_content"
+		          android:layout_height="wrap_content"  
+		          android:text="Sodium" 
+		          android:layout_centerVertical="true"
+		          android:paddingLeft="15dip"  />
+              </TableRow>
+          </TableLayout>
+          
+          
+          
+           <TableLayout
+              android:layout_width="wrap_content"
+              android:layout_height="match_parent"
+              android:layout_marginLeft="100dp"
+              android:gravity="right" >
+
+              <TableRow>
+                  
+              <TextView
+                  android:id="@+id/calories_percent" 
+           		  android:layout_width="wrap_content"
+            	  android:layout_height="wrap_content"
+                  android:text="" 
+                  android:layout_centerVertical="true"
+                  android:paddingLeft="15dip"
+                  android:layout_marginTop="30dp"  />
+              </TableRow>
+
+              <TableRow>
+                
+                <TextView
+           	      android:id="@+id/fats_percent"
+		          android:layout_width="wrap_content"
+		          android:layout_height="wrap_content"  
+		          android:text="" 
+		          android:layout_centerVertical="true"
+		          android:paddingLeft="15dip" /> 
+              </TableRow>
+
+              <TableRow>
+                 <TextView 
+                  android:id="@+id/carbohydrates_percent"
+		          android:layout_width="wrap_content"
+		          android:layout_height="wrap_content"  
+		          android:text="" 
+		          android:layout_centerVertical="true"
+		          android:paddingLeft="15dip"  />
+              </TableRow>
+
+              <TableRow>
+                 <TextView 
+                  android:id="@+id/protein_percent"
+		          android:layout_width="wrap_content"
+		          android:layout_height="wrap_content"  
+		          android:text="" 
+		          android:layout_centerVertical="true"
+		          android:paddingLeft="15dip"  />
+              </TableRow>
+               <TableRow>
+                 <TextView 
+                  android:id="@+id/dietary_fibre_percent"
+		          android:layout_width="wrap_content"
+		          android:layout_height="wrap_content"  
+		          android:text="" 
+		          android:layout_centerVertical="true"
+		          android:paddingLeft="15dip"  />
+              </TableRow>
+              
+                <TableRow>
+                 <TextView 
+                  android:id="@+id/sodium_percent"
+		          android:layout_width="wrap_content"
+		          android:layout_height="wrap_content"  
+		          android:text="" 
+		          android:layout_centerVertical="true"
+		          android:paddingLeft="15dip"  />
+              </TableRow>
+          </TableLayout>
+          
+      </LinearLayout>
+
+</RelativeLayout>
