@@ -1,0 +1,398 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/background"
+    tools:context=".DummyMainFragment" >
+    
+   <RelativeLayout
+        android:id="@+id/top"
+        android:layout_width="match_parent"
+        android:layout_height="40dip">
+        
+         <TextView
+        	android:id="@+id/dateArgument"
+        	android:layout_width="wrap_content"
+        	android:layout_height="wrap_content"
+        	android:layout_centerHorizontal="true"
+        	android:textStyle="bold"
+        	android:layout_centerVertical="true"
+        	android:textColor="@color/sporty_orange"
+        	android:text="@string/hello_world" />
+         
+         <Button
+             android:id="@+id/left_arrow"
+             android:layout_alignParentLeft="true"
+             android:layout_centerVertical="true"
+             android:layout_width="10dip"
+             android:layout_height="10dip"
+             android:adjustViewBounds="true"
+             android:paddingLeft="2dip"
+             android:background="@drawable/arrow_shape"
+             android:rotation="270"
+             android:scaleType="fitCenter" />
+         
+         <Button
+             android:id="@+id/right_arrow"
+             android:layout_alignParentRight="true"
+             android:layout_centerVertical="true"
+             android:layout_width="10dip"
+             android:layout_height="10dip"
+             android:adjustViewBounds="true"
+             android:paddingRight="2dip"
+             android:background="@drawable/arrow_shape"
+             android:rotation="90"
+             android:scaleType="fitCenter" />
+         
+    </RelativeLayout>
+    
+    <LinearLayout
+        android:id="@+id/divider"
+        android:layout_width="fill_parent"
+		android:layout_height="0.05dip"
+		android:layout_below="@+id/top"
+		android:background="#999999" 
+		android:orientation="horizontal"/>
+    
+    <TextView
+        android:id="@+id/rda_text"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/divider"
+        android:text="@string/rda_remaining" />
+    
+    <LinearLayout
+        android:id="@+id/top_layer"
+        android:layout_width="fill_parent"
+        android:layout_height="60dip" 
+        android:layout_below="@+id/rda_text"
+        android:baselineAligned="false"
+        android:orientation="horizontal">
+
+            <LinearLayout
+                android:id="@+id/rda"
+                android:layout_width="0dip"
+                android:layout_height="fill_parent"
+                android:layout_weight="0.35"
+                android:gravity="center"
+                android:orientation="vertical">
+                
+                <TextView 
+                    android:id="@+id/rda_no"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textSize="20sp" />
+                
+            </LinearLayout>
+            
+            <LinearLayout
+                android:id="@+id/progress"
+                android:layout_width="0dip"
+                android:layout_height="fill_parent"
+                android:layout_weight="0.65"
+                android:gravity="center"
+                android:orientation="horizontal">
+                
+                <ProgressBar
+	    			android:id="@+id/init_Bar"
+	    			style="?android:attr/progressBarStyleHorizontal"
+	    			android:layout_width="180dip"
+	    			android:layout_height="wrap_content"
+	    			android:progressDrawable="@drawable/sporty_orange_progress" />
+                
+            </LinearLayout>
+            
+
+    </LinearLayout>
+    
+    <LinearLayout
+    	android:id="@+id/second_layer"
+        android:layout_width="fill_parent"
+        android:layout_height="60dip"
+        android:layout_below="@+id/top_layer"
+        android:baselineAligned="false"
+        android:orientation="horizontal">
+            
+        	<RelativeLayout
+        	    android:id="@+id/tci"
+        	    android:layout_width="0dip"
+        	    android:layout_height="fill_parent"
+        	    android:layout_weight="3.33"
+        	    android:orientation="horizontal">
+        	 	
+        	    <RelativeLayout
+        	        android:id="@+id/tci_logo_container"
+        	        android:layout_width="wrap_content"
+        	        android:layout_height="fill_parent"
+        	        android:paddingLeft="5dip"
+        	        android:gravity="center">
+        	    	<ImageView
+        	        	android:id="@+id/tci_logo"
+        	        	android:layout_width="wrap_content"
+        	        	android:layout_height="wrap_content"
+        	        	android:adjustViewBounds="true"  
+        	        	android:maxWidth="40dip"  
+  						android:maxHeight="40dip"  
+  						android:scaleType="fitCenter"  
+        	        	android:src="@drawable/ic_tci"/>
+        	   	</RelativeLayout>
+        	    <RelativeLayout
+        	        android:id="@+id/tci_text_container"
+        	        android:layout_width="fill_parent"
+        	        android:layout_height="fill_parent"
+        	        android:gravity="center"
+					android:layout_toRightOf="@+id/tci_logo_container">
+        	    	<TextView
+        	        	android:id="@+id/tci_text"
+        	        	android:layout_width="wrap_content"
+        	        	android:layout_height="fill_parent"
+        	        	android:gravity="center"
+        	        	android:textColor="#0dcb2b"
+        	        	android:text="0000" />
+        	    </RelativeLayout>
+        	        
+        	</RelativeLayout>
+        	    
+        	
+        	<RelativeLayout
+        	    android:id="@+id/tcb"
+        	    android:layout_width="0dip"
+        	    android:layout_height="fill_parent"
+        	    android:layout_weight="3.33"
+        	    android:orientation="horizontal">
+        	    
+        	    <RelativeLayout
+        	        android:id="@+id/tcb_logo_container"
+        	        android:layout_width="wrap_content"
+        	        android:layout_height="fill_parent"
+        	        android:paddingLeft="5dip"
+        	        android:gravity="center">
+        	    
+        	    	<ImageView
+        	        	android:id="@+id/tcb_logo"
+        	        	android:layout_width="wrap_content"
+        	        	android:layout_height="wrap_content"
+        	        	android:adjustViewBounds="true"  
+        	        	android:maxWidth="40dip"  
+  						android:maxHeight="40dip"  
+  						android:scaleType="fitCenter" 
+        	        	android:src="@drawable/ic_tcb" />
+        	    
+        	    </RelativeLayout>
+        	    <RelativeLayout
+        	        android:id="@+id/tcb_text_container"
+        	        android:layout_width="fill_parent"
+        	        android:layout_height="fill_parent"
+        	        android:gravity="center"
+					android:layout_toRightOf="@+id/tcb_logo_container">
+        	    
+        	    	<TextView
+        	        	android:id="@+id/tcb_text"
+        	        	android:layout_width="wrap_content"
+        	        	android:layout_height="fill_parent"
+        	        	android:gravity="center"
+        	        	android:textColor="#ff0000"
+        	        	android:text="0000" />
+        	    
+        	    </RelativeLayout>
+        	</RelativeLayout>
+        	
+        	<RelativeLayout
+        	    android:id="@+id/wc"
+        	    android:layout_width="0dip"
+        	    android:layout_height="fill_parent"
+        	    android:layout_weight="3.33"
+        	    android:orientation="horizontal">
+        	    
+        	    <RelativeLayout
+        	        android:id="@+id/wc_logo_container"
+        	        android:layout_width="wrap_content"
+        	        android:layout_height="fill_parent"
+        	        android:paddingLeft="5dip"
+        	        android:gravity="center">
+        	    	
+        	    	<ImageView
+        	        	android:id="@+id/wc_logo"
+        	        	android:layout_width="wrap_content"
+        	        	android:layout_height="wrap_content"
+        	        	android:adjustViewBounds="true"  
+        	        	android:maxWidth="40dip"  
+  						android:maxHeight="40dip"  
+  						android:scaleType="fitCenter" 
+        	        	android:src="@drawable/ic_wc"/>
+        	    </RelativeLayout>
+        	    
+        	    <RelativeLayout
+        	        android:id="@+id/wc_text_container"
+        	        android:layout_width="fill_parent"
+        	        android:layout_height="fill_parent"
+        	        android:gravity="center"
+					android:layout_toRightOf="@+id/wc_logo_container">
+        	    	
+        	    	<TextView
+        	        	android:id="@+id/wc_text"
+        	        	android:layout_width="wrap_content"
+        	        	android:layout_height="fill_parent"
+        	        	android:gravity="center"
+        	        	android:textColor="#0059ff"
+        	        	android:text="00.0" />
+        	    	
+        	    </RelativeLayout>
+        	</RelativeLayout>
+        
+    </LinearLayout>
+    
+    <LinearLayout
+        android:id="@+id/divider2"
+        android:layout_width="fill_parent"
+		android:layout_height="0.05dip"
+		android:layout_below="@+id/second_layer"
+		android:background="#999999"
+		android:orientation="horizontal"/>
+    
+    <LinearLayout
+        android:id="@+id/chart_layer"
+       	android:layout_width="fill_parent"
+        android:layout_height="240dip"
+        android:baselineAligned="false"
+        android:layout_below="@+id/divider2">
+    	
+    	<LinearLayout
+        	android:id="@+id/chart_container"
+        	android:layout_width="0dip"
+        	android:layout_height="fill_parent"
+        	android:gravity="center"
+        	android:layout_weight="0.65" 
+        	android:orientation="vertical">
+    		<com.myhealthmemo.piechart.PieChart
+        		android:id="@+id/chart"
+        		android:layout_width="fill_parent"
+        		android:layout_height="fill_parent"/>
+    	</LinearLayout>
+    	
+    	<LinearLayout
+    	    android:id="@+id/chart_legend"
+    	    android:layout_width="0dip"
+    	    android:layout_height="fill_parent"
+    	    android:layout_weight="0.35"
+    	    android:gravity="center"
+    	    android:orientation="vertical">
+    	    
+    	    <RelativeLayout
+    	        android:id="@+id/dcn_legend"
+    	        android:layout_width="fill_parent"
+    	        android:layout_height="wrap_content"
+    	        android:paddingLeft="5dip"
+    	        android:orientation="horizontal">
+    	        
+    	        <RelativeLayout
+    	            android:id="@+id/dcn_square"
+    	            android:layout_width="10dip"
+    	            android:layout_height="10dip"
+    	            android:background="#ff4d00" />
+    	        
+    	        <TextView 
+    	            android:id="@+id/dcn_legend_text"
+    	            android:layout_width="wrap_content"
+    	            android:layout_height="wrap_content"
+    	            android:layout_toRightOf="@+id/dcn_square"
+    	            android:text="Daily Calories Need"
+    	            android:paddingLeft="2dip"
+    	            android:textSize="12sp"/>
+    	        
+    	    </RelativeLayout>
+    	    <RelativeLayout
+    	        android:id="@+id/tci_legend"
+    	        android:layout_width="fill_parent"
+    	        android:layout_height="wrap_content"
+    	        android:paddingLeft="5dip"
+    	        android:orientation="horizontal">
+    	        
+    	        <RelativeLayout
+    	            android:id="@+id/tci_square"
+    	            android:layout_width="10dip"
+    	            android:layout_height="10dip"
+    	            android:background="#0dcb2b" />
+    	        
+    	        <TextView 
+    	            android:id="@+id/tci_legend_text"
+    	            android:layout_width="wrap_content"
+    	            android:layout_height="wrap_content"
+    	            android:layout_toRightOf="@+id/tci_square"
+    	            android:text="Calories Intake"
+    	            android:paddingLeft="2dip"
+    	            android:textSize="12sp"/>
+    	        
+    	    </RelativeLayout>
+    	    <RelativeLayout
+    	        android:id="@+id/tcb_legend"
+    	        android:layout_width="fill_parent"
+    	        android:paddingLeft="5dip"
+    	        android:layout_height="wrap_content"
+    	        android:orientation="horizontal">
+    	        
+    	        <RelativeLayout
+    	            android:id="@+id/tcb_square"
+    	            android:layout_width="10dip"
+    	            android:layout_height="10dip"
+    	            android:background="#ff0000" />
+    	        
+    	        <TextView 
+    	            android:id="@+id/tcb_legend_text"
+    	            android:layout_width="wrap_content"
+    	            android:layout_height="wrap_content"
+    	            android:layout_toRightOf="@+id/tcb_square"
+    	            android:text="Calories Burned"
+    	            android:paddingLeft="2dip"
+    	            android:textSize="12sp"/>
+    	        
+    	    </RelativeLayout>
+    	    
+    	</LinearLayout>
+    	
+    </LinearLayout>
+    
+    <LinearLayout
+        android:id="@+id/divider3"
+        android:layout_width="fill_parent"
+		android:layout_height="0.05dip"
+		android:layout_below="@+id/chart_layer"
+		android:layout_marginTop="5dip"
+		android:background="#999999"
+		android:orientation="horizontal"/>
+    
+    <LinearLayout 
+        android:id="@+id/action_buttons"
+        android:layout_width="fill_parent"
+        android:layout_height="70dip" 
+        android:layout_below="@+id/divider3"
+        android:orientation="horizontal">
+        
+        <ImageButton
+            android:id="@+id/add_food"
+            android:layout_width="0dip"
+            android:layout_height="fill_parent"
+            android:layout_weight="0.33" 
+            android:background="@null"
+            android:src="@drawable/add_food_ani"/>
+
+        <ImageButton
+            android:id="@+id/add_activity"
+            android:layout_width="0dip"
+            android:layout_height="fill_parent"
+            android:layout_weight="0.33" 
+            android:background="@null"
+            android:src="@drawable/add_activity_ani"/>
+
+        <ImageButton
+            android:id="@+id/change_weight"
+            android:layout_width="0dip"
+            android:layout_height="fill_parent"
+            android:layout_weight="0.33"
+            android:background="@null" 
+            android:src="@drawable/change_weight_ani"/>
+
+    </LinearLayout>
+    
+    
+</RelativeLayout>
