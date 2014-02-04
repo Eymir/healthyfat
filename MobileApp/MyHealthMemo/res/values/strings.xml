@@ -52,6 +52,7 @@
     <string name="target">Target Weight</string>
     <string name="title_activity_bmi_">BMI_Activity</string>
     <string name="bmi">Body Mass Index</string>
+     <string name="select_meal">Select Meal</string>
 
     <!-- Nav Drawer Menu Items -->
     <string-array name="nav_drawer_items">

@@ -214,15 +214,15 @@ public class DummyDietFragment extends Fragment implements OnClickListener {
 	    		mIntent = new Intent (getActivity().getApplicationContext(), DietMenuListActivity.class);
 	    		getActivity().startActivity(mIntent);
 	    	break;
-	    	//case R.id.edit:
-	    		//{
-	    			//if(item.getItemId() == R.id.edit){
-	    				 // ( 1 ) add a new item 
-	    				//getActivity().invalidateOptionsMenu();
-	    			//}
+	    	case R.id.edit:
+	    		{
+	    			if(item.getItemId() == R.id.edit){
+	    				  //( 1 ) add a new item 
+	    				getActivity().invalidateOptionsMenu();
+	    			}
 	    			
-	    			//return super.onOptionsItemSelected(item);
-	    		//}
+	    			return super.onOptionsItemSelected(item);
+	    		}
 	    	default:
 	    		break;
 	    	}

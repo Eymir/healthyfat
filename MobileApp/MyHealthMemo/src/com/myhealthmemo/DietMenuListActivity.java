@@ -1,7 +1,7 @@
 package com.myhealthmemo;
 
 import java.util.ArrayList;
-
+import com.myhealthmemo.adapter.SettingMealAdapter;
 import android.app.ListActivity;
 import android.content.Intent;
 import android.content.res.TypedArray;
@@ -9,10 +9,8 @@ import android.os.Bundle;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
-import android.widget.AdapterView.OnItemClickListener;
 import android.widget.ListView;
 
-import com.myhealthmemo.adapter.SettingMealAdapter;
 import com.myhealthmemo.model.MealsItem;
 
 public class DietMenuListActivity extends ListActivity{
@@ -21,28 +19,18 @@ public class DietMenuListActivity extends ListActivity{
 	private String[] listitem;
 	private TypedArray listicon;
 	private TypedArray listicon2;
-	 ListView lv = getListView();
+	 
 	
     
 	   @Override
 	   public void onCreate(Bundle savedInstanceState){
 	   	super.onCreate(savedInstanceState);
 	   	//Define and set new adapter
-	   	SettingMealAdapter sa = new SettingMealAdapter(this, generateData());
-	   	lv.setAdapter(sa);
+	   	ListView lv = (ListView) findViewById(R.id.meal_list);
+	  	setListAdapter(new SettingMealAdapter(this, generateData()));  	
+	    
 	   	setupActionBar();	
-	  
-	    lv.setOnItemClickListener(new OnItemClickListener() {
-		    @Override
-		   public void onItemClick(AdapterView<?> parent, View v, int position, long id) {
-		    //ListView Clicked item index
-		    	displayView(position);	
-		    	
-		    }
-		    });
 	   }
-	   
-	   
 	   
 	   	private ArrayList<MealsItem> generateData(){
 	   		listitem = getResources().getStringArray(R.array.mealitem);
@@ -55,6 +43,7 @@ public class DietMenuListActivity extends ListActivity{
 	   		mi.add(new MealsItem(listicon.getResourceId(3,-1),listicon2.getResourceId(3, -1), listitem[3]));
 	   		mi.add(new MealsItem(listicon.getResourceId(4,-1),listicon2.getResourceId(4, -1), listitem[4]));
 	   		listicon.recycle();
+	   		listicon2.recycle();
 	   		return mi;
 	   	}
 
@@ -72,12 +61,23 @@ public class DietMenuListActivity extends ListActivity{
 	    private void setupActionBar() {
 	    	getActionBar().setDisplayHomeAsUpEnabled(true);
 	    }
+	    
+	 public class ListViewClick implements ListView.OnItemClickListener{
+
+			@Override
+			public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+				displayView(position);
+			}
+			
+		}
+	    
 	    private void displayView(int position){
 	    	Intent mIntent =null;
 	    	switch(position){
 	    	case 0:
-	    		mIntent = new Intent(this.getApplicationContext(), DietSearchActivity.class);
+	    		mIntent = new Intent(this, DietSearchActivity.class);
 	    		mIntent.putExtra("BreakFast", listitem[position]);
+	    		startActivity(mIntent);
 	    		break;
 	    	case 1:
 	    		
@@ -97,6 +97,9 @@ public class DietMenuListActivity extends ListActivity{
 	    	case 5:
 	    	
 	    	break;
+	    	
+	    	default:
+		    break;
 	    }
 
    }

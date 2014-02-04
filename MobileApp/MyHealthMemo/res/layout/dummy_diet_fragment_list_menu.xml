@@ -10,9 +10,13 @@
         android:id="@+id/meal_list"
         android:layout_width="match_parent"
         android:layout_height="64dp"
-        
+        android:layout_gravity="start"
         android:text="@+id/meal_list"
+        android:choiceMode="singleChoice"
+        android:divider="@color/light_grey" 
         android:textAppearance="?android:attr/textAppearanceMedium"
-        android:textSize="20dp"
+        android:textSize="20sp"
+        android:listSelector="@drawable/list_selector"
+        android:background="@color/background"
         android:textStyle="bold" />
 </LinearLayout>

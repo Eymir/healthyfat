@@ -18,7 +18,7 @@ public class SettingMealAdapter extends ArrayAdapter<MealsItem> {
      private final ArrayList<MealsItem> mealsArrayList;
      
      public SettingMealAdapter(Context context, ArrayList<MealsItem> mealsArrayList){
-    	 super(context, R.layout.target_item, mealsArrayList);
+    	 super(context, R.layout.target_item2, mealsArrayList);
     	 this.context = context;
          this.mealsArrayList = mealsArrayList;
      }
@@ -28,16 +28,28 @@ public class SettingMealAdapter extends ArrayAdapter<MealsItem> {
          LayoutInflater inflater = (LayoutInflater) context
              .getSystemService(Context.LAYOUT_INFLATER_SERVICE);
          // 2. Get rowView from inflater
-         View rowView = inflater.inflate(R.layout.target_item2, parent, false);
-         // 3. Get icon,title & counter views from the rowView
-         ImageView imgView = (ImageView) rowView.findViewById(R.id.item_icon); 
-         ImageView imgView2 = (ImageView) rowView.findViewById(R.id.item_icon2);
-         TextView titleView = (TextView) rowView.findViewById(R.id.item_title);
-
-         // 4. Set the text for textView 
-         imgView.setImageResource(mealsArrayList.get(position).getIcon());
-         titleView.setText(mealsArrayList.get(position).getTitle());
          
+         View rowView = null;
+         if(!mealsArrayList.get(position).isGroupHeader()){
+             rowView = inflater.inflate(R.layout.target_item2, parent, false);
+
+             // 3. Get icon,title & counter views from the rowView
+             ImageView imgView = (ImageView) rowView.findViewById(R.id.item_icon); 
+             ImageView imgView2 = (ImageView) rowView.findViewById(R.id.item_icon2); 
+             TextView titleView = (TextView) rowView.findViewById(R.id.item_title);
+
+             // 4. Set the text for textView 
+             imgView.setImageResource(mealsArrayList.get(position).getIcon());
+             imgView2.setImageResource(mealsArrayList.get(position).getIcon2());
+             titleView.setText(mealsArrayList.get(position).getTitle());
+         }
+         else{
+                 rowView = inflater.inflate(R.layout.group_header_item, parent, false);
+                 TextView titleView = (TextView) rowView.findViewById(R.id.header);
+                 titleView.setText(mealsArrayList.get(position).getTitle());
+
+         }
+      // 5. return rowView
          return rowView;
      }
      
