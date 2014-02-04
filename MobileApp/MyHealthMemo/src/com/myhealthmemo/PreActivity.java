@@ -1,8 +1,13 @@
 package com.myhealthmemo;
 
 import java.io.ByteArrayOutputStream;
+import java.math.BigDecimal;
+import java.math.RoundingMode;
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
+import java.util.Date;
+import java.util.Locale;
 
 import android.annotation.SuppressLint;
 import android.app.AlertDialog;
@@ -299,5 +304,7 @@ public class PreActivity extends FragmentActivity implements OnDateSetListener {
 		  String path = Images.Media.insertImage(inContext.getContentResolver(), inImage, "Title", null);
 		  return path;
 	}
+	
+
 	
 }

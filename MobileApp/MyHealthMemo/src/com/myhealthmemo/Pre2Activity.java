@@ -1,11 +1,13 @@
 package com.myhealthmemo;
 
-import java.text.DateFormat;
+import java.math.BigDecimal;
+import java.math.RoundingMode;
 import java.text.DecimalFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.Locale;
 
 import android.annotation.SuppressLint;
 import android.app.Activity;
@@ -45,8 +47,7 @@ public class Pre2Activity extends Activity implements NumberPicker.OnValueChange
 	private Spinner mSpinner;
 	private AutoCompleteTextView mAuto;
 	private Button mBtn;
-	private String[] mPriSch;
-	private String[] mSecSch;
+	private String[] mPriSch,mSecSch;
 	private RadioGroup mGroup;
 	private RadioButton mRB;
 	private SharedPreferences.Editor mPrefsEdit;
@@ -164,14 +165,9 @@ public class Pre2Activity extends Activity implements NumberPicker.OnValueChange
 								showAlert();
 							} else {
 								mPrefsEdit.putString("height", mhEdit.getText().toString());
-								mPrefsEdit.putString("weight", mwEdit.getText().toString());
-								int cm_height = Integer.parseInt(mhEdit.getText().toString());
-								int m_height = cm_height / 100;
-								double kg_weight = Double.parseDouble(mwEdit.getText().toString());
-								double bmi = kg_weight / (m_height * m_height);
-								DecimalFormat oneDigit = new DecimalFormat("#,##0.0");
-								bmi = Double.valueOf(oneDigit.format(bmi));
-								String bmi_string = String.valueOf(bmi);
+								mPrefsEdit.putString("weight", mwEdit.getText().toString());	
+								mPrefsEdit.putString("bmi", calculateBMI(mhEdit.getText().toString(),mwEdit.getText().toString()));
+								mPrefsEdit.putString("daily_calories_need", calculateDCN(mhEdit.getText().toString(),mwEdit.getText().toString()));
 								switch (mGroup.getCheckedRadioButtonId()) {
 								case R.id.radio_primary:
 									mRB = (RadioButton) findViewById(R.id.radio_primary);
@@ -182,67 +178,6 @@ public class Pre2Activity extends Activity implements NumberPicker.OnValueChange
 								default:
 									break;
 								} 
-								mPrefsEdit.putString("bmi", bmi_string);
-								DateFormat df = new SimpleDateFormat("MM/dd/yyyy"); 
-							    Date startDate;
-							    try {
-							        startDate = df.parse(mPrefs.getString("dob", ""));
-							        Calendar cal2 = Calendar.getInstance();
-							        Calendar cal = Calendar.getInstance();
-							        cal2.setTime(startDate);
-							        int year2 = cal2.get(Calendar.YEAR);
-							        int month2 = cal2.get(Calendar.MONTH) + 1;
-							        int day2 = cal2.get(Calendar.DAY_OF_MONTH);
-							        int year = cal.get(Calendar.YEAR);
-							        int month = cal.get(Calendar.MONTH) + 1;
-							        int day = cal.get(Calendar.DAY_OF_MONTH);
-							        int current_age = year - year2;
-									if (month2 > month){
-										current_age = current_age-1;
-									}
-									else if (month2 == month){
-										if (day2 < day){
-											current_age = current_age-1;
-										}
-									}
-									
-									if(mPrefs.getString("gender","").equals("Male")){
-										wp = 10 * kg_weight;
-										hp = 6.25 * cm_height;
-										ap = 5 * current_age;
-										bmr = wp + hp - ap + 5;
-									}
-									else if (mPrefs.getString("gender","").equals("Female")){
-										wp = 10 * kg_weight;
-										hp = 6.25 * cm_height;
-										ap = 5 * current_age;
-										bmr = wp + hp - ap - 161;
-									}
-									
-									if (mSpinner.getSelectedItem().toString().equals("little or no exercise")){
-										daily_calories_need = bmr * 1.2;
-									}
-									else if (mSpinner.getSelectedItem().toString().equals("light exercise/sports")){
-										daily_calories_need = bmr * 1.375;
-									}
-									else if (mSpinner.getSelectedItem().toString().equals("moderate exercise/sports")){
-										daily_calories_need = bmr * 1.55;
-									}
-									else if (mSpinner.getSelectedItem().toString().equals("hard exercise/sports")){
-										daily_calories_need = bmr * 1.725;
-									}
-									else{
-										daily_calories_need = bmr * 1.9;
-									}
-									int int_dcn = (int) Math.round(daily_calories_need);
-									String string_dcn = String.valueOf(int_dcn);
-									mPrefsEdit.putString("daily_calories_need", string_dcn);
-							    } catch (ParseException e) {
-							    	Toast.makeText(this, "haha", 
-							    			   Toast.LENGTH_LONG).show();
-							    }
-								
-								
 								mPrefsEdit.putString("education", mRB.getText().toString());
 								mPrefsEdit.putString("school", mAuto.getText().toString());
 								mPrefsEdit.putString("class", mcEdit.getText().toString());
@@ -292,7 +227,7 @@ public class Pre2Activity extends Activity implements NumberPicker.OnValueChange
 	
 	public void show2() {
 		final Dialog mDialog = new Dialog(Pre2Activity.this);
-		mDialog.setTitle("Set W eight");
+		mDialog.setTitle("Set Weight");
 		mDialog.setContentView(R.layout.decimal_picker_dialog);
 		mBtn = (Button) mDialog.findViewById(R.id.done_button);
 		final NumberPicker mNumPk = (NumberPicker) mDialog.findViewById(R.id.number_Picker);
@@ -361,6 +296,83 @@ public class Pre2Activity extends Activity implements NumberPicker.OnValueChange
 	
 	public void setSecAdapter(){
 		mAuto.setAdapter(new ArrayAdapter<String>(this,R.layout.auto_list_details,mSecSch));
+	}
+	
+	public String calculateBMI(String height, String weight){
+		BigDecimal kg_weight = new BigDecimal(weight);
+		BigDecimal cm_height = new BigDecimal(height);
+		BigDecimal hundred = new BigDecimal("100");
+		BigDecimal m_height = cm_height.divide(hundred,1,RoundingMode.HALF_UP);
+		BigDecimal m_height_sq = m_height.multiply(m_height);
+		BigDecimal bmi = kg_weight.divide(m_height_sq,1,RoundingMode.HALF_UP);
+		return bmi.toString();
+	}
+	
+	public int calculateAge(String dob){
+		Calendar cal2 = Calendar.getInstance();
+        Calendar cal = Calendar.getInstance();
+	    Date d = null;
+	    try {
+	    	d = new SimpleDateFormat("dd MMM yyyy", Locale.ENGLISH)
+	    		.parse(mPrefs.getString("dob", ""));
+	        
+	    } catch (ParseException e) {
+	    	
+	    }
+	    cal2.setTime(d);
+        int year2 = cal2.get(Calendar.YEAR);
+        int month2 = cal2.get(Calendar.MONTH) + 1;
+        int day2 = cal2.get(Calendar.DAY_OF_MONTH);
+        int year = cal.get(Calendar.YEAR);
+        int month = cal.get(Calendar.MONTH) + 1;
+        int day = cal.get(Calendar.DAY_OF_MONTH);
+        int current_age = year - year2;
+		if (month2 > month){
+			current_age = current_age-1;
+		}
+		else if (month2 == month){
+			if (day < day2){
+				current_age = current_age-1;
+			}
+		}
+		return current_age;
+	}
+	
+	public String calculateDCN(String height, String weight){
+		double kg_weight = Double.parseDouble(weight);
+		double cm_height = Double.parseDouble(height);
+		int current_age = calculateAge(mPrefs.getString("dob", ""));
+
+		if(mPrefs.getString("gender","").equals("Male")){
+			wp = 10 * kg_weight;
+			hp = 6.25 * cm_height;
+			ap = 5 * current_age;
+			bmr = wp + hp - ap + 5;
+		}
+		else if (mPrefs.getString("gender","").equals("Female")){
+			wp = 10 * kg_weight;
+			hp = 6.25 * cm_height;
+			ap = 5 * current_age;
+			bmr = wp + hp - ap - 161;
+		}
+		
+		if (mSpinner.getSelectedItem().toString().equals("little or no exercise")){
+			daily_calories_need = bmr * 1.2;
+		}
+		else if (mSpinner.getSelectedItem().toString().equals("light exercise/sports")){
+			daily_calories_need = bmr * 1.375;
+		}
+		else if (mSpinner.getSelectedItem().toString().equals("moderate exercise/sports")){
+			daily_calories_need = bmr * 1.55;
+		}
+		else if (mSpinner.getSelectedItem().toString().equals("hard exercise/sports")){
+			daily_calories_need = bmr * 1.725;
+		}
+		else{
+			daily_calories_need = bmr * 1.9;
+		}
+		int int_dcn = (int) Math.round(daily_calories_need);
+		return String.valueOf(int_dcn);
 	}
 
 

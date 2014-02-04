@@ -398,7 +398,7 @@
 	        android:id="@+id/divider10"
 	        android:layout_width="fill_parent"
 			android:layout_height="0.05dip"
-			android:layout_below="@+id/school_container"
+			android:layout_below="@+id/class_container"
 			android:background="@color/black" 
 			android:orientation="horizontal"/>
 	    
@@ -418,7 +418,7 @@
 	            android:layout_height="wrap_content"
 	            android:layout_centerVertical="true"
 	            android:paddingLeft="10dip"
-	            android:text="Class"
+	            android:text="Register No"
 	            android:textSize="20sp"/>
 	        
 	        <TextView 
@@ -437,7 +437,7 @@
 	        android:id="@+id/divider11"
 	        android:layout_width="fill_parent"
 			android:layout_height="0.05dip"
-			android:layout_below="@+id/school_container"
+			android:layout_below="@+id/reg_no_container"
 			android:background="@color/black" 
 			android:orientation="horizontal"/>
 	    
@@ -463,10 +463,11 @@
 	        <TextView 
 	            android:id="@+id/activity_level_value"
 	            android:layout_alignParentRight="true"
-	            android:layout_width="wrap_content"
+	            android:layout_width="150dip"
 	            android:layout_height="wrap_content"
 	            android:layout_centerVertical="true"
 	            android:paddingRight="10dip"
+	            android:gravity="right"
 	            android:textSize="15sp"
 	            android:textColor="@color/sporty_orange"/>
 	        
