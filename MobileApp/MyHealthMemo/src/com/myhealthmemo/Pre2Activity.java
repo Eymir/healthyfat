@@ -39,20 +39,23 @@ import android.widget.Spinner;
 import android.widget.Toast;
 
 @SuppressLint("SimpleDateFormat")
-public class Pre2Activity extends Activity implements NumberPicker.OnValueChangeListener, OnItemSelectedListener {
+public class Pre2Activity extends Activity implements NumberPicker.OnValueChangeListener, OnItemSelectedListener, 
+	OnFocusChangeListener, OnClickListener, OnCheckedChangeListener {
 
-	protected SharedPreferences mPrefs;
-	protected Intent mIntent;
+	private SharedPreferences mPrefs;
+	private Intent mIntent;
 	private EditText mhEdit,mwEdit,mcEdit,mrnEdit;
 	private Spinner mSpinner;
 	private AutoCompleteTextView mAuto;
 	private Button mBtn;
-	private String[] mPriSch,mSecSch;
+	private String w;
+	private String[] mPriSch,mSecSch,nums;
 	private RadioGroup mGroup;
 	private RadioButton mRB;
 	private SharedPreferences.Editor mPrefsEdit;
-
 	private double daily_calories_need,bmr,wp,hp,ap;
+	private int whole,decimal,number;
+	private boolean isNull;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -60,57 +63,40 @@ public class Pre2Activity extends Activity implements NumberPicker.OnValueChange
 		setContentView(R.layout.activity_pre2);
 		// Show the Up button in the action bar.
 		setupActionBar();
-		mhEdit = (EditText) findViewById(R.id.height_Edit);
-		mwEdit = (EditText) findViewById(R.id.weight_Edit);
-		mAuto = (AutoCompleteTextView) findViewById(R.id.school_Edit);
-		mPriSch = getResources()
-				.getStringArray(R.array.primary_school_arrays);
-		mSecSch = getResources()
-				.getStringArray(R.array.secondary_school_arrays);
+		init();	
 		setPriAdapter();
-		mGroup = (RadioGroup) findViewById(R.id.radio_Education);
-		mcEdit = (EditText) findViewById(R.id.class_Edit);
-		mrnEdit = (EditText) findViewById(R.id.reg_no_Edit);
-		mSpinner = (Spinner) findViewById(R.id.activity_level_Edit);
-		ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(this, R.array.activity_level_arrays, android.R.layout.simple_spinner_item);
-		adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+		ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(this, R.array.activity_level_arrays, R.layout.dropdown);
+		adapter.setDropDownViewResource(R.layout.dropdown);
 		mSpinner.setAdapter(adapter);
 		mSpinner.setOnItemSelectedListener(this);
 		//Use the SharedPreferences from our own created xml preferences
 		PreferenceManager.setDefaultValues(Pre2Activity.this, R.xml.user_profile, false);
 		mPrefs = PreferenceManager.getDefaultSharedPreferences(this);
 		mPrefsEdit = mPrefs.edit();
-		mhEdit.setOnFocusChangeListener(new OnFocusChangeListener(){
-			@Override
-		      public void onFocusChange(View v, boolean hasFocus) {
-				if(hasFocus){
-					show();
-				} 
-		      }
-		});
-		mwEdit.setOnFocusChangeListener(new OnFocusChangeListener(){
-			@Override
-		      public void onFocusChange(View v, boolean hasFocus) {
-				if(hasFocus){
-					show2();
-				} 
-		      }
-		});
-		mGroup.setOnCheckedChangeListener(new OnCheckedChangeListener() 
-	    {
-	        public void onCheckedChanged(RadioGroup group, int checkedId) {
-	        	switch (checkedId) {
-	    		case R.id.radio_primary:
-	    			setPriAdapter();
-	    			break;
-	    		case R.id.radio_secondary:
-	    			setSecAdapter();
-	    			break;
-	    		default:
-	    			break;
-	    		}
-	        }
-	    });
+		hasPreference();
+		setListener();
+	}
+	
+	private void init(){
+		mhEdit = (EditText) findViewById(R.id.height_Edit);
+		mwEdit = (EditText) findViewById(R.id.weight_Edit);
+		mAuto = (AutoCompleteTextView) findViewById(R.id.school_Edit);
+		mGroup = (RadioGroup) findViewById(R.id.radio_Education);
+		mcEdit = (EditText) findViewById(R.id.class_Edit);
+		mrnEdit = (EditText) findViewById(R.id.reg_no_Edit);
+		mSpinner = (Spinner) findViewById(R.id.activity_level_Edit);
+		mPriSch = getResources()
+				.getStringArray(R.array.primary_school_arrays);
+		mSecSch = getResources()
+				.getStringArray(R.array.secondary_school_arrays);
+	}
+	
+	private void setListener(){
+		mhEdit.setOnFocusChangeListener(this);
+		mhEdit.setOnClickListener(this);
+		mwEdit.setOnFocusChangeListener(this);
+		mwEdit.setOnClickListener(this);
+		mGroup.setOnCheckedChangeListener(this);
 	}
 
 	/**
@@ -141,27 +127,48 @@ public class Pre2Activity extends Activity implements NumberPicker.OnValueChange
 			//
 			// http://developer.android.com/design/patterns/navigation.html#up-vs-back
 			//
-			NavUtils.navigateUpFromSameTask(this);
+			mPrefsEdit.putString("height", mhEdit.getText().toString());
+			mPrefsEdit.putString("weight", mwEdit.getText().toString());	
+			mPrefsEdit.putString("bmi", calculateBMI(mhEdit.getText().toString(),mwEdit.getText().toString()));
+			mPrefsEdit.putString("daily_calories_need", calculateDCN(mhEdit.getText().toString(),mwEdit.getText().toString()));
+			switch (mGroup.getCheckedRadioButtonId()) {
+			case R.id.radio_primary:
+				mRB = (RadioButton) findViewById(R.id.radio_primary);
+				break;
+			case R.id.radio_secondary:
+				mRB = (RadioButton) findViewById(R.id.radio_secondary);
+				break;
+			default:
+				break;
+			} 
+			mPrefsEdit.putString("education", mRB.getText().toString());
+			mPrefsEdit.putString("school", mAuto.getText().toString());
+			mPrefsEdit.putString("class", mcEdit.getText().toString());
+			mPrefsEdit.putString("reg_no", mrnEdit.getText().toString());
+			mPrefsEdit.putString("activity_level", mSpinner.getSelectedItem().toString());
+			mPrefsEdit.commit();
+			finish();
 			break;
 		case R.id.accept:
-			boolean a = isEmpty(mhEdit.getText().toString());
-			if(a==true){
+			isNull = isEmpty(mhEdit.getText().toString());
+			
+			if(isNull){
 				showAlert();
 			} else {
-				a = isEmpty(mwEdit.getText().toString());
-				if (a==true){
+				isNull = isEmpty(mwEdit.getText().toString());
+				if (isNull){
 					showAlert();
 				} else {
-					a = isEmpty(mAuto.getText().toString());
-					if(a==true){
+					isNull = isEmpty(mAuto.getText().toString());
+					if(isNull){
 						showAlert();
 					} else {
-						a = isEmpty(mcEdit.getText().toString());
-						if (a==true){
+						isNull = isEmpty(mcEdit.getText().toString());
+						if (isNull){
 							showAlert();
 						} else {
-							a = isEmpty(mrnEdit.getText().toString());
-							if (a==true){
+							isNull = isEmpty(mrnEdit.getText().toString());
+							if (isNull){
 								showAlert();
 							} else {
 								mPrefsEdit.putString("height", mhEdit.getText().toString());
@@ -201,19 +208,115 @@ public class Pre2Activity extends Activity implements NumberPicker.OnValueChange
 		return true;
 	}
 	
+	private void hasPreference(){
+		isNull = isEmpty(mPrefs.getString("height", ""));
+		if(!isNull){
+			mhEdit.setText(mPrefs.getString("height",""));
+		}
+		isNull = isEmpty(mPrefs.getString("weight", ""));
+		if(!isNull){
+			mwEdit.setText(mPrefs.getString("weight", ""));
+		}
+		isNull = isEmpty(mPrefs.getString("school", ""));
+		if(!isNull){
+			mAuto.setText(mPrefs.getString("school", ""));
+		}
+		isNull = isEmpty(mPrefs.getString("class", ""));
+		if(!isNull){
+			mcEdit.setText(mPrefs.getString("class",""));
+		}
+		isNull = isEmpty(mPrefs.getString("reg_no", ""));
+		if(!isNull){
+			mrnEdit.setText(mPrefs.getString("reg_no",""));
+		}
+		isNull = isEmpty(mPrefs.getString("activity_level", ""));
+		if(!isNull){
+			if (mPrefs.getString("activity_level", "").equals("little or no exercise")){
+				mSpinner.setSelection(0);
+			}
+			else if (mPrefs.getString("activity_level", "").equals("light exercise/sports")){
+				mSpinner.setSelection(1);
+			}
+			else if (mPrefs.getString("activity_level", "").equals("moderate exercise/sports")){
+				mSpinner.setSelection(2);
+			}
+			else if (mPrefs.getString("activity_level", "").equals("hard exercise/sports")){
+				mSpinner.setSelection(3);
+			}
+			else if (mPrefs.getString("activity_level", "").equals("very hard exercise/sports")){
+				mSpinner.setSelection(4);
+			}
+		}
+	}
+	
+	@Override
+    public void onFocusChange(View v, boolean hasFocus) {
+		switch(v.getId()){
+		case R.id.height_Edit:
+			if(hasFocus){
+				showHeightDialog();
+			} 
+			break;
+		case R.id.weight_Edit:
+			if(hasFocus){
+				showWeightDialog();
+			} 
+			break;
+		default:
+			break;
+		}
+		
+		
+    }
+	
+	@Override
+    public void onClick(View v) {
+    	switch (v.getId()){
+    	case R.id.height_Edit:
+    		showHeightDialog();
+    		break;
+    	case R.id.weight_Edit:
+    		showWeightDialog();
+    		break;
+    	}
+	}
+	
+	public void onCheckedChanged(RadioGroup group, int checkedId) {
+		switch(group.getId()){
+		case R.id.radio_Education:
+			switch (checkedId) {
+    		case R.id.radio_primary:
+    			setPriAdapter();
+    			break;
+    		case R.id.radio_secondary:
+    			setSecAdapter();
+    			break;
+    		default:
+    			break;
+    		}
+			break;
+    	default:
+    		break;
+		}
+    }
+	
 	@Override
 	public void onValueChange(NumberPicker picker, int oldVal, int newVal) {
 		Log.i("value is", ""+newVal);
 	}
 	
-	public void show() {
+	private void showHeightDialog() {
 		final Dialog mDialog = new Dialog(Pre2Activity.this);
 		mDialog.setTitle("Set Height");
 		mDialog.setContentView(R.layout.number_picker_dialog);
 		mBtn = (Button) mDialog.findViewById(R.id.done_button);
 		final NumberPicker mNumPk = (NumberPicker) mDialog.findViewById(R.id.number_Picker);
 		mNumPk.setMaxValue(200);
-		mNumPk.setMinValue(0);
+		mNumPk.setMinValue(50);
+		if(!isEmpty(mhEdit.getText().toString())){
+			number = Integer.parseInt(mhEdit.getText().toString());
+			mNumPk.setValue(number);
+		}
 		mNumPk.setOnValueChangedListener(this);
 		mBtn.setOnClickListener(new OnClickListener(){
 			@Override
@@ -225,7 +328,7 @@ public class Pre2Activity extends Activity implements NumberPicker.OnValueChange
 		mDialog.show();
 	}
 	
-	public void show2() {
+	private void showWeightDialog() {
 		final Dialog mDialog = new Dialog(Pre2Activity.this);
 		mDialog.setTitle("Set Weight");
 		mDialog.setContentView(R.layout.decimal_picker_dialog);
@@ -233,9 +336,17 @@ public class Pre2Activity extends Activity implements NumberPicker.OnValueChange
 		final NumberPicker mNumPk = (NumberPicker) mDialog.findViewById(R.id.number_Picker);
 		final NumberPicker mNumPk2 = (NumberPicker) mDialog.findViewById(R.id.number_Picker2);
 		mNumPk.setMaxValue(100);
-		mNumPk.setMinValue(0);
+		mNumPk.setMinValue(20);
 		mNumPk2.setMaxValue(9);
 		mNumPk2.setMinValue(0);
+		if(!isEmpty(mwEdit.getText().toString())){
+			w = mwEdit.getText().toString();
+			nums =  w.split("\\.");
+			whole = Integer.parseInt(nums[0]);
+			decimal = Integer.parseInt(nums[1]);
+			mNumPk.setValue(whole);
+			mNumPk2.setValue(decimal);
+		}
 		mNumPk.setOnValueChangedListener(this);
 		mNumPk2.setOnValueChangedListener(this);
 		mBtn.setOnClickListener(new OnClickListener(){
