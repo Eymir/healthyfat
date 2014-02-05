@@ -48,7 +48,8 @@ public class UserProfileActivity extends Activity implements OnClickListener, Nu
 	private RelativeLayout height_c, weight_c, education_c, school_c, classes_c, reg_no_c, activity_level_c;
 	private Button mBtn;
 	private RadioButton mRB,mRB2;
-	private String[] mPriSch, mSecSch;
+	private String w;
+	private String[] mPriSch, mSecSch, nums;
 	private double daily_calories_need,bmr,wp,hp,ap;
 	
 	@Override
@@ -61,13 +62,7 @@ public class UserProfileActivity extends Activity implements OnClickListener, Nu
 		// Show the Up button in the action bar.
 		setupActionBar();
 		init();
-		height_c.setOnClickListener(this);
-		weight_c.setOnClickListener(this);
-		education_c.setOnClickListener(this);
-		school_c.setOnClickListener(this);
-		classes_c.setOnClickListener(this);
-		reg_no_c.setOnClickListener(this);
-		activity_level_c.setOnClickListener(this);
+		setClickListener();
 	}
 
 	@Override
@@ -78,13 +73,12 @@ public class UserProfileActivity extends Activity implements OnClickListener, Nu
 	}
 	
 	/**
-	 * Set up the {@link android.app.ActionBar}, if the API is available.
+	 * Set up the {@link android.app.ActionBar}.
 	 */
-	@TargetApi(Build.VERSION_CODES.HONEYCOMB)
 	private void setupActionBar() {
-		if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB) {
-			getActionBar().setDisplayHomeAsUpEnabled(true);
-		}
+
+		getActionBar().setDisplayHomeAsUpEnabled(true);
+
 	}
 	
 	@Override
@@ -111,14 +105,14 @@ public class UserProfileActivity extends Activity implements OnClickListener, Nu
 		
 	}
 	
-	public void convertImage(){
+	private void convertImage(){
 		String path = mPrefs.getString("profilePic", "");
 		byte [] encodeByte=Base64.decode(path,Base64.DEFAULT);
 		Bitmap myBitmap = BitmapFactory.decodeByteArray(encodeByte, 0, encodeByte.length);
 		pp.setImageBitmap(myBitmap);
 	}
 	
-	public void init(){
+	private void init(){
 		name = (TextView) findViewById(R.id.name_value);
 		pp = (ImageView) findViewById(R.id.pp_value);
 		dob = (TextView) findViewById(R.id.dob_value);
@@ -140,7 +134,7 @@ public class UserProfileActivity extends Activity implements OnClickListener, Nu
 		activity_level_c = (RelativeLayout) findViewById(R.id.activity_level_container);
 	}
 	
-	public void resumeInit(){
+	private void resumeInit(){
 		name.setText(mPrefs.getString("userName", ""));
 		convertImage();
 		dob.setText(mPrefs.getString("dob", ""));
@@ -155,35 +149,45 @@ public class UserProfileActivity extends Activity implements OnClickListener, Nu
 		activity_level.setText(mPrefs.getString("activity_level", ""));
 	}
 	
+	private void setClickListener(){
+		height_c.setOnClickListener(this);
+		weight_c.setOnClickListener(this);
+		education_c.setOnClickListener(this);
+		school_c.setOnClickListener(this);
+		classes_c.setOnClickListener(this);
+		reg_no_c.setOnClickListener(this);
+		activity_level_c.setOnClickListener(this);
+	}
+	
 	public void onClick(View v){
 		switch(v.getId()){
 		case R.id.height_container:
-			show();
+			showHeightDialog();
 			break;
 		case R.id.weight_container:
-			show2();
+			showWeightDialog();
 			break;
 		case R.id.education_container:
-			show3();
+			showEducationDialog();
 			break;
 		case R.id.school_container:
-			show4();
+			showSchoolDialog();
 			break;
 		case R.id.class_container:
-			show5();
+			showClassDialog();
 			break;
 		case R.id.reg_no_container:
-			show6();
+			showRegNoDialog();
 			break;
 		case R.id.activity_level_container:
-			show7();
+			showActivityLevelDialog();
 			break;
 		default:
 			break;
 		}
 	}
 	
-	public void show() {
+	private void showHeightDialog() {
 		final Dialog mDialog = new Dialog(UserProfileActivity.this);
 		mDialog.setTitle("Update Height");
 		mDialog.setContentView(R.layout.number_picker_dialog);
@@ -286,23 +290,23 @@ public class UserProfileActivity extends Activity implements OnClickListener, Nu
 		mDialog.show();
 	}
 	
-	public void show2() {
+	private void showWeightDialog() {
 		final Dialog mDialog = new Dialog(UserProfileActivity.this);
 		mDialog.setTitle("Update Weight");
 		mDialog.setContentView(R.layout.decimal_picker_dialog);
 		mBtn = (Button) mDialog.findViewById(R.id.done_button);
 		final NumberPicker mNumPk = (NumberPicker) mDialog.findViewById(R.id.number_Picker);
 		final NumberPicker mNumPk2 = (NumberPicker) mDialog.findViewById(R.id.number_Picker2);
-		double a = Double.parseDouble(mPrefs.getString("weight", ""));
-		int decimal = (int) a;
-		double fractional = a - decimal;
-		int b = parseDecimal(fractional);
+		w = mPrefs.getString("weight", "");
+		nums =  w.split("\\.");
+		int whole = Integer.parseInt(nums[0]);
+		int decimal = Integer.parseInt(nums[1]);
 		mNumPk.setMaxValue(100);
 		mNumPk.setMinValue(0);
-		mNumPk.setValue(decimal);
+		mNumPk.setValue(whole);
 		mNumPk2.setMaxValue(9);
 		mNumPk2.setMinValue(0);
-		mNumPk2.setValue(b);
+		mNumPk2.setValue(decimal);
 		mNumPk.setOnValueChangedListener(this);
 		mNumPk2.setOnValueChangedListener(this);
 		mBtn.setOnClickListener(new OnClickListener(){
@@ -397,7 +401,7 @@ public class UserProfileActivity extends Activity implements OnClickListener, Nu
 		mDialog.show();
 	}
 	
-	public void show3() {
+	private void showEducationDialog() {
 		final Dialog mDialog = new Dialog(UserProfileActivity.this);
 		mDialog.setTitle("Update Education Level");
 		mDialog.setContentView(R.layout.education_radio_dialog);
@@ -435,7 +439,7 @@ public class UserProfileActivity extends Activity implements OnClickListener, Nu
 		mDialog.show();
 	}
 	
-	public void show4(){
+	private void showSchoolDialog(){
 		final Dialog mDialog = new Dialog(UserProfileActivity.this);
 		mDialog.setTitle("Update Current School");
 		mDialog.setContentView(R.layout.school_dialog);
@@ -466,7 +470,7 @@ public class UserProfileActivity extends Activity implements OnClickListener, Nu
 		mDialog.show();
 	}
 	
-	public void show5(){
+	private void showClassDialog(){
 		final Dialog mDialog = new Dialog(UserProfileActivity.this);
 		mDialog.setTitle("Update Current Class");
 		mDialog.setContentView(R.layout.class_dialog);
@@ -485,7 +489,7 @@ public class UserProfileActivity extends Activity implements OnClickListener, Nu
 		mDialog.show();
 	}
 	
-	public void show6(){
+	private void showRegNoDialog(){
 		final Dialog mDialog = new Dialog(UserProfileActivity.this);
 		mDialog.setTitle("Update Register Number");
 		mDialog.setContentView(R.layout.reg_no_dialog);
@@ -504,29 +508,29 @@ public class UserProfileActivity extends Activity implements OnClickListener, Nu
 		mDialog.show();
 	}
 	
-	public void show7(){
+	private void showActivityLevelDialog(){
 		final Dialog mDialog = new Dialog(UserProfileActivity.this);
 		mDialog.setTitle("Update Activity Level");
 		mDialog.setContentView(R.layout.activity_level_dialog);
 		mBtn = (Button) mDialog.findViewById(R.id.done_button);
 		String c_activity_level = mPrefs.getString("activity_level","");
 		final Spinner spn = (Spinner) mDialog.findViewById(R.id.activity_level_Edit);
-		ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(this, R.array.activity_level_arrays, android.R.layout.simple_spinner_item);
-		adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+		ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(this, R.array.activity_level_arrays, R.layout.dropdown);
+		adapter.setDropDownViewResource(R.layout.dropdown);
 		spn.setAdapter(adapter);
-		if (spn.getSelectedItem().toString().equals("little or no exercise")){
+		if (c_activity_level.equals("little or no exercise")){
 			spn.setSelection(0);
 		}
-		else if (spn.getSelectedItem().toString().equals("light exercise/sports")){
+		else if (c_activity_level.equals("light exercise/sports")){
 			spn.setSelection(1);
 		}
-		else if (spn.getSelectedItem().toString().equals("moderate exercise/sports")){
+		else if (c_activity_level.equals("moderate exercise/sports")){
 			spn.setSelection(2);
 		}
-		else if (spn.getSelectedItem().toString().equals("hard exercise/sports")){
+		else if (c_activity_level.equals("hard exercise/sports")){
 			spn.setSelection(3);
 		}
-		else{
+		else if (c_activity_level.equals("very hard exercise/sports")){
 			spn.setSelection(4);
 		}
 		spn.setOnItemSelectedListener(this);
@@ -627,38 +631,6 @@ public class UserProfileActivity extends Activity implements OnClickListener, Nu
 	public void onValueChange(NumberPicker picker, int oldVal, int newVal) {
 		Log.i("value is", ""+newVal);
 		
-	}
-	
-	public int parseDecimal(Double a){
-		int b = 0;
-		if (a.equals(0.1)){
-			b = 1;
-		}
-		else if (a.equals(0.2)){
-			b = 2;
-		}
-		else if(a.equals(0.3)){
-			b = 3;
-		}
-		else if(a.equals(0.4)){
-			b = 4;
-		}
-		else if(a.equals(0.5)){
-			b = 5;
-		}
-		else if(a.equals(0.6)){
-			b = 6;
-		}
-		else if(a.equals(0.7)){
-			b = 7;
-		}
-		else if(a.equals(0.8)){
-			b = 8;
-		}
-		else if(a.equals(0.9)){
-			b = 9;
-		}
-		return b;
 	}
 
 }

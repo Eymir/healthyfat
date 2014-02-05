@@ -27,7 +27,7 @@
 	    android:src="@drawable/add_ani" />
     
     <!-- Username Layout -->
-    <LinearLayout
+    <RelativeLayout
         android:id="@+id/name_linear"
         android:layout_width="match_parent"
         android:layout_height="40dip"
@@ -35,41 +35,38 @@
         android:layout_marginTop="40dip"
         android:baselineAligned="false"
         android:background="@drawable/rectangle_box" >
-        <LinearLayout 
-            android:layout_width="0dip"
-            android:layout_height="match_parent"
-            android:gravity="center_vertical"
-            android:layout_weight="1">
-            <TextView
-            	android:id="@+id/username"
-            	android:layout_width="wrap_content"
-            	android:layout_height="match_parent"
-            	android:paddingLeft="10dip"
-            	android:gravity="center_vertical"
-            	android:labelFor="@+id/username_Edit"
-            	android:text="@string/username"
-            	android:textColor="#787878" />
-        </LinearLayout>
-		<LinearLayout
-		    android:layout_width="0dip"
-            android:layout_height="match_parent"
-            android:layout_weight="2">
-		    <EditText
-            	android:id="@+id/username_Edit"
-            	android:layout_width="match_parent"
-            	android:layout_height="match_parent"
-            	android:ellipsize="end"
-            	android:ems="10"
-            	android:gravity="right"
-            	android:singleLine="true" 
-            	android:textSize="12sp"
-            	android:inputType="textPersonName" />
-		</LinearLayout>
 
-    </LinearLayout>
+        <TextView
+            android:id="@+id/username"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:paddingLeft="10dip"
+            android:gravity="center_vertical"
+            android:labelFor="@+id/username_Edit"
+            android:text="@string/username"
+            android:textColor="#787878" />
+
+		<EditText
+            android:id="@+id/username_Edit"
+            android:layout_width="190dip"
+            android:layout_height="match_parent"
+            android:layout_alignParentRight="true"
+            android:paddingRight="10dip"
+            android:ellipsize="start"
+            android:ems="10"
+            android:gravity="right|center_vertical"
+            android:singleLine="true" 
+            android:textSize="15sp"
+            android:background="#00000000"
+            android:hint="@string/enter_name"
+            android:textCursorDrawable="@null"
+            android:inputType="textPersonName" />
+
+
+    </RelativeLayout>
     
     <!-- Date of Birth Layout -->
-    <LinearLayout
+    <RelativeLayout
         android:id="@+id/dob_linear"
         android:layout_width="match_parent"
         android:layout_height="40dip"
@@ -77,40 +74,37 @@
         android:layout_marginTop="0dip"
         android:baselineAligned="false"
         android:background="@drawable/rectangle_box" >
-        <LinearLayout 
-            android:layout_width="0dip"
+        	
+        <TextView
+            android:id="@+id/dob"
+            android:layout_width="wrap_content"
             android:layout_height="match_parent"
             android:gravity="center_vertical"
-            android:layout_weight="1">
-        	<TextView
-            	android:id="@+id/dob"
-            	android:layout_width="wrap_content"
-            	android:layout_height="match_parent"
-            	android:gravity="center_vertical"
-            	android:paddingLeft="10dip"
-            	android:labelFor="@+id/dob_Edit"
-            	android:text="@string/dob"
-            	android:textColor="#787878" />
-        </LinearLayout>
-		<LinearLayout
-		    android:layout_width="0dip"
+            android:paddingLeft="10dip"
+            android:labelFor="@+id/dob_Edit"
+            android:text="@string/dob"
+            android:textColor="#787878" />
+
+        <EditText
+          	android:id="@+id/dob_Edit"
+            android:layout_width="190dip"
             android:layout_height="match_parent"
-            android:layout_weight="2">
-        	<EditText
-            	android:id="@+id/dob_Edit"
-            	android:layout_width="match_parent"
-            	android:layout_height="match_parent"
-            	android:ellipsize="end"
-            	android:ems="10"
-            	android:gravity="right"
-            	android:singleLine="true"
-            	android:textSize="12sp" 
-            	android:inputType="date" />
-        </LinearLayout>
-    </LinearLayout>
+            android:layout_alignParentRight="true"
+            android:paddingRight="10dip"
+            android:ellipsize="start"
+            android:ems="10"
+            android:gravity="right|center_vertical"
+            android:singleLine="true" 
+            android:textSize="15sp"
+            android:background="#00000000"
+            android:hint="@string/enter_dob"
+            android:textCursorDrawable="@null"
+            android:inputType="textPersonName" />
+        
+   	</RelativeLayout>
     
     <!-- Gender Layout -->
-    <LinearLayout
+    <RelativeLayout
         android:id="@+id/gender_linear"
         android:layout_width="match_parent"
         android:layout_height="40dip"
@@ -118,47 +112,38 @@
         android:layout_marginTop="0dip"
         android:baselineAligned="false"
         android:background="@drawable/rectangle_box" >
-		
-        <LinearLayout 
-            android:layout_width="0dip"
-            android:layout_height="match_parent"
-            android:gravity="center_vertical"
-            android:layout_weight="1">
-        	<TextView
-            	android:id="@+id/gender"
-            	android:layout_width="wrap_content"
-            	android:layout_height="match_parent"
-            	android:gravity="center_vertical"
-            	android:paddingLeft="10dip"
-           		android:text="@string/gender"
-            	android:textColor="#787878" />
-		</LinearLayout>
-		<LinearLayout
-		    android:layout_width="0dip"
-            android:layout_height="match_parent"
-            android:layout_weight="2"
-            android:gravity="right"
-            android:paddingRight="3dip">
-        	<RadioGroup
-	    		android:id="@+id/radio_Gender"
-	    		android:layout_width="wrap_content"
-	    		android:layout_height="match_parent"
-	    		android:orientation="horizontal">
 
-	    		<RadioButton
-	        		android:id="@+id/radio_male"
-	        		android:layout_width="wrap_content"
-	        		android:layout_height="match_parent"
-	        		android:checked="true"
-	        		android:text="@string/radio_male" />
+        <TextView
+           	android:id="@+id/gender"
+           	android:layout_width="wrap_content"
+           	android:layout_height="match_parent"
+           	android:gravity="center_vertical"
+           	android:paddingLeft="10dip"
+       		android:text="@string/gender"
+           	android:textColor="#787878" />
 
-	    		<RadioButton
-	        		android:id="@+id/radio_female"
-	        		android:layout_width="wrap_content"
-	        		android:layout_height="match_parent"
-	        		android:text="@string/radio_female" />
-			</RadioGroup>
-		</LinearLayout>
-    </LinearLayout>
+       	<RadioGroup
+	   		android:id="@+id/radio_Gender"
+	   		android:layout_width="wrap_content"
+	   		android:layout_height="match_parent"
+	   		android:layout_alignParentRight="true"
+	   		android:paddingRight="10dip"
+	   		android:orientation="horizontal">
+
+	   		<RadioButton
+	       		android:id="@+id/radio_male"
+	       		android:layout_width="wrap_content"
+	       		android:layout_height="match_parent"
+	       		android:checked="true"
+	       		android:text="@string/radio_male" />
+
+	    	<RadioButton
+	       		android:id="@+id/radio_female"
+	       		android:layout_width="wrap_content"
+	       		android:layout_height="match_parent"
+	       		android:text="@string/radio_female" />
+		</RadioGroup>
+
+    </RelativeLayout>
     
 </RelativeLayout>

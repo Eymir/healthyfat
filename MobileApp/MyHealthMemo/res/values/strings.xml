@@ -1,35 +1,24 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-
-    <string name="app_name">MyHealthMemo</string>
+	<string name="app_name">MyHealthMemo</string>
     <string name="action_settings">Settings</string>
     <string name="logo_desc">MyHealthMemo Logo</string>
+    
+    <!-- Splash -->
     <string name="init">Initializing&#8230;</string>
-    <string name="title_activity_first_timer">User Profile</string>
-    <string name="pic_desc">Default Profile Picture</string>
-    <string name="username">Name:</string>
-    <string name="add">Add a Profile Picture</string>
-    <string name="dob">Date of Birth:</string>
-    <string name="gender">Gender:</string>
-    <string name="radio_male">Male</string>
-    <string name="radio_female">Female</string>
-    <string name="height">Height:</string>
-    <string name="height_metric">Cm</string>
-    <string name="weight">Weight:</string>
-    <string name="weight_metric">Kg</string>
-    <string name="education">Education:</string>
-    <string name="radio_primary">Primary</string>
-    <string name="radio_secondary">Secondary</string>
-    <string name="school">School:</string>
-    <string name="cl">Class:</string>
-    <string name="reg_no">Register No.:</string>
-    <string name="activity_level">Activity Level:</string>
+    
+    <!-- Main -->
+    <string name="rda_remaining">Daily Calories Needed Remaining</string>
+    
+    <!-- Menu -->
     <string name="nav_fwd">Navigation to FirstTimer2Activity</string>
     <string name="accept">Navigation to MainActivity</string>
-    <string name="drawer_open">Slider Menu Opened</string>
-    <string name="drawer_close">Slider Menu Closed</string>
-    <string name="done">Done</string>
+    
+    <!-- Dialogs -->
     <string name="decimal_Point">.</string>
+	<string name="done">Done</string>
+	
+    <!-- Fragments Tab -->
     <string name="weightfirsttab">Weight</string>
     <string name="weightsecondtab">BMI</string>
     <string name="weightthirdtab">History</string>
@@ -40,20 +29,46 @@
     <string name="guidetipsfirsttab">General</string>
     <string name="guidetipssecondtab">Food</string>
     <string name="guidetipsthirdtab">Activity</string>
-    <string name="rda_remaining">Daily Calories Needed Remaining</string>
     <string name="title_section1">Weight</string>
     <string name="title_section2">BMI</string>
     <string name="title_section3">History</string>
-    <string name="total">Total Weight Change</string>
-    <string name="remaining">Remaining</string>
-    <string name="kg">Kg</string>
-    <string name="starting">Starting Weight</string>
-    <string name="present">Present Weight</string>
-    <string name="target">Target Weight</string>
-    <string name="title_activity_bmi_">BMI_Activity</string>
-    <string name="bmi">Body Mass Index</string>
-     <string name="select_meal">Select Meal</string>
+    <string name="drawer_open">Slider Menu Opened</string>
+    <string name="drawer_close">Slider Menu Closed</string>
+    
+    <!-- Metrics -->
+    <string name="height_metric">Cm</string>
+    <string name="weight_metric">Kg</string>
+    
+    <!-- PreActivity and  Pre2Activity-->
+    	<!-- titles -->
+    	<string name="username">Name:</string>
+    	<string name="dob">Date of Birth:</string>
+    	<string name="gender">Gender:</string>
+    	<string name="radio_male">Male</string>
+    	<string name="radio_female">Female</string>
+    	<string name="height">Height:</string>
+    	<string name="weight">Weight:</string>
+    	<string name="education">Education:</string>
+    	<string name="radio_primary">Primary</string>
+    	<string name="radio_secondary">Secondary</string>
+    	<string name="school">School:</string>
+    	<string name="cl">Class:</string>
+    	<string name="reg_no">Register No.:</string>
+    	<string name="activity_level">Activity Level:</string>
+    	<string name="add">Add a Profile Picture</string>
 
+    	<!-- hints -->
+    	<string name="enter_name">What\'s your name</string>
+    	<string name="enter_dob">When\'s your birthday</string>
+    	<string name="enter_height">What\'s your height</string>
+    	<string name="enter_weight">What\'s your weight</string>
+    	<string name="enter_school">Which school </string>
+    	<string name="enter_class">Which class</string>
+    	<string name="enter_reg_no">What\'s your register</string>
+    	
+     	<!-- desc -->
+     	<string name="pic_desc">Default Profile Picture</string>
+     	
     <!-- Nav Drawer Menu Items -->
     <string-array name="nav_drawer_items">
         <item>Home</item>
@@ -127,7 +142,8 @@
     <string name="title_activity_weight_history_fragment">WeightHistoryFragment</string>
     <string name="title_activity_dummy_fragment">DummyFragment</string>
     <string name="activity_level_prompt">Choose one of the below</string>
-
+	
+    <!-- Activity Level Spinner Item -->
     <string-array name="activity_level_arrays">
         <item>little or no exercise</item>
         <item>light exercise/sports</item>
@@ -135,7 +151,9 @@
         <item>hard exercise/sports</item>
         <item>very hard exercise/sports</item>
     </string-array>
-
+	
+    <!-- Titles -->
+    <string name="title_activity_first_timer">User Profile</string>
     <string name="title_activity_diet_diary_fragment">DietDiaryFragment</string>
     <string name="title_activity_dummy_diet_fragment">DummyDietFragment</string>
     <string name="title_activity_activity_diary_fragment">ActivityDiaryFragment</string>
@@ -151,9 +169,19 @@
     <string name="title_activity_guide_tips_activity_fragment">GuideTipsActivityFragment</string>
     <string name="title_activity_settings_fragment">SettingsFragment</string>
     <string name="title_activity_user_profile">UserProfile</string>
+    <string name="title_activity_bmi_">BMI_Activity</string>
     
-    <!-- Diet items icon -->
-     <string name= "nav_add" > Navigation to DietMenuList</string>
-    <string name="nav_edit" >Navigation to edit Main page</string>
+    <!-- Diet Tracker -->
+    <string name="select_meal">Select Meal</string>
+    	<!-- Diet items icon -->
+    	<string name= "nav_add" > Navigation to DietMenuList</string>
+    	<string name="nav_edit" >Navigation to edit Main page</string>
 
+    <!-- Weight Tracker -->
+    <string name="starting">Starting Weight</string>
+    <string name="present">Present Weight</string>
+    <string name="target">Target Weight</string>
+    <string name="bmi">Body Mass Index</string>
+    <string name="total">Total Weight Change</string>
+    <string name="remaining">Remaining</string>
 </resources>

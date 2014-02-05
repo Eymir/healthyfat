@@ -1,13 +1,8 @@
 package com.myhealthmemo;
 
 import java.io.ByteArrayOutputStream;
-import java.math.BigDecimal;
-import java.math.RoundingMode;
-import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
-import java.util.Date;
-import java.util.Locale;
 
 import android.annotation.SuppressLint;
 import android.app.AlertDialog;
@@ -47,101 +42,62 @@ import android.widget.ImageView;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
 
-public class PreActivity extends FragmentActivity implements OnDateSetListener {
+public class PreActivity extends FragmentActivity implements OnDateSetListener, OnClickListener, OnFocusChangeListener {
 
-	private EditText mUn;
-	private EditText mDOB;
+	private EditText mUn,mDOB;
 	private RadioGroup mGender;
-	private String mString;
-	private ImageButton mAdd;
+	private String mString,filename,path;
+	private ImageButton mAdd,mBrowse,mTakePhoto;
 	private Intent mIntent;
 	private Button mBtn;
 	private static final int mReq_ID = 0;
 	private static final int mCamReq_ID = 1;
-	private ImageButton mBrowse;
-	private ImageButton mTakePhoto;
 	private ImageView mPic;
 	private SharedPreferences mPrefs;
 	private SharedPreferences.Editor mPrefsEdit;
 	private RadioButton mRD;
-	private String filename;
 	private Uri mCapturedImageURI;
 	private Bitmap photo;
-	private boolean a;
-	private String path;
-	private Drawable d;
+	private boolean isNull;
+	private Drawable profile_pic;
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_pre);
-		mUn = (EditText) findViewById(R.id.username_Edit);
-		mGender = (RadioGroup) findViewById(R.id.radio_Gender);
-		mDOB = (EditText) findViewById(R.id.dob_Edit);
-		mPic = (ImageView) findViewById(R.id.def_pic);
-		d = getResources().getDrawable(R.drawable.default_profile_pic);
-		photo = ((BitmapDrawable)d).getBitmap();
-		ByteArrayOutputStream stream = new ByteArrayOutputStream();
-		photo.compress(Bitmap.CompressFormat.PNG, 100, stream);
-		byte[] bitmapdata = stream.toByteArray();
-		path = Base64.encodeToString(bitmapdata, Base64.DEFAULT);
+		init();
+		convertDefaultPF();
 		mPic.setImageBitmap(photo);
 		//Use the SharedPreferences from our own created xml preferences
 		PreferenceManager.setDefaultValues(PreActivity.this, R.xml.user_profile, false);
 		mPrefs = PreferenceManager.getDefaultSharedPreferences(this);
 		mPrefsEdit = mPrefs.edit();
-		mDOB.setOnFocusChangeListener(new OnFocusChangeListener(){
-			@Override
-		      public void onFocusChange(View v, boolean hasFocus) {
-				if(hasFocus){
-					DialogFragment newFragment = new DatePickerFragment();
-				    newFragment.show(getSupportFragmentManager(), "datePicker");
-				} 
-		      }
-		});
-		
-		mAdd = (ImageButton) findViewById(R.id.add);
-		mAdd.setOnClickListener(new OnClickListener() {
-			@Override
-			public void onClick(View v){
-				final Dialog mDialog = new Dialog(PreActivity.this);
-				mDialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
-				mDialog.setContentView(R.layout.add_dialog);
-				mBtn = (Button) mDialog.findViewById(R.id.done_button);
-				mBrowse =  (ImageButton) mDialog.findViewById(R.id.browse);
-				mTakePhoto = (ImageButton) mDialog.findViewById(R.id.take_photo);
-				mBtn.setOnClickListener(new OnClickListener(){
-					@Override
-					public void onClick(View v) {
-						mDialog.dismiss();
-					}
-				});
-				mBrowse.setOnClickListener(new OnClickListener(){
-					@Override
-					public void onClick(View v){
-						mIntent = new Intent();
-						mIntent.setAction(Intent.ACTION_GET_CONTENT);
-						mIntent.addCategory(Intent.CATEGORY_OPENABLE);
-						mIntent.setType("image/*");
-						startActivityForResult(mIntent, mReq_ID);
-					}			
-				});
-				mTakePhoto.setOnClickListener(new OnClickListener(){
-					@Override
-					public void onClick(View v){
-						ContentValues values = new ContentValues();
-						filename = "photo.jpg";
-						values.put(MediaStore.Images.Media.TITLE, filename);
-						mCapturedImageURI = getContentResolver().insert(MediaStore.Images.Media.EXTERNAL_CONTENT_URI, values); 				
-						mIntent = new Intent("android.media.action.IMAGE_CAPTURE");
-						mIntent.putExtra(MediaStore.EXTRA_OUTPUT, mCapturedImageURI);
-						startActivityForResult(mIntent, mCamReq_ID);
-					}
-				});
-				mDialog.show();
-			}
-		});
+		hasPreference();
+		setListener();
 	}	
+	
+	private void init(){
+		mUn = (EditText) findViewById(R.id.username_Edit);
+		mGender = (RadioGroup) findViewById(R.id.radio_Gender);
+		mDOB = (EditText) findViewById(R.id.dob_Edit);
+		mPic = (ImageView) findViewById(R.id.def_pic);
+		mAdd = (ImageButton) findViewById(R.id.add);
+	}
+	
+	private void convertDefaultPF(){
+		profile_pic = getResources().getDrawable(R.drawable.default_profile_pic);
+		photo = ((BitmapDrawable)profile_pic).getBitmap();
+		ByteArrayOutputStream stream = new ByteArrayOutputStream();
+		photo.compress(Bitmap.CompressFormat.PNG, 100, stream);
+		byte[] bitmapdata = stream.toByteArray();
+		path = Base64.encodeToString(bitmapdata, Base64.DEFAULT);
+	}
+	
+	private void setListener(){
+		mDOB.setOnFocusChangeListener(this);
+		mDOB.setOnClickListener(this);
+		mAdd.setOnClickListener(this);
+	}
 	
 	@SuppressLint("SimpleDateFormat")
 	public String getMonthForInt(int m) {
@@ -181,13 +137,13 @@ public class PreActivity extends FragmentActivity implements OnDateSetListener {
 	public boolean onOptionsItemSelected(MenuItem item){
 		switch (item.getItemId()){
 		case R.id.navigation_forward:
-			a = isEmpty(mUn.getText().toString());
-			if (a==true){
+			isNull = isEmpty(mUn.getText().toString());
+			if (isNull){
 				showAlert();
 			}
-			else if (a!=true){
-				a = isEmpty(mDOB.getText().toString());
-				if (a==true){
+			else if (!isNull){
+				isNull = isEmpty(mDOB.getText().toString());
+				if (isNull){
 					showAlert();
 				}else{
 					mPrefsEdit.putString("profilePic",path);
@@ -222,6 +178,78 @@ public class PreActivity extends FragmentActivity implements OnDateSetListener {
         byte[] decodedByte = Base64.decode(input, 0);
         return BitmapFactory
                 .decodeByteArray(decodedByte, 0, decodedByte.length);
+    }
+    
+    @Override
+    public void onFocusChange(View v, boolean hasFocus) {
+    	switch (v.getId()){
+    	case R.id.dob_Edit:
+    		if(hasFocus){
+    			DialogFragment newFragment = new DatePickerFragment();
+    			newFragment.show(getSupportFragmentManager(), "datePicker");
+    		} 
+    		break;
+    	default:
+    		break;
+    	}
+    }
+    
+    private void hasPreference(){
+    	isNull = isEmpty(mPrefs.getString("userName", ""));
+    	if(!isNull){
+    		mUn.setText(mPrefs.getString("userName", ""));
+    	}
+    	isNull = isEmpty(mPrefs.getString("dob", ""));
+    	if(!isNull){
+    		mDOB.setText(mPrefs.getString("dob", ""));
+    	}
+    }
+    
+    @Override
+    public void onClick(View v) {
+    	switch (v.getId()){
+    	case R.id.add:
+    		final Dialog mDialog = new Dialog(PreActivity.this);
+			mDialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
+			mDialog.setContentView(R.layout.add_dialog);
+			mBtn = (Button) mDialog.findViewById(R.id.done_button);
+			mBrowse =  (ImageButton) mDialog.findViewById(R.id.browse);
+			mTakePhoto = (ImageButton) mDialog.findViewById(R.id.take_photo);
+			mBtn.setOnClickListener(new OnClickListener(){
+				@Override
+				public void onClick(View v) {
+					mDialog.dismiss();
+				}
+			});
+			mBrowse.setOnClickListener(new OnClickListener(){
+				@Override
+				public void onClick(View v){
+					mIntent = new Intent();
+					mIntent.setAction(Intent.ACTION_GET_CONTENT);
+					mIntent.addCategory(Intent.CATEGORY_OPENABLE);
+					mIntent.setType("image/*");
+					startActivityForResult(mIntent, mReq_ID);
+				}			
+			});
+			mTakePhoto.setOnClickListener(new OnClickListener(){
+				@Override
+				public void onClick(View v){
+					ContentValues values = new ContentValues();
+					filename = "photo.jpg";
+					values.put(MediaStore.Images.Media.TITLE, filename);
+					mCapturedImageURI = getContentResolver().insert(MediaStore.Images.Media.EXTERNAL_CONTENT_URI, values); 				
+					mIntent = new Intent("android.media.action.IMAGE_CAPTURE");
+					mIntent.putExtra(MediaStore.EXTRA_OUTPUT, mCapturedImageURI);
+					startActivityForResult(mIntent, mCamReq_ID);
+				}
+			});
+			mDialog.show();
+    		break;
+    	case R.id.dob_Edit:
+    		DialogFragment newFragment = new DatePickerFragment();
+			newFragment.show(getSupportFragmentManager(), "datePicker");
+    		break;
+    	}
     }
 	
 	@Override

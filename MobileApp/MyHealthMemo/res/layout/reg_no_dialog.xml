@@ -3,43 +3,41 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent" >
     
-    <LinearLayout
+    <!-- Register Number Layout -->    
+    <RelativeLayout
         android:id="@+id/reg_no_linear"
         android:layout_width="match_parent"
         android:layout_height="40dip"
         android:layout_marginTop="20dip"
         android:baselineAligned="false" >
-		<LinearLayout 
-            android:layout_width="0dip"
+
+        <TextView
+           	android:id="@+id/reg_no"
+           	android:layout_width="wrap_content"
+           	android:layout_height="match_parent"
+           	android:gravity="center_vertical"
+           	android:paddingLeft="10dip"
+       		android:labelFor="@+id/reg_no_Edit"
+           	android:text="@string/reg_no"
+           	android:textColor="#787878" />
+
+        <EditText
+           	android:id="@+id/reg_no_Edit"
+           	android:layout_width="190dip"
             android:layout_height="match_parent"
-            android:gravity="center_vertical"
-            android:layout_weight="1">
-        	<TextView
-            	android:id="@+id/reg_no"
-            	android:layout_width="wrap_content"
-            	android:layout_height="match_parent"
-            	android:gravity="center_vertical"
-            	android:paddingLeft="10dip"
-           		android:labelFor="@+id/reg_no_Edit"
-            	android:text="@string/reg_no"
-            	android:textColor="#787878" />
-		</LinearLayout>
-		<LinearLayout
-		    android:layout_width="0dip"
-            android:layout_height="match_parent"
-            android:layout_weight="2">
-        	<EditText
-            	android:id="@+id/reg_no_Edit"
-            	android:layout_width="match_parent"
-            	android:layout_height="match_parent"
-            	android:ellipsize="end"
-            	android:ems="10"
-            	android:gravity="right"
-            	android:textSize="12sp"
-            	android:singleLine="true" 
-            	android:inputType="number"/>
-        </LinearLayout>
-    </LinearLayout>
+            android:layout_alignParentRight="true"
+            android:paddingRight="10dip"
+            android:ellipsize="start"
+            android:ems="10"
+            android:gravity="right|center_vertical"
+            android:singleLine="true" 
+            android:textSize="15sp"
+            android:background="#00000000"
+            android:hint="@string/enter_reg_no"
+            android:textCursorDrawable="@null" 
+            android:inputType="number" />
+
+    </RelativeLayout>
     
 	<LinearLayout
             android:id="@+id/fullscreen_content_controls"
