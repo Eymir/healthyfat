@@ -1,0 +1,190 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="app_name">MyHealthMemo</string>
+    <string name="action_settings">Settings</string>
+    <string name="logo_desc">MyHealthMemo Logo</string>
+
+    <!-- Splash -->
+    <string name="init">Initializing&#8230;</string>
+
+    <!-- Main -->
+    <string name="rda_remaining">Daily Calories Needed Remaining</string>
+
+    <!-- Menu -->
+    <string name="nav_fwd">Navigation to FirstTimer2Activity</string>
+    <string name="accept">Navigation to MainActivity</string>
+
+    <!-- Dialogs -->
+    <string name="decimal_Point">.</string>
+    <string name="done">Done</string>
+
+    <!-- Fragments Tab -->
+    <string name="weightfirsttab">Weight</string>
+    <string name="weightsecondtab">BMI</string>
+    <string name="weightthirdtab">History</string>
+    <string name="healthyplatefirsttab">Daily</string>
+    <string name="healthyplatesecondtab">Breakfast</string>
+    <string name="healthyplatethirdtab">Lunch</string>
+    <string name="healthyplateforthtab">Dinner</string>
+    <string name="guidetipsfirsttab">General</string>
+    <string name="guidetipssecondtab">Food</string>
+    <string name="guidetipsthirdtab">Activity</string>
+    <string name="title_section1">Weight</string>
+    <string name="title_section2">BMI</string>
+    <string name="title_section3">History</string>
+    <string name="drawer_open">Slider Menu Opened</string>
+    <string name="drawer_close">Slider Menu Closed</string>
+
+    <!-- Metrics -->
+    <string name="height_metric">Cm</string>
+    <string name="weight_metric">Kg</string>
+
+    <!-- PreActivity and  Pre2Activity -->
+    <!-- titles -->
+    <string name="username">Name:</string>
+    <string name="dob">Date of Birth:</string>
+    <string name="gender">Gender:</string>
+    <string name="radio_male">Male</string>
+    <string name="radio_female">Female</string>
+    <string name="height">Height:</string>
+    <string name="weight">Weight:</string>
+    <string name="education">Education:</string>
+    <string name="radio_primary">Primary</string>
+    <string name="radio_secondary">Secondary</string>
+    <string name="school">School:</string>
+    <string name="cl">Class:</string>
+    <string name="reg_no">Register No.:</string>
+    <string name="activity_level">Activity Level:</string>
+    <string name="add">Add a Profile Picture</string>
+
+    <!-- hints -->
+    <string name="enter_name">What\'s your name</string>
+    <string name="enter_dob">When\'s your birthday</string>
+    <string name="enter_height">What\'s your height</string>
+    <string name="enter_weight">What\'s your weight</string>
+    <string name="enter_school">Which school </string>
+    <string name="enter_class">Which class</string>
+    <string name="enter_reg_no">What\'s your register</string>
+
+    <!-- desc -->
+    <string name="pic_desc">Default Profile Picture</string>
+
+    <!-- Nav Drawer Menu Items -->
+    <string-array name="nav_drawer_items">
+        <item>Home</item>
+        <item>Diet Diary</item>
+        <item>Activity Diary</item>
+        <item>Weight Tracker</item>
+        <item>My Healthy Plate</item>
+        <item>Guides/Tips</item>
+        <item>Settings</item>
+    </string-array>
+
+    <!-- Nav Drawer List Item Icons -->
+    <!-- Keep them in order as the titles are in -->
+    <array name="nav_drawer_icons">
+        <item>@drawable/ic_home</item>
+        <item>@drawable/ic_diet_diary</item>
+        <item>@drawable/ic_activity_diary</item>
+        <item>@drawable/ic_weight_tracker</item>
+        <item>@drawable/ic_healthy_plate</item>
+        <item>@drawable/ic_guides_tips</item>
+        <item>@drawable/ic_settings</item>
+    </array>
+
+    <!-- SettingsFragment List Item Title -->
+    <string-array name="stg_list_items">
+        <item>User Profile</item>
+        <item>FAQs</item>
+        <item>About Us</item>
+    </string-array>
+
+    <!-- SettingsFragment List Item Icons -->
+    <array name="stg_list_icons">
+        <item>@drawable/ic_user_profile</item>
+        <item>@drawable/ic_faqs</item>
+        <item>@drawable/ic_abtus</item>
+    </array>
+
+    <!-- Meal Item List -->
+    <string-array name="mealitem">
+        <item>Breakfast</item>
+        <item>Lunch</item>
+        <item>Snack</item>
+        <item>Dinner</item>
+        <item>Supper</item>
+    </string-array>
+
+    <!-- Meal Item List -->
+    <string-array name="mealicon">
+        <item>@drawable/ic_triangle_arrow</item>
+        <item>@drawable/ic_triangle_arrow</item>
+        <item>@drawable/ic_triangle_arrow</item>
+        <item>@drawable/ic_triangle_arrow</item>
+        <item>@drawable/ic_triangle_arrow</item>
+    </string-array>
+
+    <!-- Meal Item List -->
+    <string-array name="mealicon2">
+        <item>@drawable/ic_breakfast</item>
+        <item>@drawable/ic_lunch</item>
+        <item>@drawable/ic_snack</item>
+        <item>@drawable/ic_dinner</item>
+        <item>@drawable/ic_supper</item>
+    </string-array>
+
+    <!-- Content Description -->
+    <string name="desc_list_item_icon">Item Icon</string>
+    <string name="hello_world">Hello world!</string>
+    <string name="title_activity_home_fragment">HomeFragment</string>
+    <string name="title_activity_bmifragment">BMIFragment</string>
+    <string name="title_activity_weight_tracker_home_fragment">WeightTrackerHomeFragment</string>
+    <string name="title_activity_weight_history_fragment">WeightHistoryFragment</string>
+    <string name="title_activity_dummy_fragment">DummyFragment</string>
+    <string name="activity_level_prompt">Choose one of the below</string>
+
+    <!-- Activity Level Spinner Item -->
+    <string-array name="activity_level_arrays">
+        <item>little or no exercise</item>
+        <item>light exercise/sports</item>
+        <item>moderate exercise/sports</item>
+        <item>hard exercise/sports</item>
+        <item>very hard exercise/sports</item>
+    </string-array>
+
+    <!-- Titles -->
+    <string name="title_activity_first_timer">User Profile</string>
+    <string name="title_activity_diet_diary_fragment">DietDiaryFragment</string>
+    <string name="title_activity_dummy_diet_fragment">DummyDietFragment</string>
+    <string name="title_activity_activity_diary_fragment">ActivityDiaryFragment</string>
+    <string name="title_activity_dummy_activity_fragment">DummyActivityFragment</string>
+    <string name="title_activity_healthy_plate_fragment">HealthyPlateFragment</string>
+    <string name="title_activity_healthy_plate_daily_fragment">HealthyPlateDailyFragment</string>
+    <string name="title_activity_healthy_plate_breakfast_fragment">HealthyPlateBreakfastFragment</string>
+    <string name="title_activity_healthy_plate_lunch_fragment">HealthyPlateLunchFragment</string>
+    <string name="title_activity_healthy_plate_dinner_fragment">HealthyPlateDinnerFragment</string>
+    <string name="title_activity_guide_tips_fragment">GuideTipsFragment</string>
+    <string name="title_activity_guide_tips_general_fragment">GuideTipsGeneralFragment</string>
+    <string name="title_activity_guide_tips_food_fragment">GuideTipsFoodFragment</string>
+    <string name="title_activity_guide_tips_activity_fragment">GuideTipsActivityFragment</string>
+    <string name="title_activity_settings_fragment">SettingsFragment</string>
+    <string name="title_activity_user_profile">UserProfile</string>
+    <string name="title_activity_bmi_">BMI_Activity</string>
+
+    <!-- Diet Tracker -->
+    <string name="select_meal">Select Meal</string>
+    <!-- Diet items icon -->
+    <string name="nav_add"> Navigation to DietMenuList</string>
+    <string name="nav_edit">Navigation to edit Main page</string>
+
+    <!-- Weight Tracker -->
+    <string name="starting">Starting Weight</string>
+    <string name="present">Present Weight</string>
+    <string name="target">Target Weight</string>
+    <string name="bmi">Body Mass Index</string>
+    <string name="total">Total Weight Change</string>
+    <string name="remaining">Remaining</string>
+    <string name="title_activity_add">AddActivity</string>
+
+</resources>

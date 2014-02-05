@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent" >
+    
+    <!-- Education Layout -->
+    <RelativeLayout
+        android:id="@+id/education_linear"
+        android:layout_width="match_parent"
+        android:layout_height="40dip"
+        android:layout_marginTop="20dip"
+        android:baselineAligned="false" >
+
+        <TextView
+          	android:id="@+id/education"
+           	android:layout_width="wrap_content"
+           	android:layout_height="match_parent"
+           	android:gravity="center_vertical"
+           	android:paddingLeft="10dip"
+           	android:text="@string/education"
+           	android:textColor="#787878" />
+
+       	<RadioGroup
+	   		android:id="@+id/radio_Education"
+	  		android:layout_width="wrap_content"
+	   		android:layout_height="match_parent"
+	   		android:layout_alignParentRight="true"
+	   		android:paddingRight="10dip"
+	   		android:orientation="horizontal" >
+	    		
+	   		<RadioButton
+	       		android:id="@+id/radio_primary"
+	       		android:layout_width="wrap_content"
+	       		android:layout_height="match_parent"
+	       		android:checked="true"
+	       		android:text="@string/radio_primary" />
+	    		
+	   		<RadioButton
+	       		android:id="@+id/radio_secondary"
+	       		android:layout_width="wrap_content"
+	       		android:layout_height="match_parent"
+	       		android:text="@string/radio_secondary" />
+	    		
+		</RadioGroup>
+
+    </RelativeLayout>
+    
+    
+	<LinearLayout
+            android:id="@+id/fullscreen_content_controls"
+            style="?buttonBarStyle"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/education_linear"
+            android:layout_marginTop="20dip"
+            android:layout_gravity="bottom|center_horizontal"
+            android:background="@color/black_overlay"
+            android:orientation="horizontal" >
+
+            <Button
+                android:id="@+id/done_button"
+                style="?buttonBarButtonStyle"
+                android:layout_width="0dip"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="@string/done" />
+        </LinearLayout>
+        
+</RelativeLayout>

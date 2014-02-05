@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent" >
+    
+    <!-- Register Number Layout -->    
+    <RelativeLayout
+        android:id="@+id/reg_no_linear"
+        android:layout_width="match_parent"
+        android:layout_height="40dip"
+        android:layout_marginTop="20dip"
+        android:baselineAligned="false" >
+
+        <TextView
+           	android:id="@+id/reg_no"
+           	android:layout_width="wrap_content"
+           	android:layout_height="match_parent"
+           	android:gravity="center_vertical"
+           	android:paddingLeft="10dip"
+       		android:labelFor="@+id/reg_no_Edit"
+           	android:text="@string/reg_no"
+           	android:textColor="#787878" />
+
+        <EditText
+           	android:id="@+id/reg_no_Edit"
+           	android:layout_width="190dip"
+            android:layout_height="match_parent"
+            android:layout_alignParentRight="true"
+            android:paddingRight="10dip"
+            android:ellipsize="start"
+            android:ems="10"
+            android:gravity="right|center_vertical"
+            android:singleLine="true" 
+            android:textSize="15sp"
+            android:background="#00000000"
+            android:hint="@string/enter_reg_no"
+            android:textCursorDrawable="@null" 
+            android:inputType="number" />
+
+    </RelativeLayout>
+    
+	<LinearLayout
+            android:id="@+id/fullscreen_content_controls"
+            style="?buttonBarStyle"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/reg_no_linear"
+            android:layout_marginTop="20dip"
+            android:layout_gravity="bottom|center_horizontal"
+            android:background="@color/black_overlay"
+            android:orientation="horizontal" >
+
+            <Button
+                android:id="@+id/done_button"
+                style="?buttonBarButtonStyle"
+                android:layout_width="0dip"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="@string/done" />
+        </LinearLayout>
+        
+</RelativeLayout>
