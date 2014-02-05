@@ -19,10 +19,10 @@
      <ImageView
         android:id="@+id/item_icon2"
         android:layout_width="25dp"
+        android:layout_toRightOf="@+id/item_icon"
      	android:layout_height="wrap_content"
         android:layout_alignParentLeft="true"
-        android:layout_marginLeft="12dp"
-        android:layout_marginRight="12dp"
+        android:layout_marginLeft="50dp"
         android:contentDescription="@string/desc_list_item_icon"
         android:layout_centerVertical="true"/>
  
@@ -35,6 +35,7 @@
         android:minHeight="?android:attr/listPreferredItemHeightSmall"
         android:textAppearance="?android:attr/textAppearanceListItemSmall"
         android:textColor="@drawable/text_pressed" 
+        android:layout_marginLeft="60dp"
         android:gravity="center_vertical"
         android:paddingRight="40dp" />
  
