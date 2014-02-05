@@ -44,6 +44,8 @@ public class DummyDietFragment extends Fragment implements OnClickListener {
     List<String> Meals;
     HashMap<String, List<String>>MealsCollections;
     Intent mIntent;
+  //transition to menu list on action bar
+  	boolean canEditItem = false;
     
   
 	
@@ -203,8 +205,7 @@ public class DummyDietFragment extends Fragment implements OnClickListener {
 			break;
 		}
 	}
-	//transition to menu list on action bar
-	boolean canEditItem = false;
+	
 	   
 	    public  boolean onOptionsItemSelected(MenuItem item){
 	    	 //calling the navigation_add function
@@ -215,32 +216,30 @@ public class DummyDietFragment extends Fragment implements OnClickListener {
 	    		getActivity().startActivity(mIntent);
 	    	break;
 	    	case R.id.edit:
-	    		{
-	    			if(item.getItemId() == R.id.edit){
-	    				  //( 1 ) add a new item 
-	    				getActivity().invalidateOptionsMenu();
-	    			}
-	    			
-	    			return super.onOptionsItemSelected(item);
-	    		}
+
+	    			getActivity().invalidateOptionsMenu();
+
 	    	default:
 	    		break;
+
 	    	}
-			return true;
+	    return super.onOptionsItemSelected(item);
 	    }
+	    
+	    
 	  @Override  
 	 public void onPrepareOptionsMenu(Menu menu) {
 	    	
 		  MenuInflater inflater = getActivity().getMenuInflater();
-	    if(canEditItem){
+	    if(!canEditItem){
+	    	menu.clear();
 	    	 inflater.inflate(R.menu.dummy_diet_2, menu);
-	    	 MenuItem mi = menu.getItem(0);
-             mi.setShowAsActionFlags(MenuItem.SHOW_AS_ACTION_IF_ROOM);
-             canEditItem = false;
+             canEditItem = true;
 	    	}
 	    	else{
+	    		menu.clear();
 	    		inflater.inflate(R.menu.dummy_diet, menu) ;
-	    		 canEditItem = true;
+	    		 canEditItem = false;
 	    		
 	    	}
 	    	super.onPrepareOptionsMenu(menu); 
