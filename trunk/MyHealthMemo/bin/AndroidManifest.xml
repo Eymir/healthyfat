@@ -1,0 +1,136 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="com.myhealthmemo"
+    android:versionCode="1"
+    android:versionName="1.0" >
+
+    <uses-sdk
+        android:minSdkVersion="17"
+        android:targetSdkVersion="17" />
+
+    <application
+        android:allowBackup="true"
+        android:icon="@drawable/ic_launcher"
+        android:label="@string/app_name"
+        android:theme="@style/AppTheme" >
+        <activity
+            android:name="com.myhealthmemo.SplashActivity"
+            android:label="@string/app_name" >
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+        <activity
+            android:name="com.myhealthmemo.NavDrawerActivity"
+            android:label="@string/app_name" >
+        </activity>
+        <activity
+            android:name="com.myhealthmemo.PreActivity"
+            android:label="@string/title_activity_first_timer" >
+        </activity>
+        <activity
+            android:name="com.myhealthmemo.Pre2Activity"
+            android:label="@string/title_activity_first_timer"
+            android:parentActivityName="com.myhealthmemo.PreActivity" >
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.myhealthmemo.FirstTimerActivity" />
+        </activity>
+        <activity
+            android:name="com.myhealthmemo.UserProfileActivity"
+            android:label="@string/app_name" >
+            <intent-filter>
+                <action android:name=".UserProfileActivity" />
+
+                <category android:name="android.intent.category.DEFAULT" />
+            </intent-filter>
+        </activity>
+        <activity
+            android:name="com.myhealthmemo.MainFragment"
+            android:label="@string/title_activity_home_fragment" >
+        </activity>
+        <activity
+            android:name="com.myhealthmemo.WeightTrackerBMIFragment"
+            android:label="@string/title_activity_bmifragment" >
+        </activity>
+        <activity
+            android:name="com.myhealthmemo.WeightTrackerHomeFragment"
+            android:label="@string/title_activity_weight_tracker_home_fragment" >
+        </activity>
+        <activity
+            android:name="com.myhealthmemo.WeightHistoryFragment"
+            android:label="@string/title_activity_weight_history_fragment" >
+        </activity>
+        <activity
+            android:name="com.myhealthmemo.DummyMainFragment"
+            android:label="@string/title_activity_dummy_fragment" >
+        </activity>
+        <activity
+            android:name="com.myhealthmemo.DietDiaryFragment"
+            android:label="@string/title_activity_diet_diary_fragment" >
+        </activity>
+        <activity
+            android:name="com.myhealthmemo.DummyDietFragment"
+            android:label="@string/title_activity_dummy_diet_fragment" >
+        </activity>
+        <activity
+            android:name="com.myhealthmemo.ActivityDiaryFragment"
+            android:label="@string/title_activity_activity_diary_fragment" >
+        </activity>
+        <activity
+            android:name="com.myhealthmemo.DummyActivityFragment"
+            android:label="@string/title_activity_dummy_activity_fragment" >
+        </activity>
+        <activity
+            android:name="com.myhealthmemo.HealthyPlateFragment"
+            android:label="@string/title_activity_healthy_plate_fragment" >
+        </activity>
+        <activity
+            android:name="com.myhealthmemo.HealthyPlateDailyFragment"
+            android:label="@string/title_activity_healthy_plate_daily_fragment" >
+        </activity>
+        <activity
+            android:name="com.myhealthmemo.HealthyPlateBreakfastFragment"
+            android:label="@string/title_activity_healthy_plate_breakfast_fragment" >
+        </activity>
+        <activity
+            android:name="com.myhealthmemo.HealthyPlateLunchFragment"
+            android:label="@string/title_activity_healthy_plate_lunch_fragment" >
+        </activity>
+        <activity
+            android:name="com.myhealthmemo.HealthyPlateDinnerFragment"
+            android:label="@string/title_activity_healthy_plate_dinner_fragment" >
+        </activity>
+        <activity
+            android:name="com.myhealthmemo.GuideTipsFragment"
+            android:label="@string/title_activity_guide_tips_fragment" >
+        </activity>
+        <activity
+            android:name="com.myhealthmemo.GuideTipsGeneralFragment"
+            android:label="@string/title_activity_guide_tips_general_fragment" >
+        </activity>
+        <activity
+            android:name="com.myhealthmemo.GuideTipsFoodFragment"
+            android:label="@string/title_activity_guide_tips_food_fragment" >
+        </activity>
+        <activity
+            android:name="com.myhealthmemo.GuideTipsActivityFragment"
+            android:label="@string/title_activity_guide_tips_activity_fragment" >
+        </activity>
+        <activity
+            android:name="com.myhealthmemo.SettingsFragment"
+            android:label="@string/title_activity_settings_fragment" >
+        </activity>
+        <activity android:name="com.myhealthmemo.DietMenuListActivity" >
+        </activity>
+        <activity android:name="com.myhealthmemo.DietServingSizeActivity" >
+        </activity>
+        <activity
+            android:name="com.myhealthmemo.AddActivity"
+            android:label="@string/title_activity_add" >
+        </activity>
+    </application>
+
+</manifest>
