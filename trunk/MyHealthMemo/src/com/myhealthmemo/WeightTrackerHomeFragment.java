@@ -28,18 +28,19 @@ public class WeightTrackerHomeFragment extends Fragment {
 	public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		View rootView = inflater.inflate(R.layout.weight_tracker_home_fragment, container, false);
+		setHasOptionsMenu(true);
 		//Use the SharedPreferences from our own created xml preferences
 		PreferenceManager.setDefaultValues(getActivity(), R.xml.user_profile, false);
 		mPrefs = PreferenceManager.getDefaultSharedPreferences(getActivity());
 		mPrefsEdit = mPrefs.edit();
 		if(mPrefs.getBoolean("targetweightnotset", true)){
 			//Display AlertDialog
-			//mPrefsEdit.putBoolean("targetweightnotset", false).commit();
+			mPrefsEdit.putBoolean("targetweightnotset", false).commit();
 		}
 		
 		mProgressBar = (ProgressBar) rootView.findViewById(R.id.progressBar1);
     	mProgressBar.setMax(30);
-    	mProgressBar.setProgress(10);
+    	mProgressBar.setProgress(15);
     	
     	mySimpleXYPlot = (XYPlot) rootView.findViewById(R.id.mySimpleXYPlot);
     		 
@@ -79,10 +80,10 @@ public class WeightTrackerHomeFragment extends Fragment {
         
 		return rootView;
 	}
-
+	
 	@Override
 	public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
-		inflater.inflate(R.menu.weight, menu);
+		inflater.inflate(R.menu.weight_tracker_home, menu);
 	}
 	
 	public static WeightTrackerHomeFragment newInstance(String text) {
@@ -91,8 +92,8 @@ public class WeightTrackerHomeFragment extends Fragment {
         Bundle b = new Bundle();
         b.putString("msg", text);
         f.setArguments(b);
-
+       
         return f;
     }
-
+	
 }

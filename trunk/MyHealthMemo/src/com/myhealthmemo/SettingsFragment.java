@@ -68,8 +68,11 @@ public class SettingsFragment extends Fragment {
 			startActivity(mIntent);
 			break;
 		case 1:
+			
 			break;
 		case 2:
+			mIntent = new Intent(getActivity().getApplicationContext(), AboutUsActivity.class);
+			startActivity(mIntent);
 			break;
 		default:
 			break;
