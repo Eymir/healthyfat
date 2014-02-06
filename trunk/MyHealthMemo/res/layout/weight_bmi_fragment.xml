@@ -8,7 +8,7 @@
     <RelativeLayout
         android:id="@+id/graph_Container"
         android:layout_width="fill_parent"
-        android:layout_height="250dip"
+        android:layout_height="200dip"
         android:layout_centerHorizontal="true">
          <ImageView
         	android:id="@+id/imageViewGraph"
@@ -41,7 +41,23 @@
         android:text="@string/bmi"
         android:textAppearance="?android:attr/textAppearanceMedium" />
     </RelativeLayout>
-    
+
+    <RelativeLayout
+        android:id="@+id/fulltext_Container"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_below="@+id/text_Container"
+        android:background="@drawable/rectangle_box" >
+
+        <TextView
+            android:id="@+id/textView2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:paddingLeft="6dip"
+            android:textAppearance="?android:attr/textAppearanceSmall" />
+    </RelativeLayout>
 
 </RelativeLayout>
 

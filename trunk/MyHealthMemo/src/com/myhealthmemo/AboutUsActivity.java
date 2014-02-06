@@ -4,13 +4,19 @@ import android.os.Bundle;
 import android.app.Activity;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.TextView;
 
 public class AboutUsActivity extends Activity {
-
+	private TextView mtexttext;
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_about_us);
+		mtexttext = (TextView) findViewById(R.id.texttext);
+		mtexttext.setText("At MyHealthMemo, our mission is to help people to lose or gain weight and to reach a healthier lifestyle." +
+				" " + 
+				"Our application includes the weight tracker, diet tracker as well as exercise tracker." +
+				"We also provides guides/tips for users who do not understand how to lose weight and it¡¯s totally 100% free of charge.");
 		setupActionBar();
 	}
 
