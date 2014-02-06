@@ -131,6 +131,30 @@
             android:name="com.myhealthmemo.AddActivity"
             android:label="@string/title_activity_add" >
         </activity>
+        <activity
+            android:name="com.myhealthmemo.AboutUsActivity"
+            android:label="@string/title_activity_about_us" >
+        </activity>
+        <activity
+            android:name="com.myhealthmemo.FAQSActivity"
+            android:label="@string/title_activity_faqs" >
+        </activity>
+        <activity
+            android:name="com.myhealthmemo.DummyHealthyPlateFragment"
+            android:label="@string/title_activity_dummy_healthy_plate_fragment" >
+        </activity>
+        <activity
+            android:name="com.myhealthmemo.DummyHPFragment"
+            android:label="@string/title_activity_dummy_hpfragment" >
+        </activity>
+        <activity
+            android:name="com.myhealthmemo.CaloriesChartActivity"
+            android:label="@string/title_activity_calories_chart" >
+        </activity>
+        <activity
+            android:name="com.myhealthmemo.DummyCaloriesChartFragment"
+            android:label="@string/title_activity_dummy_calories_chart_fragment" >
+        </activity>
     </application>
 
 </manifest>

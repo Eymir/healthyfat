@@ -10,7 +10,7 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 public class HealthyPlateDailyFragment extends Fragment {
-
+    
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -25,15 +25,11 @@ public class HealthyPlateDailyFragment extends Fragment {
 		inflater.inflate(R.menu.healthy_plate_daily, menu);
 	}
 	
-	public static HealthyPlateDailyFragment newInstance(String text) {
+	public static HealthyPlateDailyFragment newInstance(Bundle args) {
 
 		HealthyPlateDailyFragment f = new HealthyPlateDailyFragment();
-        Bundle b = new Bundle();
-        b.putString("msg", text);
-
-        f.setArguments(b);
-
-        return f;
+		f.setArguments(args);
+		return f;
     }
 
 }

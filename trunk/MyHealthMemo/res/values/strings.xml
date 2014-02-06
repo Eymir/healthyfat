@@ -186,5 +186,11 @@
     <string name="total">Total Weight Change</string>
     <string name="remaining">Remaining</string>
     <string name="title_activity_add">AddActivity</string>
+    <string name="title_activity_about_us">AboutUsActivity</string>
+    <string name="title_activity_faqs">FAQSActivity</string>
+    <string name="title_activity_dummy_healthy_plate_fragment">DummyHealthyPlateFragment</string>
+    <string name="title_activity_dummy_hpfragment">DummyHPFragment</string>
+    <string name="title_activity_calories_chart">CaloriesChartActivity</string>
+    <string name="title_activity_dummy_calories_chart_fragment">DummyCaloriesChartFragment</string>
 
 </resources>

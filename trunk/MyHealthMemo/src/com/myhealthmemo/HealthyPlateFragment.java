@@ -1,6 +1,13 @@
 package com.myhealthmemo;
 
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.Locale;
+
+import org.joda.time.DateTime;
+import org.joda.time.Days;
+
+import com.myhealthmemo.MainFragment.HomePagerAdapter;
 
 import android.os.Bundle;
 import android.app.ActionBar;
@@ -16,10 +23,11 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 
-public class HealthyPlateFragment extends Fragment implements ActionBar.TabListener {
+public class HealthyPlateFragment extends Fragment {
 
-	MyPagerAdapter mMyPagerAdapter;
-	ViewPager mViewPager;
+	HomePagerAdapter HomePagerAdapter;
+	static ViewPager mViewPager;
+	int i;
 	
 	public HealthyPlateFragment(){
 		//Empty constructor required for fragment subclasses
@@ -29,24 +37,11 @@ public class HealthyPlateFragment extends Fragment implements ActionBar.TabListe
 	public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		View rootView = inflater.inflate(R.layout.healthy_plate_fragment, container, false);
-		getActivity().getActionBar().setNavigationMode(ActionBar.NAVIGATION_MODE_TABS);
-		mMyPagerAdapter = new MyPagerAdapter(getChildFragmentManager());
-		mViewPager = (ViewPager) rootView.findViewById(R.id.frame_container3);
-		mViewPager.setAdapter(mMyPagerAdapter);
-		mViewPager.setOnPageChangeListener(new ViewPager.SimpleOnPageChangeListener() {
-			@Override
-			public void onPageSelected(int position) {
-				getActivity().getActionBar().setSelectedNavigationItem(position);
-			}
-		});
+		HomePagerAdapter = new HomePagerAdapter(getChildFragmentManager());
+		mViewPager = (ViewPager) rootView.findViewById(R.id.pager);
+		mViewPager.setAdapter(HomePagerAdapter);
+		mViewPager.setCurrentItem(i);
 
-		for (int i = 0; i < mMyPagerAdapter.getCount(); i++) {
-			getActivity().getActionBar().addTab(
-					getActivity().getActionBar().newTab()
-					.setText(getPageTitle(i))
-					.setTabListener(this));
-		}
-		setHasOptionsMenu(true);
 		return rootView;
 		
 	}
@@ -67,60 +62,43 @@ public class HealthyPlateFragment extends Fragment implements ActionBar.TabListe
 		}
 	}
 	
-	@Override
-	public void onTabReselected(Tab tab,
-			android.app.FragmentTransaction ft) {
-		// TODO Auto-generated method stub
-		
-	}
-	@Override
-	public void onTabSelected(Tab tab,
-			android.app.FragmentTransaction ft) {
-		mViewPager.setCurrentItem(tab.getPosition());
-		
-	}
-	@Override
-	public void onTabUnselected(Tab tab,
-			android.app.FragmentTransaction ft) {
-		// TODO Auto-generated method stub
-		
+	public static void minusOne(){
+		int a = mViewPager.getCurrentItem();
+		mViewPager.setCurrentItem(a-1);
 	}
 	
-	public CharSequence getPageTitle(int position) {
-		Locale l = Locale.getDefault();
-		switch (position) {
-		case 0:
-			return getString(R.string.healthyplatefirsttab).toUpperCase(l);
-		case 1:
-			return getString(R.string.healthyplatesecondtab).toUpperCase(l);
-		case 2:
-			return getString(R.string.healthyplatethirdtab).toUpperCase(l);
-		case 3:
-			return getString(R.string.healthyplateforthtab).toUpperCase(l);
-		}
-		return null;
+	public static void plusOne(){
+		int a = mViewPager.getCurrentItem();
+		mViewPager.setCurrentItem(a+1);
 	}
 	
-	private class MyPagerAdapter extends FragmentPagerAdapter {
-		public MyPagerAdapter (FragmentManager fm) {
-			super(fm);
-		}
+	public class HomePagerAdapter extends FragmentPagerAdapter {
 		
+		DateTime old = new DateTime(1996, 1, 1, 0, 0, 0);
+			
+		public HomePagerAdapter (FragmentManager fm) {
+				super(fm);
+		}
+			
 		@Override
 		public Fragment getItem(int position) {
-			switch(position){
-			case 0: return HealthyPlateDailyFragment.newInstance("HealthyPlateDailyFragment, Instance 1");
-			case 1: return HealthyPlateBreakfastFragment.newInstance("HealthyPlateBreakfastFragment, Instance 2");
-			case 2: return HealthyPlateLunchFragment.newInstance("HealthyPlateLunchFragment, Instance 3");
-			case 3: return HealthyPlateDinnerFragment.newInstance("HealthyPlateDinnerFragment, Instance 4");
-			default: return HealthyPlateDailyFragment.newInstance("HealthyPlateDailyFragment, Default");
-			}
+			Fragment fragment = new DummyHPFragment();
+			Bundle args = new Bundle();
+			DateTime oldPlus = old.plusDays(position);
+			Date oldPlusDate = oldPlus.toDate();
+			SimpleDateFormat formatter = new SimpleDateFormat("E, MMM dd yyyy");
+			String a = formatter.format(oldPlusDate);
+			args.putString(DummyHPFragment.ARG_SECTION_NUMBER, a);
+			fragment.setArguments(args);
+			return fragment;
 		}
-		
+			
 		@Override
 		public int getCount() {
-			return 4;
+			DateTime now = new DateTime();
+			i = Days.daysBetween(old, now).getDays();
+			return i+1;
 		}
 	}
-
+	
 }
