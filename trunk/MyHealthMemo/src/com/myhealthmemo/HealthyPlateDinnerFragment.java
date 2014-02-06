@@ -22,15 +22,11 @@ public class HealthyPlateDinnerFragment extends Fragment {
 		inflater.inflate(R.menu.healthy_plate_dinner, menu);
 	}
 
-	public static HealthyPlateDinnerFragment newInstance(String text) {
+	public static HealthyPlateDinnerFragment newInstance(Bundle args) {
 
 		HealthyPlateDinnerFragment f = new HealthyPlateDinnerFragment();
-        Bundle b = new Bundle();
-        b.putString("msg", text);
-
-        f.setArguments(b);
-
-        return f;
+		f.setArguments(args);
+		return f;
     }
 
 }

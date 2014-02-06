@@ -6,44 +6,52 @@ import java.util.Date;
 import org.joda.time.DateTime;
 import org.joda.time.Days;
 
-import android.annotation.SuppressLint;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
-import android.view.LayoutInflater;
 import android.view.Menu;
-import android.view.MenuInflater;
-import android.view.View;
-import android.view.ViewGroup;
+import android.view.MenuItem;
 
-@SuppressLint("SimpleDateFormat")
-public class MainFragment extends Fragment {
+public class CaloriesChartActivity extends FragmentActivity {
 
 	HomePagerAdapter HomePagerAdapter;
 	static ViewPager mViewPager;
 	int i;
 	
-	public MainFragment(){
-		//Empty constructor required for fragment subclasses
-	}
-	
 	@Override
-	public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		View rootView = inflater.inflate(R.layout.home_fragment, container, false);
-		HomePagerAdapter = new HomePagerAdapter(getChildFragmentManager());
-		mViewPager = (ViewPager) rootView.findViewById(R.id.pager);
+		setContentView(R.layout.activity_calories_chart);
+		HomePagerAdapter = new HomePagerAdapter(getSupportFragmentManager());
+		mViewPager = (ViewPager) findViewById(R.id.pager4);
 		mViewPager.setAdapter(HomePagerAdapter);
 		mViewPager.setCurrentItem(i);
-		return rootView;
 	}
 
 	@Override
-	public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
-		inflater.inflate(R.menu.home, menu);
+	public boolean onCreateOptionsMenu(Menu menu) {
+		// Inflate the menu; this adds items to the action bar if it is present.
+		getMenuInflater().inflate(R.menu.calories_chart, menu);
+		return true;
 	}
+	
+	@Override
+	public boolean onOptionsItemSelected(MenuItem item) {
+		//Handle action bar actions click
+		switch (item.getItemId()) {
+		case R.id.action_settings:
+			return true;
+		case android.R.id.home:
+			 finish();
+		}
+		return super.onOptionsItemSelected(item);
+		
+	}
+	
+
 	
 	public static void minusOne(){
 		int a = mViewPager.getCurrentItem();
@@ -65,7 +73,7 @@ public class MainFragment extends Fragment {
 			
 		@Override
 		public Fragment getItem(int position) {
-			Fragment fragment = new DummyMainFragment();
+			Fragment fragment = new DummyCaloriesChartFragment();
 			Bundle args = new Bundle();
 			DateTime oldPlus = old.plusDays(position);
 			Date oldPlusDate = oldPlus.toDate();
