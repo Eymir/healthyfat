@@ -67,7 +67,9 @@ public class PreActivity extends FragmentActivity implements OnDateSetListener,
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_pre);
 		init();
-		convertDefaultPF();
+		profile_pic = getResources().getDrawable(R.drawable.default_profile_pic);
+		photo = ((BitmapDrawable)profile_pic).getBitmap();
+		path = convertPF(photo);
 		mPic.setImageBitmap(photo);
 		//Use the SharedPreferences from our own created xml preferences
 		PreferenceManager.setDefaultValues(PreActivity.this, R.xml.user_profile, false);
@@ -92,13 +94,13 @@ public class PreActivity extends FragmentActivity implements OnDateSetListener,
 	 * then convert it to byte array
 	 * and then finally, encode it with Base 64
 	 */
-	private void convertDefaultPF(){
-		profile_pic = getResources().getDrawable(R.drawable.default_profile_pic);
-		photo = ((BitmapDrawable)profile_pic).getBitmap();
+	private String convertPF(Bitmap a){
+		
 		ByteArrayOutputStream stream = new ByteArrayOutputStream();
-		photo.compress(Bitmap.CompressFormat.PNG, 100, stream);
+		a.compress(Bitmap.CompressFormat.PNG, 100, stream);
 		byte[] bitmapdata = stream.toByteArray();
-		path = Base64.encodeToString(bitmapdata, Base64.DEFAULT);
+		String apath = Base64.encodeToString(bitmapdata, Base64.DEFAULT);
+		return apath;
 	}
 	
 	//A method to assign listener to corresponding layout variable
@@ -302,16 +304,16 @@ public class PreActivity extends FragmentActivity implements OnDateSetListener,
 				Uri selectedImage = data.getData();
                 String[] filePathColumn = {MediaStore.Images.Media.DATA};
                 Cursor cursor = getContentResolver().query(selectedImage, filePathColumn, null, null, null);
-                cursor.moveToFirst();
-
                 int columnIndex = cursor.getColumnIndex(filePathColumn[0]);
-                path = cursor.getString(columnIndex);
+                cursor.moveToFirst();
+                String yu = cursor.getString(columnIndex);
                 cursor.close();
 
                 //Bitmap photo = BitmapFactory.decodeFile(filePath);
                 Options options = null;
-                photo = BitmapFactory.decodeFile(path,options);
+                photo = BitmapFactory.decodeFile(yu,options);
                 mPic.setImageBitmap(photo);
+                path = convertPF(photo);
 			}
 			break;
 		//if received mCamReq_ID from the take photo button action
@@ -321,15 +323,17 @@ public class PreActivity extends FragmentActivity implements OnDateSetListener,
 				Cursor cursor = this.getContentResolver().query(mCapturedImageURI, projection, null, null, null); 
                 int column_index_data = cursor.getColumnIndexOrThrow(MediaStore.Images.Media.DATA); 
                 cursor.moveToFirst(); 
-                path = cursor.getString(column_index_data);
+                String yu = cursor.getString(column_index_data);
                 Log.d("photos*******"," in camera take int  "+path);
                 
                 Options options = null;
-				photo = BitmapFactory.decodeFile(path, options);
+				photo = BitmapFactory.decodeFile(yu, options);
                 
                 if(data != null) {
                 		mPic.setImageBitmap(photo);
                 }
+                
+                path = convertPF(photo);
 			}
 			break;
 		default:
