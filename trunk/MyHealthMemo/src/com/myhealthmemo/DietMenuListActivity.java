@@ -2,10 +2,16 @@ package com.myhealthmemo;
 
 import java.util.ArrayList;
 
+
+import com.myhealthmemo.adapter.SettingMealAdapter;
+
+
+import android.app.Activity;
 import android.app.ListActivity;
 import android.content.Intent;
 import android.content.res.TypedArray;
 import android.os.Bundle;
+import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
@@ -15,22 +21,25 @@ import android.widget.ListView;
 import com.myhealthmemo.adapter.SettingMealAdapter;
 import com.myhealthmemo.model.MealsItem;
 
-public class DietMenuListActivity extends ListActivity{
+public class DietMenuListActivity extends Activity{
     
    //Define Array Values to show in the ListView meal menu
 	private String[] listitem;
 	private TypedArray listicon;
 	private TypedArray listicon2;
-	 
+	private ListView lv;
 	
     
 	   @Override
 	   public void onCreate(Bundle savedInstanceState){
 	   	super.onCreate(savedInstanceState);
+	   	setContentView(R.layout.dummy_diet_fragment_list_menu);
 	   	//Define and set new adapter
-	   	ListView lv = (ListView) findViewById(R.id.meal_list);
-	   	SettingMealAdapter sa = new SettingMealAdapter(this, generateData());
-	   	lv.setAdapter(sa);
+
+	   	SettingMealAdapter sa = new SettingMealAdapter(this, generateData());  
+	   	lv = (ListView) findViewById(R.id.meal_list);
+	  	lv.setAdapter(sa);
+
 	    lv.setOnItemClickListener(new OnItemClickListener() {
 	    	public void onItemClick(AdapterView<?> adapter, View v, int position, long id) {
 	    		displayView(position);
@@ -68,7 +77,15 @@ public class DietMenuListActivity extends ListActivity{
 	    private void setupActionBar() {
 	    	getActionBar().setDisplayHomeAsUpEnabled(true);
 	    }
-	    
+
+	 public class ListViewClick implements ListView.OnItemClickListener{
+
+			@Override
+			public void onItemClick(AdapterView<?> parent, View view, int position, long id) {	
+				displayView(position);
+			}
+			
+		}
 	    private void displayView(int position){
 	    	Intent mIntent =null;
 	    	switch(position){
@@ -78,27 +95,38 @@ public class DietMenuListActivity extends ListActivity{
 	    		startActivity(mIntent);
 	    		break;
 	    	case 1:
-	    		
+	    		mIntent = new Intent(DietMenuListActivity.this, DietSearchActivity.class);
+	    		mIntent.putExtra("Lunch", listitem[position]);
+	    		startActivity(mIntent);
 	    		break;
 	    	case 2:
-	    	
+	    		mIntent = new Intent(DietMenuListActivity.this, DietSearchActivity.class);
+	    		mIntent.putExtra("Snacks", listitem[position]);
+	    		startActivity(mIntent);
     		break;
     		
 	    	case 3:
-	    
+	    		mIntent = new Intent(DietMenuListActivity.this, DietSearchActivity.class);
+	    		mIntent.putExtra("Dinner", listitem[position]);
+	    		startActivity(mIntent);
 	    	break;
 	    	
 	    	case 4:
-	    	
-	    	break;
-	    	
-	    	case 5:
-	    	
+	    		mIntent = new Intent(DietMenuListActivity.this, DietSearchActivity.class);
+	    		mIntent.putExtra("Supper", listitem[position]);
+	    		startActivity(mIntent);
 	    	break;
 	    	
 	    	default:
 		    break;
 	    }
+	    	
 
+   }
+		@Override
+		public boolean onCreateOptionsMenu(Menu menu) {
+			// Inflate the menu; this adds items to the action bar if it is present.
+			getMenuInflater().inflate(R.menu.settings, menu);
+			return true;
    }
 }

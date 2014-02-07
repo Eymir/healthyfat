@@ -158,6 +158,10 @@
             android:name="com.myhealthmemo.DummyCaloriesChartFragment"
             android:label="@string/title_activity_dummy_calories_chart_fragment" >
         </activity>
+          <activity android:name="com.myhealthmemo.DietSearchActivity" >
+        </activity>
+        <activity android:name="com.myhealthmemo.DummyDietServingSizeActivity" >
+        </activity>
     </application>
 
 </manifest>

@@ -218,6 +218,13 @@ public class DummyDietFragment extends Fragment implements OnClickListener {
 	    	case R.id.edit:
 
 	    			getActivity().invalidateOptionsMenu();
+	    	case R.id.delete:
+
+    			getActivity().invalidateOptionsMenu();
+    		
+	    	case R.id.accept:
+
+    			getActivity().invalidateOptionsMenu();
 
 	    	default:
 	    		break;
