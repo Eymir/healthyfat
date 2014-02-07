@@ -1,7 +1,7 @@
 package com.myhealthmemo;
 
 import java.util.ArrayList;
-import com.myhealthmemo.adapter.SettingMealAdapter;
+
 import android.app.ListActivity;
 import android.content.Intent;
 import android.content.res.TypedArray;
@@ -9,8 +9,10 @@ import android.os.Bundle;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
+import android.widget.AdapterView.OnItemClickListener;
 import android.widget.ListView;
 
+import com.myhealthmemo.adapter.SettingMealAdapter;
 import com.myhealthmemo.model.MealsItem;
 
 public class DietMenuListActivity extends ListActivity{
@@ -27,8 +29,13 @@ public class DietMenuListActivity extends ListActivity{
 	   	super.onCreate(savedInstanceState);
 	   	//Define and set new adapter
 	   	ListView lv = (ListView) findViewById(R.id.meal_list);
-	  	setListAdapter(new SettingMealAdapter(this, generateData()));  	
-	    
+	   	SettingMealAdapter sa = new SettingMealAdapter(this, generateData());
+	   	lv.setAdapter(sa);
+	    lv.setOnItemClickListener(new OnItemClickListener() {
+	    	public void onItemClick(AdapterView<?> adapter, View v, int position, long id) {
+	    		displayView(position);
+	    	}
+	    });
 	   	setupActionBar();	
 	   }
 	   
@@ -61,15 +68,6 @@ public class DietMenuListActivity extends ListActivity{
 	    private void setupActionBar() {
 	    	getActionBar().setDisplayHomeAsUpEnabled(true);
 	    }
-	    
-	 public class ListViewClick implements ListView.OnItemClickListener{
-
-			@Override
-			public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-				displayView(position);
-			}
-			
-		}
 	    
 	    private void displayView(int position){
 	    	Intent mIntent =null;

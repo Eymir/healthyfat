@@ -45,7 +45,7 @@ public class SplashActivity extends Activity {
 	 * and bring the user to the MainActivity
 	 */
 	protected void runTimer(){
-		mTimeOut = 3000;
+		mTimeOut = 2000;
 		mProgressBar = (ProgressBar) findViewById(R.id.init_Bar);
 		final Thread timerThread = new Thread() {
 			@Override

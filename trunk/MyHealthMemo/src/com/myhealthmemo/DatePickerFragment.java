@@ -22,10 +22,15 @@ public class DatePickerFragment extends DialogFragment {
 		mDay = mCalendar.get(Calendar.DAY_OF_MONTH);
 		mMonth = mCalendar.get(Calendar.MONTH);
 		DatePickerDialog dpd = new DatePickerDialog(getActivity(), (PreActivity)getActivity(), mYear, mMonth, mDay);
-		dpd.getDatePicker().setMaxDate(new Date().getTime());
-		DateTime old = new DateTime(1996, 1, 1, 0, 0, 0);
-		Date date2 = old.toDate();
-		dpd.getDatePicker().setMinDate(date2.getTime());
+		DateTime currentDate = new DateTime();
+		int a = currentDate.getYear()-6;
+		DateTime maxDate = new DateTime(a,12,31,0,0,0);
+		Date maxDateJava = maxDate.toDate();
+		dpd.getDatePicker().setMaxDate(maxDateJava.getTime());
+		int b = currentDate.getYear()-18;
+		DateTime minDate = new DateTime(b,1,1,0,0,0);
+		Date minDateJava = minDate.toDate();
+		dpd.getDatePicker().setMinDate(minDateJava.getTime());
 		return dpd;
 	}
 }
