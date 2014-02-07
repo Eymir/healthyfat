@@ -19,7 +19,7 @@ public class AboutUsActivity extends Activity {
 				"We also provides guides/tips for users who do not understand how to lose weight and it¡¯s totally 100% free of charge.");
 		setupActionBar();
 	}
-
+	
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
 		// Inflate the menu; this adds items to the action bar if it is present.
