@@ -31,10 +31,9 @@ public class NavDrawerActivity extends FragmentActivity {
 	private DrawerLayout mDrawerLayout;
 	private ListView mDrawerList;
 	private ActionBarDrawerToggle mDrawerToggle;
-	//nav drawer title
-	private CharSequence mDrawerTitle;
-	//used to store app title
-	private CharSequence mTitle;
+	//nav drawer title and used to store app title
+	private CharSequence mDrawerTitle,mTitle;
+
 	//slide menu items
 	private String[] navMenuTitles;
 	private TypedArray navMenuIcons;
@@ -48,6 +47,16 @@ public class NavDrawerActivity extends FragmentActivity {
 		setContentView(R.layout.activity_main);
 		PreferenceManager.setDefaultValues(NavDrawerActivity.this, R.xml.user_profile, false);
 		mPrefs = PreferenceManager.getDefaultSharedPreferences(this);
+		/*
+		 * If "firstrun" is true, navigate to PreLogin Screen
+		 * commit the prefs to take note the "firstrun" is now false
+		 */
+		
+		if (mPrefs.getBoolean("firstrun", true)) {
+			
+			mIntent = new Intent (this, PreActivity.class);
+			startActivity(mIntent);
+		}
 		mTitle = mDrawerTitle = getTitle();
 		
 		//load slide menu items
@@ -242,18 +251,7 @@ public class NavDrawerActivity extends FragmentActivity {
 	protected void onResume() {
 		super.onResume();
 		
-		/*
-		 * If "firstrun" is true, navigate to PreLogin Screen
-		 * commit the prefs to take note the "firstrun" is now false
-		 */
 		
-		if (mPrefs.getBoolean("firstrun", true)) {
-			
-			mIntent = new Intent (this, PreActivity.class);
-			startActivity(mIntent);
-			
-			//prefs.edit().putBoolean("firstrun", false).commit();
-		}
 	}
 
 }

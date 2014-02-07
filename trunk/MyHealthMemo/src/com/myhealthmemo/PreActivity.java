@@ -48,7 +48,7 @@ public class PreActivity extends FragmentActivity implements OnDateSetListener,
 	private EditText mUn,mDOB;
 	private RadioGroup mGender;
 	private String mString,filename,path;
-	private ImageButton mAdd,mBrowse,mTakePhoto;
+	private ImageButton mAdd,mBrowse,mTakePhoto,mRemove;
 	private Intent mIntent;
 	private Button mBtn;
 	private static final int mReq_ID = 0;
@@ -67,7 +67,7 @@ public class PreActivity extends FragmentActivity implements OnDateSetListener,
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_pre);
 		init();
-		profile_pic = getResources().getDrawable(R.drawable.default_profile_pic);
+		setImageToDefault();
 		photo = ((BitmapDrawable)profile_pic).getBitmap();
 		path = convertPF(photo);
 		mPic.setImageBitmap(photo);
@@ -248,6 +248,14 @@ public class PreActivity extends FragmentActivity implements OnDateSetListener,
 			mBtn = (Button) mDialog.findViewById(R.id.done_button);
 			mBrowse =  (ImageButton) mDialog.findViewById(R.id.browse);
 			mTakePhoto = (ImageButton) mDialog.findViewById(R.id.take_photo);
+			mRemove = (ImageButton) mDialog.findViewById(R.id.remove);
+			
+			Object tag = mPic.getTag();
+			int re = R.drawable.default_profile_pic;
+			if( tag != null && ((Integer)tag).intValue() == re) {
+				mRemove.setVisibility(View.GONE);
+			}
+
 			//If user clicked on done button, dismiss the Dialog
 			mBtn.setOnClickListener(new OnClickListener(){
 				@Override
@@ -266,6 +274,7 @@ public class PreActivity extends FragmentActivity implements OnDateSetListener,
 					mIntent.addCategory(Intent.CATEGORY_OPENABLE);
 					mIntent.setType("image/*");
 					startActivityForResult(mIntent, mReq_ID);
+					mDialog.dismiss();
 				}			
 			});
 			/*If user clicked on take photo, define the action and 
@@ -274,13 +283,19 @@ public class PreActivity extends FragmentActivity implements OnDateSetListener,
 			mTakePhoto.setOnClickListener(new OnClickListener(){
 				@Override
 				public void onClick(View v){
-					ContentValues values = new ContentValues();
-					filename = "photo.jpg";
-					values.put(MediaStore.Images.Media.TITLE, filename);
-					mCapturedImageURI = getContentResolver().insert(MediaStore.Images.Media.EXTERNAL_CONTENT_URI, values); 				
+					ContentValues values = new ContentValues();			
 					mIntent = new Intent("android.media.action.IMAGE_CAPTURE");
-					mIntent.putExtra(MediaStore.EXTRA_OUTPUT, mCapturedImageURI);
 					startActivityForResult(mIntent, mCamReq_ID);
+					mDialog.dismiss();
+				}
+			});
+			
+			mRemove.setOnClickListener(new OnClickListener(){
+				@Override
+				public void onClick(View v){
+					setImageToDefault();
+					mPic.setTag(R.drawable.default_profile_pic);
+					mDialog.dismiss();
 				}
 			});
 			mDialog.show();
@@ -308,31 +323,23 @@ public class PreActivity extends FragmentActivity implements OnDateSetListener,
                 cursor.moveToFirst();
                 String yu = cursor.getString(columnIndex);
                 cursor.close();
-
+                
                 //Bitmap photo = BitmapFactory.decodeFile(filePath);
                 Options options = null;
                 photo = BitmapFactory.decodeFile(yu,options);
                 mPic.setImageBitmap(photo);
+                mPic.setTag(1);
                 path = convertPF(photo);
+                
 			}
 			break;
 		//if received mCamReq_ID from the take photo button action
 		case mCamReq_ID:
 			if (resultCode == RESULT_OK){
-				String[] projection = {MediaStore.Images.Media.DATA}; 
-				Cursor cursor = this.getContentResolver().query(mCapturedImageURI, projection, null, null, null); 
-                int column_index_data = cursor.getColumnIndexOrThrow(MediaStore.Images.Media.DATA); 
-                cursor.moveToFirst(); 
-                String yu = cursor.getString(column_index_data);
-                Log.d("photos*******"," in camera take int  "+path);
-                
-                Options options = null;
-				photo = BitmapFactory.decodeFile(yu, options);
-                
-                if(data != null) {
-                		mPic.setImageBitmap(photo);
-                }
-                
+				Bundle extras = data.getExtras();
+				photo = (Bitmap) extras.get("data");
+                mPic.setImageBitmap(photo);
+                mPic.setTag(1);
                 path = convertPF(photo);
 			}
 			break;
@@ -373,5 +380,11 @@ public class PreActivity extends FragmentActivity implements OnDateSetListener,
 		AlertDialog alertDialog = alertDialogBuilder.create();
 		//show it
 		alertDialog.show();
+	}
+	
+	public void setImageToDefault(){
+		profile_pic = getResources().getDrawable(R.drawable.default_profile_pic);
+		mPic.setImageDrawable(profile_pic);
+		mPic.setTag(R.drawable.default_profile_pic);
 	}
 }

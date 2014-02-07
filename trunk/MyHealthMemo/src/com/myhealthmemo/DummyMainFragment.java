@@ -31,7 +31,7 @@ import android.view.View.OnClickListener;
 public class DummyMainFragment extends Fragment implements OnClickListener {
 
 	public static final String ARG_SECTION_NUMBER = "section_number";
-	private TextView mTxtView, rda_No;
+	private TextView mTxtView, rda_No,tci_No,tcb_No;
 	private Button Btn1, Btn2;
 	Date date, date2;
 	PieChart pie;
@@ -44,6 +44,8 @@ public class DummyMainFragment extends Fragment implements OnClickListener {
 		pie = (PieChart) rootView.findViewById(R.id.chart);
 		mTxtView = (TextView) rootView.findViewById(R.id.dateArgument);
 		rda_No = (TextView) rootView.findViewById(R.id.rda_no);
+		tci_No = (TextView) rootView.findViewById(R.id.tci_text);
+		tcb_No = (TextView) rootView.findViewById(R.id.tcb_text);
 		//Use the SharedPreferences from our own created xml preferences
 		PreferenceManager.setDefaultValues(getActivity(), R.xml.user_profile, false);
 		mPrefs = PreferenceManager.getDefaultSharedPreferences(getActivity());
@@ -112,10 +114,11 @@ public class DummyMainFragment extends Fragment implements OnClickListener {
 	}
 	
 	public void buildChart(){
+
 		ArrayList<Float> alPercentage = new ArrayList<Float>();
-		alPercentage.add(40.0f);
-		alPercentage.add(50.0f);
-		alPercentage.add(10.0f);
+		alPercentage.add(100.0F);
+		alPercentage.add(0.0F);
+		alPercentage.add(0.0F);
 		
 		try {
 			  // setting data
@@ -133,6 +136,12 @@ public class DummyMainFragment extends Fragment implements OnClickListener {
 			    Log.e("kenyang","percentage is not equal to 100");
 			  }
 			}
+	}
+	
+	public float calPercentage(int value){
+		int u = Integer.parseInt(mPrefs.getString("daily_calories_need", ""));
+		float abt= (value * 100/ u);
+		return abt;
 	}
 	
 	

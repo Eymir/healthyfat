@@ -9,7 +9,7 @@
     <string name="init">Initializing&#8230;</string>
 
     <!-- Main -->
-    <string name="rda_remaining">Daily Calories Needed Remaining</string>
+    <string name="rda_remaining">Calories Remaining</string>
 
     <!-- Menu -->
     <string name="nav_fwd">Navigation to FirstTimer2Activity</string>

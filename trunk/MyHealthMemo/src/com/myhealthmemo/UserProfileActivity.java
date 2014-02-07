@@ -1,5 +1,6 @@
 package com.myhealthmemo;
 
+import java.io.ByteArrayOutputStream;
 import java.math.BigDecimal;
 import java.math.RoundingMode;
 import java.text.ParseException;
@@ -10,16 +11,25 @@ import java.util.Locale;
 
 import android.app.Activity;
 import android.app.Dialog;
+import android.content.ContentValues;
+import android.content.Intent;
 import android.content.SharedPreferences;
+import android.database.Cursor;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.graphics.BitmapFactory.Options;
+import android.graphics.drawable.BitmapDrawable;
+import android.graphics.drawable.Drawable;
+import android.net.Uri;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
+import android.provider.MediaStore;
 import android.util.Base64;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.Window;
 import android.view.View.OnClickListener;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemSelectedListener;
@@ -27,6 +37,7 @@ import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.NumberPicker;
 import android.widget.RadioButton;
@@ -42,12 +53,18 @@ public class UserProfileActivity extends Activity implements OnClickListener,
 	private SharedPreferences.Editor mPrefsEdit;
 	private TextView name, dob, gender, height, weight, bmi, education, school, classes, reg_no, activity_level;
 	private ImageView pp;
-	private RelativeLayout height_c, weight_c, education_c, school_c, classes_c, reg_no_c, activity_level_c;
+	private RelativeLayout pp_c,height_c, weight_c, education_c, school_c, classes_c, reg_no_c, activity_level_c;
 	private Button mBtn;
 	private RadioButton mRB,mRB2;
-	private String w;
+	private String w,path;
 	private String[] mPriSch, mSecSch, nums;
 	private double daily_calories_need,bmr,wp,hp,ap;
+	private ImageButton mBrowse,mTakePhoto,mRemove;
+	private Intent mIntent;
+	private static final int mReq_ID = 0;
+	private static final int mCamReq_ID = 1;
+	private Drawable profile_pic;
+	private Bitmap photo,orig;
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -98,7 +115,7 @@ public class UserProfileActivity extends Activity implements OnClickListener,
 	 * then set the ImageView to display the bitmap
 	 */
 	private void convertImage(){
-		String path = mPrefs.getString("profilePic", "");
+		path = mPrefs.getString("profilePic", "");
 		byte [] encodeByte=Base64.decode(path,Base64.DEFAULT);
 		Bitmap myBitmap = BitmapFactory.decodeByteArray(encodeByte, 0, encodeByte.length);
 		pp.setImageBitmap(myBitmap);
@@ -118,6 +135,7 @@ public class UserProfileActivity extends Activity implements OnClickListener,
 		classes = (TextView) findViewById(R.id.class_value);
 		reg_no = (TextView) findViewById(R.id.reg_no_value);
 		activity_level = (TextView) findViewById(R.id.activity_level_value);
+		pp_c = (RelativeLayout) findViewById(R.id.pp_container);
 		height_c = (RelativeLayout) findViewById(R.id.height_container);
 		weight_c = (RelativeLayout) findViewById(R.id.weight_container);
 		education_c = (RelativeLayout) findViewById(R.id.education_container);
@@ -134,8 +152,8 @@ public class UserProfileActivity extends Activity implements OnClickListener,
 		convertImage();
 		dob.setText(mPrefs.getString("dob", ""));
 		gender.setText(mPrefs.getString("gender", ""));
-		height.setText(mPrefs.getString("height", ""));
-		weight.setText(mPrefs.getString("weight", ""));
+		height.setText(mPrefs.getString("height", "") + " Kg");
+		weight.setText(mPrefs.getString("weight", "") + " Cm");
 		bmi.setText(mPrefs.getString("bmi", ""));
 		education.setText(mPrefs.getString("education", ""));
 		school.setText(mPrefs.getString("school", ""));
@@ -145,7 +163,9 @@ public class UserProfileActivity extends Activity implements OnClickListener,
 	}
 	
 	//A method to assign listener to corresponding layout variable
+	
 	private void setClickListener(){
+		pp_c.setOnClickListener(this);
 		height_c.setOnClickListener(this);
 		weight_c.setOnClickListener(this);
 		education_c.setOnClickListener(this);
@@ -157,6 +177,9 @@ public class UserProfileActivity extends Activity implements OnClickListener,
 	
 	public void onClick(View v){
 		switch(v.getId()){
+		case R.id.pp_container:
+			showImageDialog();
+			break;
 		case R.id.height_container:
 			showHeightDialog();
 			break;
@@ -181,6 +204,76 @@ public class UserProfileActivity extends Activity implements OnClickListener,
 		default:
 			break;
 		}
+	}
+	
+	//Display Image Dialog
+	private void showImageDialog() {
+		/*Display a dialog which includes 4 buttons:
+		 * browse button
+		 * take photo button
+		 * remove button
+		 * done button
+		 */
+		final Dialog mDialog = new Dialog(UserProfileActivity.this);
+		mDialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
+		mDialog.setContentView(R.layout.add_dialog);
+		mBtn = (Button) mDialog.findViewById(R.id.done_button);
+		mBrowse =  (ImageButton) mDialog.findViewById(R.id.browse);
+		mTakePhoto = (ImageButton) mDialog.findViewById(R.id.take_photo);
+		mRemove = (ImageButton) mDialog.findViewById(R.id.remove);
+		
+		profile_pic = getResources().getDrawable(R.drawable.default_profile_pic);
+		Bitmap ak = ((BitmapDrawable)profile_pic).getBitmap();
+		String apath = convertPF(ak);
+		if (apath.equals(mPrefs.getString("profilePic", ""))){
+			mRemove.setVisibility(View.GONE);
+		}
+
+		//If user clicked on done button, dismiss the Dialog
+		mBtn.setOnClickListener(new OnClickListener(){
+			@Override
+			public void onClick(View v) {
+				mDialog.dismiss();
+			}
+		});
+		/*If user clicked on browse, define the action and 
+		 * startActivityForResult with the key mReg_ID
+		 */
+		mBrowse.setOnClickListener(new OnClickListener(){
+			@Override
+			public void onClick(View v){
+				mIntent = new Intent();
+				mIntent.setAction(Intent.ACTION_GET_CONTENT);
+				mIntent.addCategory(Intent.CATEGORY_OPENABLE);
+				mIntent.setType("image/*");
+				startActivityForResult(mIntent, mReq_ID);
+				mDialog.dismiss();
+			}			
+		});
+		/*If user clicked on take photo, define the action and 
+		 * startActivityForResult with the key mCamReq_ID
+		 */
+		mTakePhoto.setOnClickListener(new OnClickListener(){
+			@Override
+			public void onClick(View v){
+				ContentValues values = new ContentValues();			
+				mIntent = new Intent("android.media.action.IMAGE_CAPTURE");
+				startActivityForResult(mIntent, mCamReq_ID);
+				mDialog.dismiss();
+			}
+		});
+		
+		mRemove.setOnClickListener(new OnClickListener(){
+			@Override
+			public void onClick(View v){
+				setImageToDefault();
+				photo = ((BitmapDrawable)profile_pic).getBitmap();
+				path = convertPF(photo);
+				pp.setImageBitmap(photo);
+				mDialog.dismiss();
+			}
+		});
+		mDialog.show();
 	}
 	
 	//Display Height Dialog
@@ -548,10 +641,11 @@ public class UserProfileActivity extends Activity implements OnClickListener,
 		mBtn.setOnClickListener(new OnClickListener(){
 			@Override
 			public void onClick(View v) {
-				mPrefsEdit.putString("activity_level", spn.getSelectedItem().toString()).commit();
+				mPrefsEdit.putString("activity_level", spn.getSelectedItem().toString());
 				String h = mPrefs.getString("height", "");
 				String w = mPrefs.getString("weight", "");
 				mPrefsEdit.putString("daily_calories_need", calculateDCN(h,w));
+				mPrefsEdit.commit();
 				mDialog.dismiss();
 				onResume();
 			}
@@ -622,6 +716,7 @@ public class UserProfileActivity extends Activity implements OnClickListener,
 					daily_calories_need = bmr * 1.9;
 				}
 				int int_dcn = (int) Math.round(daily_calories_need);
+				
 				return String.valueOf(int_dcn);
 			}
 		});
@@ -644,6 +739,58 @@ public class UserProfileActivity extends Activity implements OnClickListener,
 	public void onValueChange(NumberPicker picker, int oldVal, int newVal) {
 		Log.i("value is", ""+newVal);
 		
+	}
+	
+	public void setImageToDefault(){
+		profile_pic = getResources().getDrawable(R.drawable.default_profile_pic);
+		pp.setImageDrawable(profile_pic);
+	}
+	
+	private String convertPF(Bitmap a){
+		
+		ByteArrayOutputStream stream = new ByteArrayOutputStream();
+		a.compress(Bitmap.CompressFormat.PNG, 100, stream);
+		byte[] bitmapdata = stream.toByteArray();
+		String apath = Base64.encodeToString(bitmapdata, Base64.DEFAULT);
+		return apath;
+	}
+	
+	@Override
+	protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+		switch(requestCode){
+		/*it checked for the key that is received
+		 * if received mReq_ID from the browse button action
+		 */
+		case mReq_ID:
+			if (resultCode == RESULT_OK){
+				Uri selectedImage = data.getData();
+                String[] filePathColumn = {MediaStore.Images.Media.DATA};
+                Cursor cursor = getContentResolver().query(selectedImage, filePathColumn, null, null, null);
+                int columnIndex = cursor.getColumnIndex(filePathColumn[0]);
+                cursor.moveToFirst();
+                String yu = cursor.getString(columnIndex);
+                cursor.close();
+                
+                //Bitmap photo = BitmapFactory.decodeFile(filePath);
+                Options options = null;
+                photo = BitmapFactory.decodeFile(yu,options);
+                path = convertPF(photo);
+                mPrefsEdit.putString("profilePic",path).commit();
+                
+			}
+			break;
+		//if received mCamReq_ID from the take photo button action
+		case mCamReq_ID:
+			if (resultCode == RESULT_OK){
+				Bundle extras = data.getExtras();
+				photo = (Bitmap) extras.get("data");
+                path = convertPF(photo);
+                mPrefsEdit.putString("profilePic",path).commit();
+			}
+			break;
+		default:
+			break;
+		}
 	}
 
 }
