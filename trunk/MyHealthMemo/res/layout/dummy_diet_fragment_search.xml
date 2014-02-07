@@ -34,10 +34,15 @@
         android:background="#ffffff" >
 
          <ListView
-              android:layout_width="match_parent" 
-              android:layout_height="wrap_content"
-              android:id="@+id/list"
-                />
+        android:id="@+id/list"
+        android:layout_width="match_parent" 
+        android:layout_height="wrap_content"
+        android:choiceMode="singleChoice"
+    	android:divider="@color/light_grey"
+    	android:dividerHeight="1dp"
+   		android:listSelector="@drawable/list_selector"
+   		android:textAppearance="?android:attr/textAppearanceMedium"
+        android:textStyle="bold" />
         
     </FrameLayout>
 

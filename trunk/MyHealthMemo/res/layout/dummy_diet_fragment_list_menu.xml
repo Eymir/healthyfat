@@ -1,22 +1,38 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:gravity="center_vertical"
     android:orientation="vertical"
     android:background="#efefefff" >
     
+    
+  <LinearLayout
+        android:id="@+id/divider2"
+        android:layout_width="fill_parent"
+        android:layout_height="1dip"
+        android:layout_above="@+id/meal_list"
+        android:background="@color/black"
+        android:orientation="horizontal" >
+    </LinearLayout> 
+     
 <ListView
-        android:id="@+id/meal_list"
-        android:layout_width="match_parent"
-        android:layout_height="64dp"
-        android:layout_gravity="start"
-        android:text="@+id/meal_list"
-        android:choiceMode="singleChoice"
-        android:divider="@color/light_grey" 
-        android:textAppearance="?android:attr/textAppearanceMedium"
-        android:textSize="20sp"
-        android:listSelector="@drawable/list_selector"
-        android:background="@color/background"
-        android:textStyle="bold" />
-</LinearLayout>
+    android:id="@+id/meal_list"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_centerVertical="true"
+    android:choiceMode="singleChoice"
+    android:divider="@color/light_grey"
+    android:dividerHeight="1dp"
+    android:listSelector="@drawable/list_selector"
+    android:textAppearance="?android:attr/textAppearanceMedium"
+    android:textStyle="bold" />
+
+<LinearLayout
+        android:id="@+id/divider3"
+        android:layout_below="@+id/meal_list"
+        android:layout_width="fill_parent"
+        android:layout_height="1dip"
+        android:background="@color/black"
+        android:orientation="horizontal" >
+    </LinearLayout>
+</RelativeLayout>

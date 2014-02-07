@@ -14,13 +14,7 @@
             android:id="@+id/food_name" 
             android:layout_width="wrap_content"
             android:layout_height="wrap_content" 
-            style="@android:style/TextAppearance.Small" />
-        <TextView
-            android:id="@+id/total_calories_size"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content" 
-            android:layout_toRightOf="@id/food_name"
-            style="@android:style/TextAppearance.Small" />
+            style="@android:style/TextAppearance.Medium" />
        
     </RelativeLayout>
 </LinearLayout>

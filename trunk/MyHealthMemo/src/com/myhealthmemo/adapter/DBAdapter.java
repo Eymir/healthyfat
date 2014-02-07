@@ -554,6 +554,17 @@ public class DBAdapter {
 			db.delete(DAILYSUMMARY_TABLE_NAME, DAILYSUMMARY_COLUMN_DATE + "= ?", new String[]{String.valueOf(deleteDS)});
 		}
     
+	//SEARCH METHOD
+		public Cursor searchFood(String search) throws SQLException {
+			Log.e(TAG,search);
+			String selectQuery = "SELECT FOOD_COLUMN_FOOD_NAME  FROM " + FOOD_TABLE_NAME + "WHERE " +FOOD_COLUMN_FOOD_NAME + "MATCH " + search ;
+			Log.e(TAG,selectQuery);
+			
+			Cursor c = db.rawQuery(selectQuery, null);
+			if(c!=null)
+				c.moveToFirst();
+			return c;
+		}
     
   }
 
