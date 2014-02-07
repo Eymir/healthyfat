@@ -11,6 +11,7 @@
     <color name="dark_light_black">#272727</color>
     <color name="background">#efefefff</color>
     <color name="black_overlay">#66000000</color>
+    <color name="sporty_blue">#0059ff</color>
     
     <string-array name="colors">
         <item>#ff4d00</item>

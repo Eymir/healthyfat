@@ -5,162 +5,200 @@
     android:background="#efefefff"
     tools:context=".WeightTrackerFragment" >
 
-    <TextView
-        android:id="@+id/textView3"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignRight="@+id/textView1"
-        android:layout_below="@+id/textView1"
-        android:layout_marginTop="14dp"
-        android:text="@string/weight_metric"
-        android:textAppearance="?android:attr/textAppearanceSmall" />
 
-    <TextView
-        android:id="@+id/textView4"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignBottom="@+id/textView3"
-        android:layout_alignRight="@+id/textView2"
-        android:text="@string/weight_metric"
-        android:textAppearance="?android:attr/textAppearanceSmall" />
+    
 
-    <ImageView
-        android:id="@+id/imageView3"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignLeft="@+id/imageView1"
-        android:layout_marginBottom="49dp"
-        android:src="@drawable/picture1" />
+	<LinearLayout
+	    android:id="@+id/topLayer"
+	    android:layout_width="match_parent"
+	    android:layout_height="wrap_content"
+	    android:layout_marginTop="10dp"
+	    android:paddingLeft="5dp">
+	  
+		<TextView
+        		android:id="@+id/totalWeightChange"
+        		android:layout_width="0dp"
+        		android:layout_height="wrap_content"
+        		android:text="@string/total"
+        		android:textSize="15sp"
+        		android:gravity="center_horizontal"
+        		android:layout_weight="1.3"/>
+	    	
+	    <TextView
+        	android:id="@+id/Remaining"
+        	android:layout_width="0dp"
+        	android:layout_height="wrap_content"
+        	android:text="@string/remaining"
+        	android:textSize="15sp"
+        	android:gravity="center_horizontal"
+        	android:layout_weight="1.7"/>
+	    
+	</LinearLayout>
+	
+	<LinearLayout 
+	    android:id="@+id/secondLayer"
+	    android:layout_width="match_parent"
+	    android:layout_height="50dp"
+	    android:layout_below="@+id/topLayer"
+	    android:layout_centerVertical="true"
+	    android:paddingLeft="5dp"
+	    android:orientation="horizontal">
+	    
+	    <LinearLayout
+	        android:id="@+id/tcw_container"
+	        android:layout_width="0dp"
+	        android:layout_height="wrap_content"
+	    	android:layout_weight="1.3"
+	    	android:layout_gravity="center_vertical"
+	    	android:gravity="center_horizontal">
+	    
+	    	<TextView
+	    	    android:id="@+id/tcw_Value"
+	    	    android:layout_width="wrap_content"
+	    	    android:layout_height="wrap_content"
+	    	    android:text="-0.3 Kg"
+	    	    android:textSize="30sp"
+	    	    android:textColor="@color/sporty_blue"/>
+	    </LinearLayout>
+	    
+	    <LinearLayout
+	        android:id="@+id/secondLayerSide"
+	        android:layout_width="0dp"
+	        android:layout_height="wrap_content"
+	        android:layout_weight="1.7"
+	        android:orientation="vertical"
+	        android:layout_gravity="center_horizontal">
+	        
+	        <TextView
+	    	    android:id="@+id/remaining_Value"
+	    	    android:layout_width="wrap_content"
+	    	    android:layout_height="wrap_content"
+	    	    android:layout_gravity="center_horizontal"
+	    	    android:textSize="20sp"
+	    	    android:text="0.0Kg"/>
 
-    <TextView
-        android:id="@+id/textView7"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignBaseline="@+id/textView6"
-        android:layout_alignBottom="@+id/textView6"
-        android:layout_alignParentRight="true"
-        android:text="@string/target"
-        android:textAppearance="?android:attr/textAppearanceSmall" />
+	        <ProgressBar
+        		android:id="@+id/progressBar1"
+        		style="?android:attr/progressBarStyleHorizontal"
+        		android:paddingLeft="10dp"
+        		android:paddingRight="10dp"
+	    		android:layout_width="match_parent"
+	    		android:layout_height="wrap_content"
+	    		android:layout_marginTop="7dp"
+        		android:progressDrawable="@drawable/sporty_blue_progress"/>
+	       		
+	        
+	    </LinearLayout>
+	    
+	</LinearLayout>
+    
+	<LinearLayout
+        	android:id="@+id/divider"
+        	android:layout_width="fill_parent"
+			android:layout_height="0.05dip"
+			android:layout_below="@+id/secondLayer"
+			android:layout_marginTop="10dp"
+			android:background="#cccccc" 
+			android:orientation="horizontal"/>
+	
+	<LinearLayout
+	    android:id="@+id/thirdLayer"
+	    android:layout_width="match_parent"
+	    android:layout_height="wrap_content"
+	    android:layout_below="@+id/divider"
+	    android:orientation="horizontal">
+	    
+	    <LinearLayout
+	        android:id="@+id/starting_container"
+	        android:layout_width="0dp"
+	        android:layout_height="wrap_content"
+	        android:layout_weight="3"
+	        android:layout_gravity="center_vertical"
+	        android:orientation="vertical"
+	        android:background="@drawable/border">
+	    	<TextView
+        		android:id="@+id/starting"
+        		android:layout_width="wrap_content"
+        		android:layout_height="wrap_content"
+        		android:layout_gravity="center_horizontal"
+        		android:text="@string/starting"
+        		android:textSize="15sp" />
+	    	
+	    	<TextView
+	    	    android:id="@+id/starting_value"
+	    	    android:layout_width="wrap_content"
+	    	    android:layout_height="wrap_content"
+	    	    android:layout_marginTop="10dp"
+	    	    android:layout_gravity="center_horizontal"
+	    	    android:text="85 Kg" 
+	    	    android:textSize="25sp"/>
+	    </LinearLayout>
+	    
+	    
+	    <LinearLayout
+	        android:id="@+id/present_container"
+	        android:layout_width="0dp"
+	        android:layout_height="wrap_content"
+	        android:layout_weight="3"
+	        android:layout_gravity="center_vertical"
+	        android:orientation="vertical"
+	        android:background="@drawable/border">
 
-    <ImageView
-        android:id="@+id/imageView2"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentLeft="true"
-        android:layout_below="@+id/textView5"
-        android:layout_marginTop="47dp"
-        android:src="@drawable/picture1" />
-
-    <TextView
-        android:id="@+id/textView5"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentLeft="true"
-        android:layout_below="@+id/imageView1"
-        android:text="@string/starting"
-        android:textAppearance="?android:attr/textAppearanceSmall" />
-
-    <TextView
-        android:id="@+id/textView10"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignBaseline="@+id/textView9"
-        android:layout_alignBottom="@+id/textView9"
-        android:layout_alignParentRight="true"
-        android:text="@string/weight_metric"
-        android:textAppearance="?android:attr/textAppearanceSmall" />
-
-    <ImageView
-        android:id="@+id/imageView4"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignBottom="@+id/imageView2"
-        android:layout_alignLeft="@+id/textView6"
-        android:layout_below="@+id/imageView1"
-        android:src="@drawable/picture2" />
-
-    <TextView
-        android:id="@+id/textView8"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignRight="@+id/textView5"
-        android:layout_below="@+id/textView5"
-        android:layout_marginTop="16dp"
-        android:text="@string/weight_metric"
-        android:textAppearance="?android:attr/textAppearanceSmall" />
-
-    <TextView
-        android:id="@+id/textView9"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignBaseline="@+id/textView8"
-        android:layout_alignBottom="@+id/textView8"
-        android:layout_alignRight="@+id/textView6"
-        android:text="@string/weight_metric"
-        android:textAppearance="?android:attr/textAppearanceSmall" />
-
-    <TextView
-        android:id="@+id/textView6"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_above="@+id/imageView2"
-        android:layout_centerHorizontal="true"
-        android:text="@string/present"
-        android:textAppearance="?android:attr/textAppearanceSmall" />
-
-    <ProgressBar
-        android:id="@+id/progressBar1"
-        style="?android:attr/progressBarStyleHorizontal"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_above="@+id/imageView1"
-        android:layout_alignLeft="@+id/textView7"
-        android:layout_toLeftOf="@+id/textView4" />
-
-    <com.androidplot.xy.XYPlot
+    	<TextView
+        	android:id="@+id/present"
+        	android:layout_width="wrap_content"
+        	android:layout_height="wrap_content"
+        	android:layout_gravity="center_horizontal"
+        	android:text="@string/present"
+        	android:textSize="15sp"  />
+    	
+    	<TextView
+	    	    android:id="@+id/present_value"
+	    	    android:layout_width="wrap_content"
+	    	    android:layout_height="wrap_content"
+	    	    android:layout_marginTop="10dp"
+	    	    android:layout_gravity="center_horizontal"
+	    	    android:text="85 Kg" 
+	    	    android:textSize="25sp"/>
+    	</LinearLayout>
+	    
+	<LinearLayout
+	        android:id="@+id/target_container"
+	        android:layout_width="0dp"
+	        android:layout_height="wrap_content"
+	        android:layout_weight="3"
+	        android:layout_gravity="center_vertical"
+	        android:orientation="vertical"
+	        android:background="@drawable/border">
+	    
+	    	<TextView
+        		android:id="@+id/target"
+       			android:layout_width="wrap_content"
+        		android:layout_height="wrap_content"
+        		android:layout_gravity="center_horizontal"
+        		android:text="@string/target"
+       			android:textSize="15sp"  />
+	    	
+	    	<TextView
+	    	    android:id="@+id/target_value"
+	    	    android:layout_width="wrap_content"
+	    	    android:layout_height="wrap_content"
+	    	    android:layout_marginTop="10dp"
+	    	    android:layout_gravity="center_horizontal"
+	    	    android:text="85 Kg" 
+	    	    android:textSize="25sp"/>
+	    </LinearLayout>
+    
+	</LinearLayout>
+	
+	
+	
+	<com.androidplot.xy.XYPlot
         android:id="@+id/mySimpleXYPlot"
         android:layout_width="fill_parent"
         android:layout_height="fill_parent"
+        android:layout_below="@+id/thirdLayer"
         android:layout_alignParentLeft="true"
-        android:layout_alignParentRight="true"
-        android:layout_below="@+id/textView10" />
-
-    <TextView
-        android:id="@+id/textView2"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentRight="true"
-        android:layout_alignParentTop="true"
-        android:layout_marginTop="14dp"
-        android:text="@string/remaining"
-        android:textAppearance="?android:attr/textAppearanceMedium" />
-
-    <TextView
-        android:id="@+id/textView1"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignBaseline="@+id/textView2"
-        android:layout_alignBottom="@+id/textView2"
-        android:layout_alignParentLeft="true"
-        android:text="@string/total"
-        android:textAppearance="?android:attr/textAppearanceMedium" />
-
-    <ImageView
-        android:id="@+id/imageView1"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentLeft="true"
-        android:layout_below="@+id/textView3"
-        android:layout_marginTop="14dp"
-        android:src="@drawable/picture1" />
-
-    <ImageView
-        android:id="@+id/ImageView01"
-        android:layout_width="wrap_content"
-        android:layout_height="73dp"
-        android:layout_above="@+id/mySimpleXYPlot"
-        android:layout_alignTop="@+id/textView6"
-        android:layout_toRightOf="@+id/textView9"
-        android:src="@drawable/picture2" />
+        android:layout_alignParentRight="true" />
 
 </RelativeLayout>

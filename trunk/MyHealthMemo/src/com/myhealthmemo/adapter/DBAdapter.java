@@ -70,6 +70,8 @@ public class DBAdapter {
 	private static final String ACTIVITYDIARYDETAILS_COLUMN_ID = "a_Id";
 	private static final String ACTIVITYDIARYDETAILS_COLUMN_DURATION = "duration";
 	private static final String ACTIVITYDIARYDETAILS_COLUMN_CALORIESBURNED = "calories_Burned";
+	private static final String ACTIVITYDIARYDETAILS_COLUMN_DISTANCE = "distance";
+	private static final String ACTIVITYDIARYDETAILS_COLUMN_SPEED = "speed";
 	
 	//DailySummary configuration
 	private static final String DAILYSUMMARY_TABLE_NAME ="DailySummary";
@@ -222,14 +224,15 @@ public class DBAdapter {
 		}
 		
 		//cREATE / INSERT ActivityDiaryDetails data
-		public long insertActivityDiaryDetailsData(String eDate, int eId, int eDuration, int eCaloriesBurned){
+		public long insertActivityDiaryDetailsData(String eDate, int eId, int eDuration, int eCaloriesBurned, int eDistance, double eSpeed){
 			ContentValues contentValues5 = new ContentValues();
 			
 			contentValues5.put(ACTIVITYDIARYDETAILS_COLUMN_DATE, eDate);
 			contentValues5.put(ACTIVITYDIARYDETAILS_COLUMN_ID, eId);
 			contentValues5.put(ACTIVITYDIARYDETAILS_COLUMN_DURATION, eDuration);
 			contentValues5.put(ACTIVITYDIARYDETAILS_COLUMN_CALORIESBURNED, eCaloriesBurned);
-			
+			contentValues5.put(ACTIVITYDIARYDETAILS_COLUMN_DISTANCE, eDistance);
+			contentValues5.put(ACTIVITYDIARYDETAILS_COLUMN_SPEED, eSpeed);
 			return db.insert(ACTIVITYDIARYDETAILS_TABLE_NAME, null, contentValues5);
 		}
 		
@@ -306,7 +309,9 @@ public class DBAdapter {
 			ACTIVITYDIARYDETAILS_COLUMN_DATE,
 			ACTIVITYDIARYDETAILS_COLUMN_ID,
 			ACTIVITYDIARYDETAILS_COLUMN_DURATION,
-			ACTIVITYDIARYDETAILS_COLUMN_CALORIESBURNED}, null,null,null,null,null);
+			ACTIVITYDIARYDETAILS_COLUMN_CALORIESBURNED,
+			ACTIVITYDIARYDETAILS_COLUMN_DISTANCE,
+			ACTIVITYDIARYDETAILS_COLUMN_SPEED}, null,null,null,null,null);
 
 		}
 		
@@ -412,6 +417,8 @@ public class DBAdapter {
 			actDD.setA_Id(c.getInt(c.getColumnIndex(ACTIVITYDIARYDETAILS_COLUMN_ID)));
 			actDD.setDuration(c.getInt(c.getColumnIndex(ACTIVITYDIARYDETAILS_COLUMN_DURATION)));
 			actDD.setCalories_Burned(c.getInt(c.getColumnIndex(ACTIVITYDIARYDETAILS_COLUMN_CALORIESBURNED)));
+			actDD.setDistance(c.getInt(c.getColumnIndex(ACTIVITYDIARYDETAILS_COLUMN_DISTANCE)));
+			actDD.setSpeed(c.getDouble(c.getColumnIndex(ACTIVITYDIARYDETAILS_COLUMN_SPEED)));
 			return c;
 		}
 		
@@ -500,6 +507,8 @@ public class DBAdapter {
 			values5.put(ACTIVITYDIARYDETAILS_COLUMN_ID, updateActDD.getA_Id());
 			values5.put(ACTIVITYDIARYDETAILS_COLUMN_DURATION, updateActDD.getDuration());
 			values5.put(ACTIVITYDIARYDETAILS_COLUMN_CALORIESBURNED, updateActDD.getCalories_Burned());
+			values5.put(ACTIVITYDIARYDETAILS_COLUMN_DISTANCE, updateActDD.getDistance());
+			values5.put(ACTIVITYDIARYDETAILS_COLUMN_SPEED, updateActDD.getSpeed());
 			
 			//update row
 			return db.update(ACTIVITYDIARYDETAILS_TABLE_NAME, values5, ACTIVITYDIARYDETAILS_COLUMN_DATE+ "= ?", new String[]{String.valueOf(updateActDD.getAd_Date())});
