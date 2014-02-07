@@ -264,19 +264,20 @@
             android:id="@+id/char_container"
             android:layout_width="0dp"
             android:layout_height="match_parent"
-            android:layout_weight="0.65">
+            android:layout_weight="0.7">
     		<com.myhealthmemo.piechart.PieChart
         			android:id="@+id/chart"
         			android:layout_width="match_parent"
-        			android:layout_height="match_parent"
-        			android:layout_alignParentLeft="true"/>
+        			android:layout_height="match_parent" 
+        			android:layout_centerHorizontal="true"/>
     	</RelativeLayout>
     	<RelativeLayout
     	    android:id="@+id/chart_legend"
     	    android:layout_width="0dp"
     	    android:layout_height="match_parent"
-    	    android:layout_weight="0.35"
+    	    android:layout_weight="0.3"
     	    android:gravity="center"
+    	    android:layout_gravity="center_vertical"
     	    android:orientation="vertical" >
     	    
     	    <RelativeLayout
@@ -369,6 +370,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content" 
         android:layout_alignParentBottom="true"
+        android:paddingBottom="5dp"
         android:orientation="horizontal">
         
         <ImageButton

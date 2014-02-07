@@ -29,7 +29,6 @@ public class PieChart extends View {
 	private static String[] PIE_COLORS 	= null;
 	private static int iColorListSize 	= 0;
 
-
 	private Paint paintPieFill;
 	private Paint paintPieBorder;
 	private ArrayList<Float> alPercentage = new ArrayList<Float>();
@@ -53,8 +52,8 @@ public class PieChart extends View {
 		iColorListSize = PIE_COLORS.length;
 
 		fnGetDisplayMetrics(context);
-		iShift 	= (int) fnGetRealPxFromDp(30);
-		iMargin = (int) fnGetRealPxFromDp(28);
+		iShift 	= (int) fnGetRealPxFromDp(40);
+		iMargin = (int) fnGetRealPxFromDp(40);
 
 		// used for paint circle
 		paintPieFill = new Paint(Paint.ANTI_ALIAS_FLAG);
@@ -121,7 +120,6 @@ public class PieChart extends View {
 		iDisplayWidth = MeasureSpec.getSize(widthMeasureSpec);
 		iDisplayHeight = MeasureSpec.getSize(heightMeasureSpec);
 
-		
 		if (iDisplayWidth<iDisplayHeight){
 			iDisplayWidth = iDisplayHeight;
 		}
@@ -129,13 +127,13 @@ public class PieChart extends View {
 		/*
 		 *  determine the rectangle size
 		 */
-		iCenterWidth = iDisplayWidth / 4; 
+		iCenterWidth = iDisplayWidth/4; 
 		int iR = iCenterWidth-iMargin;
 		if (r == null) {
 			r = new RectF(iCenterWidth-iR,  // top
-					iCenterWidth-iR,  		// left
+					iCenterWidth+iR,  		// left
 					iCenterWidth+iR,  		// rights
-					iCenterWidth+iR); 		// bottom
+					iCenterWidth-iR); 		// bottom
 		}
 		setMeasuredDimension(iDisplayWidth, iDisplayWidth);
 	}

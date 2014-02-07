@@ -784,6 +784,8 @@ public class UserProfileActivity extends Activity implements OnClickListener,
 			if (resultCode == RESULT_OK){
 				Bundle extras = data.getExtras();
 				photo = (Bitmap) extras.get("data");
+				ByteArrayOutputStream stream = new ByteArrayOutputStream();         
+			    photo.compress(Bitmap.CompressFormat.JPEG,100,stream);
                 path = convertPF(photo);
                 mPrefsEdit.putString("profilePic",path).commit();
 			}
@@ -792,5 +794,37 @@ public class UserProfileActivity extends Activity implements OnClickListener,
 			break;
 		}
 	}
+	
+	// please define following two methods in your activity
+    public Bitmap decodeSampledBitmapFromByte(byte[] res,
+                int reqWidth, int reqHeight) {
+
+            // First decode with inJustDecodeBounds=true to check dimensions
+            final BitmapFactory.Options options = new BitmapFactory.Options();
+            options.inJustDecodeBounds = true;
+            BitmapFactory.decodeByteArray(res, 0, res.length,options);
+
+            // Calculate inSampleSize
+            options.inSampleSize = calculateInSampleSize(options, reqWidth, reqHeight);
+
+            // Decode bitmap with inSampleSize set
+            options.inJustDecodeBounds = false;
+            return BitmapFactory.decodeByteArray(res, 0, res.length,options);
+        }
+         public int calculateInSampleSize(BitmapFactory.Options options, int reqWidth, int reqHeight) {
+            // Raw height and width of image
+            final int height = options.outHeight;
+            final int width = options.outWidth;
+            int inSampleSize = 1;
+
+            if (height > reqHeight || width > reqWidth) {
+                if (width > height) {
+                    inSampleSize = Math.round((float)height / (float)reqHeight);
+                } else {
+                    inSampleSize = Math.round((float)width / (float)reqWidth);
+                }
+            }
+            return inSampleSize;
+        }
 
 }
