@@ -40,11 +40,7 @@ public class DietMenuListActivity extends Activity{
 	   	lv = (ListView) findViewById(R.id.meal_list);
 	  	lv.setAdapter(sa);
 
-	    lv.setOnItemClickListener(new OnItemClickListener() {
-	    	public void onItemClick(AdapterView<?> adapter, View v, int position, long id) {
-	    		displayView(position);
-	    	}
-	    });
+	    lv.setOnItemClickListener(new ListViewClick());
 	   	setupActionBar();	
 	   }
 	   
@@ -91,29 +87,29 @@ public class DietMenuListActivity extends Activity{
 	    	switch(position){
 	    	case 0:
 	    		mIntent = new Intent(DietMenuListActivity.this, DietSearchActivity.class);
-	    		mIntent.putExtra("BreakFast", listitem[position]);
+	    		mIntent.putExtra("mealmenu", listitem[position]);
 	    		startActivity(mIntent);
 	    		break;
 	    	case 1:
 	    		mIntent = new Intent(DietMenuListActivity.this, DietSearchActivity.class);
-	    		mIntent.putExtra("Lunch", listitem[position]);
+	    		mIntent.putExtra("mealmenu", listitem[position]);
 	    		startActivity(mIntent);
 	    		break;
 	    	case 2:
 	    		mIntent = new Intent(DietMenuListActivity.this, DietSearchActivity.class);
-	    		mIntent.putExtra("Snacks", listitem[position]);
+	    		mIntent.putExtra("mealmenu", listitem[position]);
 	    		startActivity(mIntent);
     		break;
     		
 	    	case 3:
 	    		mIntent = new Intent(DietMenuListActivity.this, DietSearchActivity.class);
-	    		mIntent.putExtra("Dinner", listitem[position]);
+	    		mIntent.putExtra("mealmenu", listitem[position]);
 	    		startActivity(mIntent);
 	    	break;
 	    	
 	    	case 4:
 	    		mIntent = new Intent(DietMenuListActivity.this, DietSearchActivity.class);
-	    		mIntent.putExtra("Supper", listitem[position]);
+	    		mIntent.putExtra("mealmenu", listitem[position]);
 	    		startActivity(mIntent);
 	    	break;
 	    	

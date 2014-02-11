@@ -22,16 +22,18 @@ public class DBAdapter {
 	private static final String DATABASE_NAME = "myhealthmemo.db";
 
 	// Food table configuration
-	private static final String FOOD_TABLE_NAME = "Food";         // Food Table name
-	private static final String FOOD_COLUMN_ID = "f_ID";     // a column named "_id" is required for cursor
-	private static final String FOOD_COLUMN_FOOD_NAME = "food_Name";
-	private static final String FOOD_COLUMN_CARBOHYDRATES = "carbohydrates";
-	private static final String FOOD_COLUMN_PROTEIN = "protein";
-	private static final String FOOD_COLUMN_DIETARY_FIBRE = "dietary_Fibre";
-	private static final String FOOD_COLUMN_SODIUM = "sodium";
-	private static final String FOOD_COLUMN_FATS = "fats";
-	private static final String FOOD_COLUMN_IMAGE = "image";
-	private static final String TAG = "DBAdapter";
+		private static final String FOOD_TABLE_NAME = "Food";         // Food Table name
+		private static final String FOOD_COLUMN_ID = "f_ID";     // a column named "_id" is required for cursor
+		private static final String FOOD_COLUMN_FOOD_NAME = "food_Name";
+		private static final String FOOD_COLUMN_CALORIES ="calories";
+		private static final String FOOD_COLUMN_CARBOHYDRATES = "carbohydrates";
+		private static final String FOOD_COLUMN_PROTEIN = "protein";
+		private static final String FOOD_COLUMN_DIETARY_FIBRE = "dietary_Fibre";
+		private static final String FOOD_COLUMN_SODIUM = "sodium";
+		private static final String FOOD_COLUMN_FATS = "fats";
+		private static final String FOOD_COLUMN_CHOLESTROL = "cholestrol";
+		private static final String FOOD_COLUMN_IMAGE = "image";
+		private static final String TAG = "DBAdapter";
 	
 	
 	//Diet_Diary_detail table configuration
@@ -148,21 +150,24 @@ public class DBAdapter {
 	    
 //***************************** CREATE/INSERT METHOD******************************//
 
-		//Create/ insert Food table data
-		public long insertFoodData (int aId, String aFoodName, double aCarbohydrates, double aProtein, double aDietary_Fibre, double aSodium, double aFats, byte[] aImage ){ 
-			// We are using ContentValues to avoid sql format errors
-			ContentValues contentValues = new ContentValues();
-			contentValues.put(FOOD_COLUMN_ID, aId); 
-			contentValues.put(FOOD_COLUMN_FOOD_NAME, aFoodName);  
-			contentValues.put(FOOD_COLUMN_CARBOHYDRATES, aCarbohydrates);
-		    contentValues.put(FOOD_COLUMN_PROTEIN,  aProtein);
-		    contentValues.put(FOOD_COLUMN_DIETARY_FIBRE,  aDietary_Fibre);
-		    contentValues.put(FOOD_COLUMN_SODIUM,  aSodium);
-		    contentValues.put(FOOD_COLUMN_FATS,  aFats);
-		    contentValues.put(FOOD_COLUMN_IMAGE, aImage);
-    	    return db.insert(FOOD_TABLE_NAME, null, contentValues);
-    	
-		}
+	  //Create/ insert Food table data
+	  		public long insertData ( String aId, String aFoodName,double aCalories, double aCarbohydrates, double aProtein, double aDietary_Fibre, double aSodium, double aFats, double aCholestrol, String aImage ){ 
+	  			// we are using ContentValues to avoid sql format errors
+	              
+	  			ContentValues contentValues = new ContentValues();
+	  			contentValues.put(FOOD_COLUMN_ID, aId); 
+	  			contentValues.put(FOOD_COLUMN_FOOD_NAME, aFoodName); 
+	  			contentValues.put(FOOD_COLUMN_CALORIES, aCalories);
+	  			contentValues.put(FOOD_COLUMN_CARBOHYDRATES, aCarbohydrates);
+	  		    contentValues.put(FOOD_COLUMN_PROTEIN,  aProtein);
+	  		    contentValues.put(FOOD_COLUMN_DIETARY_FIBRE,  aDietary_Fibre);
+	  		    contentValues.put(FOOD_COLUMN_SODIUM,  aSodium);
+	  		    contentValues.put(FOOD_COLUMN_FATS,  aFats);
+	              contentValues.put(FOOD_COLUMN_CHOLESTROL, aCholestrol);
+	  		    contentValues.put(FOOD_COLUMN_IMAGE, aImage);
+	      	    return db.insert(FOOD_TABLE_NAME, null, contentValues);
+	      	
+	  		}
 		
 		//Create/ insert Diet_Diary_Details data
 		public long insertDietDiaryData(String cddDate, String cId, double cServingSize, int cCaloriesIntake, String cMealType){
@@ -223,17 +228,19 @@ public class DBAdapter {
 //******************************** GET ALL ITEM METHOD*********************************//		
 
 		//get all FOOD TABLE data
-		public Cursor getAllData() {
-			return db.query(FOOD_TABLE_NAME, new String[]{
-				FOOD_COLUMN_ID,
-				FOOD_COLUMN_FOOD_NAME, 
-				FOOD_COLUMN_CARBOHYDRATES,
-				FOOD_COLUMN_PROTEIN,
-				FOOD_COLUMN_SODIUM,
-				FOOD_COLUMN_FATS,
-				FOOD_COLUMN_IMAGE}, null, null, null, null, null);
-    		
-        }
+				public Cursor getAllData() {
+					return db.query(FOOD_TABLE_NAME, new String[]{
+							FOOD_COLUMN_ID,
+							FOOD_COLUMN_FOOD_NAME, 
+							FOOD_COLUMN_CALORIES,
+							FOOD_COLUMN_CARBOHYDRATES,
+							FOOD_COLUMN_PROTEIN,
+							FOOD_COLUMN_SODIUM,
+							FOOD_COLUMN_FATS,
+							FOOD_COLUMN_CHOLESTROL,
+							FOOD_COLUMN_IMAGE}, null, null, null, null, null);
+		    		
+		        }
 		
 		//get all DietDiaryDetails TABLE data
 		public Cursor getAllDietDiaryDetailsData(){
@@ -284,25 +291,26 @@ public class DBAdapter {
  //************************** GET SINGLE ITEM METHOD******************************//   	
     	
 		//get food item data
-		public Cursor getFood(int get_ID) {
-	
-			String selectQuery = "SELECT * FROM " + FOOD_TABLE_NAME + "WHERE " +FOOD_COLUMN_ID + "= " + get_ID; 
-			Log.e(TAG,selectQuery);
-			Cursor c = db.rawQuery(selectQuery, null);
-    
-			if(c != null)
-				c.moveToFirst();
-			Food fod= new Food();
-			fod.setF_ID(c.getInt(c.getColumnIndex(FOOD_COLUMN_ID)));
-			fod.setCarbohydrates(c.getDouble(c.getColumnIndex(FOOD_COLUMN_CARBOHYDRATES)));
-			fod.setProtein(c.getDouble(c.getColumnIndex(FOOD_COLUMN_PROTEIN)));
-			fod.setDietary_Fibre(c.getDouble(c.getColumnIndex(FOOD_COLUMN_DIETARY_FIBRE)));
-			fod.setSodium(c.getDouble(c.getColumnIndex(FOOD_COLUMN_SODIUM)));
-			fod.setFats(c.getDouble(c.getColumnIndex(FOOD_COLUMN_FATS)));
-			fod.setImage(c.getBlob(c.getColumnIndex(FOOD_COLUMN_IMAGE)));
-			return c;
-	
-		}
+				public Cursor getFood(String get_foodname) {
+			
+					String selectQuery = "SELECT * FROM " + FOOD_TABLE_NAME + "WHERE " +FOOD_COLUMN_FOOD_NAME + "= " + get_foodname; 
+					Log.e(TAG,selectQuery);
+					Cursor c = db.rawQuery(selectQuery, null);
+		    
+					if(c != null)
+						c.moveToFirst();
+					Food fod= new Food();
+					fod.setCalories(c.getDouble(c.getColumnIndex(FOOD_COLUMN_CALORIES)));
+					fod.setCarbohydrates(c.getDouble(c.getColumnIndex(FOOD_COLUMN_CARBOHYDRATES)));
+					fod.setProtein(c.getDouble(c.getColumnIndex(FOOD_COLUMN_PROTEIN)));
+					fod.setDietary_Fibre(c.getDouble(c.getColumnIndex(FOOD_COLUMN_DIETARY_FIBRE)));
+					fod.setSodium(c.getDouble(c.getColumnIndex(FOOD_COLUMN_SODIUM)));
+					fod.setFats(c.getDouble(c.getColumnIndex(FOOD_COLUMN_FATS)));
+					fod.setCholestrol(c.getDouble(c.getColumnIndex(FOOD_COLUMN_CHOLESTROL)));
+					fod.setImage(c.getString(c.getColumnIndex(FOOD_COLUMN_IMAGE)));
+					return c;
+			
+				}
 
 		//get DIETDIARYDETAILS item data
 		public Cursor getDietDiaryDetails(String get_DietDiaryDetailsDate){
@@ -379,21 +387,23 @@ public class DBAdapter {
 //*********************UPDATE METHOD**********************************************//
 
 		//Update food data
-		public int updateFood(Food updateFd){
-	
-			ContentValues values = new ContentValues();
-			values.put(FOOD_COLUMN_FOOD_NAME, updateFd.getFood_Name());
-			values.put(FOOD_COLUMN_CARBOHYDRATES, updateFd.getCarbohydrates());
-			values.put(FOOD_COLUMN_PROTEIN, updateFd.getProtein());
-			values.put(FOOD_COLUMN_DIETARY_FIBRE, updateFd.getDietary_Fibre());
-			values.put(FOOD_COLUMN_SODIUM, updateFd.getSodium());
-			values.put(FOOD_COLUMN_FATS, updateFd.getFats());
-			values.put(FOOD_COLUMN_IMAGE, updateFd.getImage());
-	
-			//update row
-			return db.update(FOOD_TABLE_NAME, values, FOOD_COLUMN_ID + "= ?", new String[] {String.valueOf(updateFd.getF_ID())});
-	
-		}
+				public int updateFood(Food updateFd){
+			
+					ContentValues values = new ContentValues();
+					values.put(FOOD_COLUMN_FOOD_NAME, updateFd.getFood_Name());
+					values.put(FOOD_COLUMN_CALORIES, updateFd.getCalories());
+					values.put(FOOD_COLUMN_CARBOHYDRATES, updateFd.getCarbohydrates());
+					values.put(FOOD_COLUMN_PROTEIN, updateFd.getProtein());
+					values.put(FOOD_COLUMN_DIETARY_FIBRE, updateFd.getDietary_Fibre());
+					values.put(FOOD_COLUMN_SODIUM, updateFd.getSodium());
+					values.put(FOOD_COLUMN_FATS, updateFd.getFats());
+				    values.put(FOOD_COLUMN_CHOLESTROL, updateFd.getCholestrol());
+					values.put(FOOD_COLUMN_IMAGE, updateFd.getImage());
+			
+					//update row
+					return db.update(FOOD_TABLE_NAME, values, FOOD_COLUMN_ID + "= ?", new String[] {String.valueOf(updateFd.getF_ID())});
+			
+				}
 		
 		//Update DietDiaryDetails data
 		public int updateDietDiaryDetails(DietDiaryDetails updateDd){
@@ -480,17 +490,17 @@ public class DBAdapter {
 			db.delete(DAILYSUMMARY_TABLE_NAME, DAILYSUMMARY_COLUMN_DATE + "= ?", new String[]{String.valueOf(deleteDS)});
 		}
     
-	//SEARCH METHOD
-		public Cursor searchFood(String search) throws SQLException {
-			Log.e(TAG,search);
-			String selectQuery = "SELECT FOOD_COLUMN_FOOD_NAME  FROM " + FOOD_TABLE_NAME + "WHERE " +FOOD_COLUMN_FOOD_NAME + "MATCH " + search ;
-			Log.e(TAG,selectQuery);
-			
-			Cursor c = db.rawQuery(selectQuery, null);
-			if(c!=null)
-				c.moveToFirst();
-			return c;
-		}
+		//SEARCH METHOD
+				public Cursor searchFood(String search) throws SQLException {
+					Log.e(TAG,search);
+					String selectQuery = "SELECT " + FOOD_COLUMN_FOOD_NAME + "," + FOOD_COLUMN_IMAGE + "  FROM " + FOOD_TABLE_NAME + "WHERE " +FOOD_COLUMN_FOOD_NAME + "LIKE " + "%"+  search  +"%";
+					Log.e(TAG,selectQuery);
+					
+					Cursor c = db.rawQuery(selectQuery, null);
+					if(c!=null)
+						c.moveToFirst();
+					return c;
+				}
     
   }
 
