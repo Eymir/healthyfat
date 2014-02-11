@@ -2,44 +2,54 @@ package com.myhealthmemo;
 
 import java.util.ArrayList;
 
-import com.myhealthmemo.adapter.DBAdapter;
-import com.myhealthmemo.adapter.SettingsAdapter;
-import com.myhealthmemo.model.SettingsItem;
-
 import android.app.Activity;
 import android.content.Intent;
-import android.content.res.TypedArray;
 import android.database.Cursor;
 import android.os.Bundle;
 import android.view.Menu;
-import android.view.MenuInflater;
 import android.view.View;
+import android.view.View.OnClickListener;
 import android.widget.AdapterView;
+import android.widget.Button;
+import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.ListView;
-import android.widget.SearchView;
 
-public class DietSearchActivity extends Activity implements SearchView.OnQueryTextListener,
-SearchView.OnCloseListener {
+import com.myhealthmemo.adapter.DBAdapter;
+import com.myhealthmemo.adapter.SearchAdapter;
+import com.myhealthmemo.model.SearchItem;
+
+
+public class DietSearchActivity extends Activity {
 	 
 	
-	private SearchView searchView;
+	private EditText searchText;
+	private Button searchbtn;
 	private String[] listitem;
-	private TypedArray listicon;
+	private String[] listname;
 	private ListView mListView;
 	private DBAdapter db;
+	private String path;
+	private String dd;
+	private String names;
+	private ImageView pp;
+	ArrayList imageList = new ArrayList();
+	private String mealMenuList;
     
 	@Override
 	public void onCreate(Bundle savedInstanceState){
 	   	super.onCreate(savedInstanceState);
 	   	setContentView(R.layout.dummy_diet_fragment_search);
-	    searchView = (SearchView) findViewById(R.id.searchView1);
-        searchView.setIconifiedByDefault(false);
-        searchView.setOnQueryTextListener(this);
-        searchView.setOnCloseListener(this);
-        SettingsAdapter sa = new SettingsAdapter(this, generateData());
+	    searchText = (EditText) findViewById(R.id.searchEdit);
+        searchbtn = (Button)findViewById(R.id.btnSearch);
+        SearchAdapter sa = new SearchAdapter(this, generateData());
         mListView = (ListView) findViewById(R.id.list);
         mListView.setAdapter(sa);
         mListView.setOnItemClickListener(new ListViewClick());
+       
+      //get bundle
+  	  Bundle b = this.getIntent().getExtras();
+  	   mealMenuList=  b.getString("mealmenu");
 
         //call database here
         db = new DBAdapter(this);
@@ -48,10 +58,35 @@ SearchView.OnCloseListener {
         
      }
 	
-	private ArrayList<SettingsItem> generateData(){
-		return null;
-		// call from database
+
+	int Counter=0;
+	private ArrayList<SearchItem> generateData(){
+		final ArrayList<SearchItem> searchItem = new ArrayList<SearchItem> ();
+		
+		 searchbtn.setOnClickListener(new OnClickListener(){
+	        	@Override 
+	        	public void onClick(View v){
+	        		Cursor cursor = db.searchFood((v!= null ? v.toString() : "@@@@"));
+	        		if(cursor.moveToFirst()){	
+	        			do{
+	        				
+	        				//path = c.getString(c.getColumnIndex("image"));
+	        				//byte [] encodeByte=Base64.decode(path,Base64.DEFAULT);
+	        				//Bitmap myBitmap = BitmapFactory.decodeByteArray(encodeByte, 0, encodeByte.length);			
+	        				dd = cursor.getString(cursor.getColumnIndex("food_Name"));
+	        				//searchItem.add(new SearchItem(myBitmap, dd));
+	        			
+	        		
+	        			}while(cursor.moveToNext());
+	        	            
+	        		}
+	        	}
+	        	
+		 });
+		return searchItem;
+		
 	}
+	
 	
 	private class ListViewClick implements ListView.OnItemClickListener{
 
@@ -59,13 +94,18 @@ SearchView.OnCloseListener {
 		public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
 			displayView(position);
 		}
-}
+		
+	}
+	
 	
 	private void displayView(int position) {
-		Intent mIntent = null;
 		switch (position) {
 		case 0:
-			mIntent = new Intent(this.getApplicationContext(), DummyDietServingSizeActivity.class);
+			final Intent mIntent = new Intent(this.getApplicationContext(), DummyDietServingSizeActivity.class);
+			Bundle extras = mIntent.getExtras();
+			extras.putString("Food_Name", dd);
+			extras.putString("mealmenu", mealMenuList);
+			//extras.putString("Image" , myBitmap);
 			startActivity(mIntent);
 			break;
 
@@ -79,36 +119,6 @@ SearchView.OnCloseListener {
 	        }
 	    }	 
 
-	@Override
-	public boolean onClose() {
-		showResults("");
-		return false;
-	}
-
-	@Override
-	public boolean onQueryTextChange(String newText) {
-		showResults(newText + "*");
-		return false;
-	}
-
-	@Override
-	public boolean onQueryTextSubmit(String query) {
-		showResults(query + "*");
-		return false;
-	}
-	
-	//Searching
-	private void showResults(String query) {
-		Cursor cursor = db.searchFood((query != null ? query.toString() : "@@@@"));
-		if (cursor == null) {
-            //
-        } 
-		else{
-			
-		}
-		
-	
-    }
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
 		// Inflate the menu; this adds items to the action bar if it is present.
