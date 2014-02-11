@@ -21,7 +21,7 @@ import android.widget.Button;
 import android.widget.TabHost;
 import android.widget.TextView;
 
-import com.myhealthmemo.adapter.DateUtils;
+import com.myhealthmemo.common.DateUtils;
 import com.myhealthmemo.piechart.PieChart;
 
 public class DummyHPFragment extends Fragment implements OnClickListener {
@@ -67,19 +67,19 @@ public class DummyHPFragment extends Fragment implements OnClickListener {
 		mTabHost = (FragmentTabHost) rootView.findViewById(R.id.fragmentTab);
 		mTabHost.setup(getActivity(), getChildFragmentManager(), R.layout.fragment_tabhost);
 		Bundle arg1 = new Bundle();
-		mTabHost.addTab(mTabHost.newTabSpec("TabHostTextView1").setIndicator("Daily"),
+		mTabHost.addTab(mTabHost.newTabSpec("TabHostTextView1").setIndicator(""),
 			HealthyPlateDailyFragment.class, arg1);
 
 		Bundle arg2 = new Bundle();
-		mTabHost.addTab(mTabHost.newTabSpec("TabHostTextView2").setIndicator("Breakfast"),
+		mTabHost.addTab(mTabHost.newTabSpec("TabHostTextView2").setIndicator(""),
 			HealthyPlateBreakfastFragment.class, arg2);
 		
 		Bundle arg3 = new Bundle();
-		mTabHost.addTab(mTabHost.newTabSpec("TabHostTextView3").setIndicator("Lunch"),
+		mTabHost.addTab(mTabHost.newTabSpec("TabHostTextView3").setIndicator(""),
 			HealthyPlateLunchFragment.class, arg3);
 		
 		Bundle arg4 = new Bundle();
-		mTabHost.addTab(mTabHost.newTabSpec("TabHostTextView4").setIndicator("Dinner"),
+		mTabHost.addTab(mTabHost.newTabSpec("TabHostTextView4").setIndicator(""),
 			HealthyPlateDinnerFragment.class, arg4);
 		return rootView;
 	}

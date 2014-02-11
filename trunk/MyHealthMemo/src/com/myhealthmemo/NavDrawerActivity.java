@@ -1,5 +1,11 @@
 package com.myhealthmemo;
 
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.OutputStream;
 import java.util.ArrayList;
 
 import android.app.ActionBar;
@@ -7,6 +13,7 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.res.Configuration;
 import android.content.res.TypedArray;
+import android.database.sqlite.SQLiteException;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.support.v4.app.ActionBarDrawerToggle;
@@ -21,6 +28,7 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ListView;
 
+import com.myhealthmemo.adapter.DBAdapter;
 import com.myhealthmemo.adapter.NavDrawerListAdapter;
 import com.myhealthmemo.model.NavDrawerItem;
 
@@ -47,16 +55,6 @@ public class NavDrawerActivity extends FragmentActivity {
 		setContentView(R.layout.activity_main);
 		PreferenceManager.setDefaultValues(NavDrawerActivity.this, R.xml.user_profile, false);
 		mPrefs = PreferenceManager.getDefaultSharedPreferences(this);
-		/*
-		 * If "firstrun" is true, navigate to PreLogin Screen
-		 * commit the prefs to take note the "firstrun" is now false
-		 */
-		
-		if (mPrefs.getBoolean("firstrun", true)) {
-			
-			mIntent = new Intent (this, PreActivity.class);
-			startActivity(mIntent);
-		}
 		mTitle = mDrawerTitle = getTitle();
 		
 		//load slide menu items
@@ -71,24 +69,6 @@ public class NavDrawerActivity extends FragmentActivity {
 		
 		navDrawerItems = new ArrayList<NavDrawerItem>();
 		
-		//adding nav drawer items to array
-		//Home
-		navDrawerItems.add(new NavDrawerItem(navMenuTitles[0], navMenuIcons.getResourceId(0, -1)));
-		//Diet Diary
-		navDrawerItems.add(new NavDrawerItem(navMenuTitles[1], navMenuIcons.getResourceId(1, -1)));
-		//Activity Diary
-		navDrawerItems.add(new NavDrawerItem(navMenuTitles[2], navMenuIcons.getResourceId(2, -1)));
-		//Weight Tracker
-		navDrawerItems.add(new NavDrawerItem(navMenuTitles[3], navMenuIcons.getResourceId(3, -1)));
-		//My Healthy Plate
-		navDrawerItems.add(new NavDrawerItem(navMenuTitles[4], navMenuIcons.getResourceId(4, -1)));
-		//Guides/Tips
-		navDrawerItems.add(new NavDrawerItem(navMenuTitles[5], navMenuIcons.getResourceId(5, -1)));
-		//Settings
-		navDrawerItems.add(new NavDrawerItem(navMenuTitles[6], navMenuIcons.getResourceId(6, -1)));
-		
-		//Recycle the typed array
-		navMenuIcons.recycle();
 		
 		mDrawerList.setOnItemClickListener(new SlideMenuClickListener());
 		
@@ -124,10 +104,9 @@ public class NavDrawerActivity extends FragmentActivity {
 			// on first time display view for first nav item
 			displayView(0);
 		}
-		
 	}
 	
-	/**
+	/** 
 	 * Slide menu item click listener
 	 **/
 	private class SlideMenuClickListener implements ListView.OnItemClickListener {
@@ -188,16 +167,31 @@ public class NavDrawerActivity extends FragmentActivity {
 			fragment = new ActivityDiaryFragment();
 			break;
 		case 3:
-			fragment = new WeightTrackerFragment();
+			if(mPrefs.getString("education", "").equals("Primary")){
+				fragment = new HealthyPlateFragment();
+			} else {
+				fragment = new WeightTrackerFragment();
+			}
 			break;
 		case 4:
-			fragment = new HealthyPlateFragment();
+			if(mPrefs.getString("education", "").equals("Primary")){
+				fragment = new GuideTipsFragment();
+			} else {
+				fragment = new HealthyPlateFragment();
+			}
 			break;
 		case 5:
-			fragment = new GuideTipsFragment();
+			if(mPrefs.getString("education", "").equals("Primary")){
+				fragment = new SettingsFragment();
+			} else {
+				fragment = new GuideTipsFragment();
+			}
 			break;
 		case 6:
-			fragment = new SettingsFragment();
+			if(mPrefs.getString("education", "").equals("Primary")){
+			} else {
+				fragment = new SettingsFragment();
+			}
 			break;
 		default:
 			break;
@@ -248,10 +242,41 @@ public class NavDrawerActivity extends FragmentActivity {
 	}
 	
 	@Override
+	protected void onStart(){
+		super.onStart();
+		//adding nav drawer items to array
+		//Home
+		navDrawerItems.add(new NavDrawerItem(navMenuTitles[0], navMenuIcons.getResourceId(0, -1)));
+		//Diet Diary
+		navDrawerItems.add(new NavDrawerItem(navMenuTitles[1], navMenuIcons.getResourceId(1, -1)));
+		//Activity Diary
+		navDrawerItems.add(new NavDrawerItem(navMenuTitles[2], navMenuIcons.getResourceId(2, -1)));
+		if(mPrefs.getString("education", "").equals("Secondary")){
+			//Weight Tracker
+			navDrawerItems.add(new NavDrawerItem(navMenuTitles[3], navMenuIcons.getResourceId(3, -1)));
+		}
+		//My Healthy Plate
+		navDrawerItems.add(new NavDrawerItem(navMenuTitles[4], navMenuIcons.getResourceId(4, -1)));
+		//Guides/Tips
+		navDrawerItems.add(new NavDrawerItem(navMenuTitles[5], navMenuIcons.getResourceId(5, -1)));
+		//Settings
+		navDrawerItems.add(new NavDrawerItem(navMenuTitles[6], navMenuIcons.getResourceId(6, -1)));
+		
+		//Recycle the typed array
+		navMenuIcons.recycle();
+	}
+	
+	@Override
 	protected void onResume() {
 		super.onResume();
 		
+	
+		
+		
+		
 		
 	}
+	
+	
 
 }

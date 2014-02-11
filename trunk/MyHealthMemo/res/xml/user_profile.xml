@@ -26,8 +26,7 @@
    	    android:key = "education" />
    	
    	<EditTextPreference
-   	    android:key = "school"
-   	    android:title = "School" />
+   	    android:key = "school" />
    	
    	<EditTextPreference
    	    android:key = "class" />
@@ -48,9 +47,12 @@
    	    android:key = "daily_calories_need" />
    	
    	<EditTextPreference
+   	    android:key = "weight_status" />
+   	
+   	<EditTextPreference
    	    android:key = "firstrun" />
    	
    	<EditTextPreference
-   	    android:key = "targetweightnotset" />
+   	    android:key = "targetweightnotset"/>
 
 </PreferenceScreen>

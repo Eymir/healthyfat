@@ -14,6 +14,8 @@
     <!-- Menu -->
     <string name="nav_fwd">Navigation to FirstTimer2Activity</string>
     <string name="accept">Navigation to MainActivity</string>
+    <string name="nav_add"> Navigation to DietMenuList</string>
+    <string name="nav_edit">Navigation to edit Main page</string>
 
     <!-- Dialogs -->
     <string name="decimal_Point">.</string>
@@ -107,7 +109,7 @@
         <item>@drawable/ic_abtus</item>
     </array>
 
-    <!-- Meal Item List -->
+    <!-- Meal Item List Item Title -->
     <string-array name="mealitem">
         <item>Breakfast</item>
         <item>Lunch</item>
@@ -116,7 +118,7 @@
         <item>Supper</item>
     </string-array>
 
-    <!-- Meal Item List -->
+    <!-- Meal Item List Item Arrow Icons -->
     <string-array name="mealicon">
         <item>@drawable/ic_triangle_arrow</item>
         <item>@drawable/ic_triangle_arrow</item>
@@ -125,7 +127,7 @@
         <item>@drawable/ic_triangle_arrow</item>
     </string-array>
 
-    <!-- Meal Item List -->
+    <!-- Meal Item List Item Icons -->
     <string-array name="mealicon2">
         <item>@drawable/ic_breakfast</item>
         <item>@drawable/ic_lunch</item>
@@ -174,9 +176,6 @@
 
     <!-- Diet Tracker -->
     <string name="select_meal">Select Meal</string>
-    <!-- Diet items icon -->
-    <string name="nav_add"> Navigation to DietMenuList</string>
-    <string name="nav_edit">Navigation to edit Main page</string>
 
     <!-- Weight Tracker -->
     <string name="starting">Starting Weight</string>
@@ -192,5 +191,6 @@
     <string name="title_activity_dummy_hpfragment">DummyHPFragment</string>
     <string name="title_activity_calories_chart">CaloriesChartActivity</string>
     <string name="title_activity_dummy_calories_chart_fragment">DummyCaloriesChartFragment</string>
+    <string name="title_activity_activity__list_of__activities">Activity_List_of_Activities</string>
 
 </resources>

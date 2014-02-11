@@ -2,23 +2,23 @@ package com.myhealthmemo.model;
 
 public class Food {
 
-private String f_ID;
+private int f_ID;
 	private String food_Name;
 	private double carbohydrates;
 	private double protein;
-	private  double dietary_Fibre;
+	private double dietary_Fibre;
 	private double sodium;
 	private double fats;
 	private String meat_Category_ID;
 	private  String vegetable_Category_ID;
 	private String rice_Cereal_Category_ID;
-	private String image;
+	private byte[] image;
 
 	public Food() {
 		
 	}
 
-	public Food(String f_ID, String food_Name, double carbohydrates,double protein, double dietary_Fibre, double sodium, double fats,String meat_Category_ID, String vegetable_Category_ID,String rice_Cereal_Category_ID, String image) {
+	public Food(int f_ID, String food_Name, double carbohydrates,double protein, double dietary_Fibre, double sodium, double fats, byte[] image) {
 		super();
 		this.f_ID = f_ID;
 		this.food_Name = food_Name;
@@ -27,26 +27,23 @@ private String f_ID;
 		this.dietary_Fibre = dietary_Fibre;
 		this.sodium = sodium;
 		this.fats = fats;
-		this.meat_Category_ID = meat_Category_ID;
-		this.vegetable_Category_ID = vegetable_Category_ID;
-		this.rice_Cereal_Category_ID = rice_Cereal_Category_ID;
 		this.image = image;
 	
 	}
 
-	public String getImage() {
+	public byte[] getImage() {
 		return image;
 	}
 
-	public void setImage(String image) {
+	public void setImage(byte[] image) {
 		this.image = image;
 	}
 
-	public String getF_ID() {
+	public int getF_ID() {
 	  	return f_ID;
 	}
 
-	public void setF_ID(String f_ID) {
+	public void setF_ID(int f_ID) {
 		this.f_ID = f_ID;
 	}
 

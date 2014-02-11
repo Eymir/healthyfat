@@ -11,7 +11,7 @@ import org.joda.time.DateTime;
 
 import com.myhealthmemo.R;
 import com.myhealthmemo.adapter.ExpandableListAdapter;
-import com.myhealthmemo.adapter.DateUtils;
+import com.myhealthmemo.common.DateUtils;
 
 import android.os.Bundle;
 import android.content.Intent;
