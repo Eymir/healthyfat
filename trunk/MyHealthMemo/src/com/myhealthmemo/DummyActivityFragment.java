@@ -23,7 +23,7 @@ import android.widget.ListView;
 import android.widget.TextView;
 
 import com.myhealthmemo.adapter.ActivityArrayAdapter;
-import com.myhealthmemo.adapter.DateUtils;
+import com.myhealthmemo.common.DateUtils;
 import com.myhealthmemo.model.ActivityItem;
 
 public class DummyActivityFragment extends Fragment implements OnClickListener {

@@ -24,7 +24,9 @@ public class DatePickerFragment extends DialogFragment {
 		DatePickerDialog dpd = new DatePickerDialog(getActivity(), (PreActivity)getActivity(), mYear, mMonth, mDay);
 		DateTime currentDate = new DateTime();
 		int a = currentDate.getYear()-6;
-		DateTime maxDate = new DateTime(a,12,31,0,0,0);
+		int c = currentDate.getDayOfMonth();
+		int d = currentDate.getMonthOfYear();
+		DateTime maxDate = new DateTime(a,d,c,0,0,0);
 		Date maxDateJava = maxDate.toDate();
 		dpd.getDatePicker().setMaxDate(maxDateJava.getTime());
 		int b = currentDate.getYear()-18;

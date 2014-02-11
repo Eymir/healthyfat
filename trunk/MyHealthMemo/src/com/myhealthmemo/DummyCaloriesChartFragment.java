@@ -22,7 +22,7 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.TextView;
 
-import com.myhealthmemo.adapter.DateUtils;
+import com.myhealthmemo.common.DateUtils;
 import com.myhealthmemo.piechart.PieChart;
 
 public class DummyCaloriesChartFragment extends Fragment implements OnClickListener {

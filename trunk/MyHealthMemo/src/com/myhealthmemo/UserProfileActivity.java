@@ -11,7 +11,6 @@ import java.util.Locale;
 
 import android.app.Activity;
 import android.app.Dialog;
-import android.content.ContentValues;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.database.Cursor;
@@ -64,7 +63,7 @@ public class UserProfileActivity extends Activity implements OnClickListener,
 	private static final int mReq_ID = 0;
 	private static final int mCamReq_ID = 1;
 	private Drawable profile_pic;
-	private Bitmap photo,orig;
+	private Bitmap photo;
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -255,8 +254,7 @@ public class UserProfileActivity extends Activity implements OnClickListener,
 		 */
 		mTakePhoto.setOnClickListener(new OnClickListener(){
 			@Override
-			public void onClick(View v){
-				ContentValues values = new ContentValues();			
+			public void onClick(View v){	
 				mIntent = new Intent("android.media.action.IMAGE_CAPTURE");
 				startActivityForResult(mIntent, mCamReq_ID);
 				mDialog.dismiss();
@@ -285,7 +283,7 @@ public class UserProfileActivity extends Activity implements OnClickListener,
 		final NumberPicker mNumPk = (NumberPicker) mDialog.findViewById(R.id.number_Picker);
 		int a = Integer.parseInt(mPrefs.getString("height", ""));
 		mNumPk.setMaxValue(200);
-		mNumPk.setMinValue(0);
+		mNumPk.setMinValue(100);
 		mNumPk.setValue(a);
 		mNumPk.setOnValueChangedListener(this);
 		mBtn.setOnClickListener(new OnClickListener(){
@@ -293,7 +291,9 @@ public class UserProfileActivity extends Activity implements OnClickListener,
 			public void onClick(View v) {
 				mPrefsEdit.putString("height", String.valueOf(mNumPk.getValue()));
 				String w = mPrefs.getString("weight", "");
-				mPrefsEdit.putString("bmi", calculateBMI(String.valueOf(mNumPk.getValue()),w));
+				String bmi = calculateBMI(String.valueOf(mNumPk.getValue()),w);
+				mPrefsEdit.putString("bmi", bmi);
+				mPrefsEdit.putString("weight_status",calculateWeightStatus(bmi));
 				mPrefsEdit.putString("daily_calories_need", calculateDCN(String.valueOf(mNumPk.getValue()),w));
 				mPrefsEdit.commit();
 				mDialog.dismiss();
@@ -379,6 +379,330 @@ public class UserProfileActivity extends Activity implements OnClickListener,
 				int int_dcn = (int) Math.round(daily_calories_need);
 				return String.valueOf(int_dcn);
 			}
+			
+			public String calculateWeightStatus(String e){
+				int age = calculateAge(mPrefs.getString("dob", ""));
+				double body = Double.parseDouble(e);
+				String weight_status = null;
+				if(mPrefs.getString("gender", "").equals("Male") ) {
+					if(age == 6 ){
+						if (body < 12.8){	
+							weight_status = "Severely Underweight";		
+						} else if (body >=12.9 && body < 13.1){		
+							weight_status = "Underweight";
+						} else if (body >=13.2 && body < 18.8){
+							weight_status = "Acceptable Weight";
+						} else if (body >= 18.9 && body <21.4 ){
+							weight_status = "Overweight";
+						} else if (body >=21.5 ){
+							weight_status = "Severely Overweight";
+						}
+					} else if (age == 7){
+						if(body <13.0){
+							weight_status = "Severely Underweight";
+						} else if (body >=13.1 && body <13.3 ){
+							weight_status = "Underweight";
+						} else if (body >=13.3 && body <19.8 ){
+							weight_status = "Acceptable Weight";
+						} else if(body >=19.9 && body < 23.0 ){
+							weight_status = "Overweight";
+						} else if (body >=23.1 ){
+							weight_status = "Severely Overweight";
+						}
+					} else if (age == 8){
+						if(body <13.2  ){
+							weight_status = "Severely Underweight";
+						} else if (body >=13.3 && body <13.6  ){
+							weight_status = "Underweight";
+						} else if (body >=13.7 && body <20.9  ){
+							weight_status = "Acceptable Weight";
+						} else if(body >=21 && body <24.6  ){
+							weight_status = "Overweight";
+						} else if (body >= 24.7){
+							weight_status = "Severely Overweight";
+						}
+					} else if (age == 9){
+						if(body <13.5){
+							weight_status = "Severely Underweight";
+						} else if (body >=13.6 && body <13.8 ){
+							weight_status = "Underweight";
+						} else if (body >=13.9 && body <21.8){
+							weight_status = "Acceptable Weight";
+						} else if(body >=21.9 && body <26.0){
+							weight_status = "Overweight";
+						} else if (body >=26.1){
+							weight_status = "Severely Overweight";
+						}
+					} else if (age == 10){
+						if(body <13.8){
+							weight_status = "Severely Underweight";
+						} else if (body >=13.9 &&  body <14.1){
+							weight_status = "Underweight";
+						} else if (body >=14.2 && body < 22.7 ){
+							weight_status = "Acceptable Weight";
+						} else if(body >=22.8 && body < 27.3){
+							weight_status = "Overweight";
+						} else if (body >=27.4 ){
+							weight_status = "Severely Overweight";
+						}
+					} else if (age == 11){
+						if(body <14.1){
+							weight_status = "Severely Underweight";
+						} else if (body >= 14.2 && body < 14.5){
+							weight_status = "Underweight";
+						} else if (body >=14.6 && body < 23.6){
+							weight_status = "Acceptable Weight";
+						} else if(body >=23.7 && body < 28.3){
+							weight_status = "Overweight";
+						} else if (body >=28.4){
+							weight_status = "Severely Overweight";
+						}
+					} else if (age == 12){
+						if(body <14.4){
+							weight_status = "Severely Underweight";
+						} else if (body >=14.5 && body <14.8){
+							weight_status = "Underweight";
+						} else if (body >=14.9 && body <24.3){
+							weight_status = "Acceptable Weight";
+						} else if(body >=24.4 && body <29.2){
+							weight_status = "Overweight";
+						} else if (body >=29.3){
+							weight_status = "Severely Overweight";
+						}
+					} else if (age == 13){
+						if(body <14.7){
+							weight_status = "Severely Underweight";
+						} else if (body >=14.8 && body < 15.1){
+							weight_status = "Underweight";
+						} else if (body >=15.2 && body < 25.0){
+							weight_status = "Acceptable Weight";
+						} else if(body >=25.1 && body < 30.0){
+							weight_status = "Overweight";
+						} else if (body >=30.1){
+							weight_status = "Severely Overweight";
+						}
+					}else if (age == 14){
+						if(body <15.0){
+							weight_status = "Severely Underweight";
+						} else if (body >=15.1 && body <15.4){
+							weight_status = "Underweight";
+						} else if (body >=15.5 && body < 25.5){
+							weight_status = "Acceptable Weight";
+						} else if(body >=25.6 && body < 30.6){
+							weight_status = "Overweight";
+						} else if (body >=30.7){
+							weight_status = "Severely Overweight";
+						}
+					} else if (age == 15){
+						if(body <15.3){
+							weight_status = "Severely Underweight";
+						} else if (body >=15.4 && body < 15.8){
+							weight_status = "Underweight";
+						} else if (body >=15.9 && body <26.1){
+							weight_status = "Acceptable Weight";
+						} else if(body >=26.2 && body < 31.2){  
+							weight_status = "Overweight";
+						} else if (body >=31.3){
+							weight_status = "Severely Overweight";	
+						}
+					} else if (age == 16){
+						if(body <15.6){				
+							weight_status = "Severely Underweight";
+						} else if (body >=15.7 && body <16.1 ){
+							weight_status = "Underweight";
+						} else if (body >=16.2 && body <26.5 ){
+							weight_status = "Acceptable Weight";
+						} else if(body >=26.6 && body <31.7 ){
+							weight_status = "Overweight";
+						} else if (body >=31.8){
+							weight_status = "Severely Overweight";
+						}
+					} else if (age == 17){
+						if(body <15.9  ){
+							weight_status = "Severely Underweight";
+						} else if (body >=16.0 && body < 16.3){
+							weight_status = "Underweight";
+						} else if (body >=16.4 && body < 27.0){
+							weight_status = "Acceptable Weight";
+						} else if(body >= 27.1 && body < 32.1){
+							weight_status = "Overweight";
+						} else if (body >=32.2){
+							weight_status = "Severely Overweight";
+						}
+					} else if (age == 18){
+						if(body <16.1  ){
+							weight_status = "Severely Underweight";
+						} else if (body >=16.2 && body < 16.6 ){
+							weight_status = "Underweight";
+						} else if (body >=16.7 && body < 27.4 ){
+							weight_status = "Acceptable Weight";
+						} else if(body >=27.5 && body <32.4 ){
+							weight_status = "Overweight";
+						} else if (body >=32.5 ){
+							weight_status = "Severely Overweight";
+						}
+					}
+				} else if (mPrefs.getString("gender", "").equals("Female")){
+					if(age == 6 ){	
+						if (body <12.6){	
+							weight_status = "Severely Underweight";		
+						} else if (body >=12.7 && body < 12.8){
+							weight_status = "Underweight";
+						} else if (body >=12.9 && body< 18.3){	 
+							weight_status = "Acceptable Weight";
+						} else if (body >= 18.4 && body < 20.5 ){
+							weight_status = "Overweight";
+						} else if (body >=20.6 ){
+							weight_status = "Severely Overweight";
+						}
+					} else if (age == 7){
+						if (body <12.8){
+							weight_status = "Severely Underweight";
+						} else if (body >=12.9 && body< 13.1 ){
+							weight_status = "Underweight";
+						} else if (body >=13.2 && body< 19.1 ){		 	 
+							weight_status = "Acceptable Weight";
+						} else if (body >= 19.2 && body< 21.8   ){
+							weight_status = "Overweight";
+						} else if (body>=21.9){
+							weight_status = "Severely Overweight";
+						}
+					} else if (age == 8){
+						if (body <13.1){
+							weight_status = "Severely Underweight";
+						} else if (body >=13.2 && body<13.4){
+							weight_status = "Underweight";
+						} else if (body >= 13.5 && body< 20.1  ){
+							weight_status = "Acceptable Weight";
+						} else if (body >= 20.2 && body< 23.1  ){
+							weight_status = "Overweight";
+						} else if (body>=23.2  ){
+							weight_status = "Severely Overweight";
+						}
+					} else if (age == 9){
+						if (body <13.4){
+							weight_status = "Severely Underweight";
+						} else if (body >=13.5 && body<13.7 ){
+							weight_status = "Underweight";
+						} else if (body >= 13.8 && body< 21.0 ){
+							weight_status = "Acceptable Weight";
+						} else if (body >= 21.1 && body< 24.4    ){
+							weight_status = "Overweight";
+						} else if (body>= 24.5 ){
+							weight_status = "Severely Overweight";
+						}
+					} else if (age == 10){
+						if (body <13.7){
+							weight_status = "Severely Underweight";
+						} else if (body >=13.8 && body<14.1 ){
+							weight_status = "Underweight";
+						} else if (body >= 14.2 && body< 21.9  ){ 
+							weight_status = "Acceptable Weight";
+						} else if (body >= 22 && body< 25.6 ){
+							weight_status = "Overweight";	
+						} else if (body>= 26.7 ){
+							weight_status = "Severely Overweight";
+						}
+					} else if (age == 11){	
+						if (body <14.1){
+							weight_status = "Severely Underweight";
+						} else if (body >=14.2 && body< 14.4){
+							weight_status = "Underweight";
+						} else if (body >= 14.5 && body< 22.7 ){
+							weight_status = "Acceptable Weight";
+						} else if (body >= 22.8 && body< 26.6){
+							weight_status = "Overweight";
+						} else if (body>= 26.7 ){
+							weight_status = "Severely Overweight";
+						}
+					} else if (age == 12){
+						if (body <14.4){
+							weight_status = "Severely Underweight";
+						 } else if (body >=14.5 && body <14.8){
+							 weight_status = "Underweight";
+						 } else if (body >= 14.9 && body< 23.4 ){
+							 weight_status = "Acceptable Weight";
+						 } else if (body >= 23.5 && body< 27.5){
+							 weight_status = "Overweight";
+						 } else if (body>= 27.6 ){
+							 weight_status = "Severely Overweight";
+						 }
+					} else if (age == 13){
+						if (body <14.8){
+							weight_status = "Severely Underweight";
+						} else if (body >=14.9 && body <15.2){
+							weight_status = "Underweight";
+						} else if (body >= 15.3 && body< 24.0){
+							weight_status = "Acceptable Weight";
+						} else if (body > 24.1 && body< 28.3){
+							weight_status = "Overweight";
+						} else if (body>= 28.4 ){
+							weight_status = "Severely Overweight";
+						}
+					} else if (age == 14){
+						if (body <15.1){
+							weight_status = "Severely Underweight";
+						} else if (body >=15.2 && body< 15.5){
+							weight_status = "Underweight";
+						} else if (body >= 15.6 && body< 24.6){ 
+							weight_status = "Acceptable Weight";
+						} else if (body > 24.7 && body< 28.9){
+							weight_status = "Overweight";
+						} else if (body>= 29){
+							weight_status = "Severely Overweight";
+						}
+					} else if (age == 15){
+						if (body <15.4){
+							weight_status = "Severely Underweight";
+						} else if (body >=15.5 && body< 15.8){
+							weight_status = "Underweight";
+						} else if (body >= 15.9 && body< 25.0){
+							weight_status = "Acceptable Weight";
+						} else if (body >= 25.1 && body< 29.4){
+							weight_status = "Overweight";
+						} else if (body>= 29.5){
+							weight_status = "Severely Overweight";
+						}
+					} else if (age == 16){
+						if (body <15.7){
+							weight_status = "Severely Underweight";
+						} else if (body >=15.8 && body< 16.1){
+							weight_status = "Underweight";
+						} else if (body >= 16.2 && body< 25.4){
+							weight_status = "Acceptable Weight";
+						} else if (body >= 25.5 && body< 29.7 ){
+							weight_status = "Overweight";
+						} else if (body>= 29.8){
+							weight_status = "Severely Overweight";
+						}
+					} else if (age == 17){
+						if (body <15.9){
+							weight_status = "Severely Underweight";
+						} else if (body >=16.0 && body< 16.3){
+							weight_status = "Underweight";
+						} else if (body >= 16.4 && body< 25.9){
+							weight_status = "Acceptable Weight";
+						} else if (body >= 26.0 && body< 30.0 ){
+							weight_status = "Overweight";
+						} else if (body>= 31.0){
+							weight_status = "Severely Overweight";
+						}
+					} else if (age == 18){
+						if (body <16.1){
+							weight_status = "Severely Underweight";
+						} else if (body >=16.2 && body< 16.5){
+							weight_status = "Underweight";
+						} else if (body >= 16.6 && body< 25.9){
+							weight_status = "Acceptable Weight";
+						} else if (body >= 26.0 && body< 30.3 ){
+							weight_status = "Overweight";
+						} else if (body>= 30.4 ){
+							weight_status = "Severely Overweight";
+						}
+					}	
+				}
+				return weight_status;
+			}
 		});
 		mDialog.show();
 	}
@@ -409,7 +733,9 @@ public class UserProfileActivity extends Activity implements OnClickListener,
 			public void onClick(View v) {
 				mPrefsEdit.putString("weight", String.valueOf(mNumPk.getValue()) + "." + String.valueOf(mNumPk2.getValue()));
 				String h = mPrefs.getString("height", "");
-				mPrefsEdit.putString("bmi", calculateBMI(h, String.valueOf(mNumPk.getValue()) + "." + String.valueOf(mNumPk2.getValue())));
+				String bmi = calculateBMI(h, String.valueOf(mNumPk.getValue()) + "." + String.valueOf(mNumPk2.getValue()));
+				mPrefsEdit.putString("bmi", bmi);
+				mPrefsEdit.putString("weight_status", calculateWeightStatus(bmi));
 				mPrefsEdit.putString("daily_calories_need", calculateDCN(h, String.valueOf(mNumPk.getValue()) + "." + String.valueOf(mNumPk2.getValue())));
 				mPrefsEdit.commit();
 				mDialog.dismiss();
@@ -495,6 +821,330 @@ public class UserProfileActivity extends Activity implements OnClickListener,
 				int int_dcn = (int) Math.round(daily_calories_need);
 				return String.valueOf(int_dcn);
 			}
+			
+			public String calculateWeightStatus(String e){
+				int age = calculateAge(mPrefs.getString("dob", ""));
+				double body = Double.parseDouble(e);
+				String weight_status = "";
+				if(mPrefs.getString("gender", "").equals("Male") ) {
+					if(age == 6 ){
+						if (body < 12.8){	
+							weight_status = "Severely Underweight";		
+						} else if (body >=12.9 && body < 13.1){		
+							weight_status = "Underweight";
+						} else if (body >=13.2 && body < 18.8){
+							weight_status = "Acceptable Weight";
+						} else if (body >= 18.9 && body <21.4 ){
+							weight_status = "Overweight";
+						} else if (body >=21.5 ){
+							weight_status = "Severely Overweight";
+						}
+					} else if (age == 7){
+						if(body <13.0){
+							weight_status = "Severely Underweight";
+						} else if (body >=13.1 && body <13.3 ){
+							weight_status = "Underweight";
+						} else if (body >=13.3 && body <19.8 ){
+							weight_status = "Acceptable Weight";
+						} else if(body >=19.9 && body < 23.0 ){
+							weight_status = "Overweight";
+						} else if (body >=23.1 ){
+							weight_status = "Severely Overweight";
+						}
+					} else if (age == 8){
+						if(body <13.2  ){
+							weight_status = "Severely Underweight";
+						} else if (body >=13.3 && body <13.6  ){
+							weight_status = "Underweight";
+						} else if (body >=13.7 && body <20.9  ){
+							weight_status = "Acceptable Weight";
+						} else if(body >=21 && body <24.6  ){
+							weight_status = "Overweight";
+						} else if (body >= 24.7){
+							weight_status = "Severely Overweight";
+						}
+					} else if (age == 9){
+						if(body <13.5){
+							weight_status = "Severely Underweight";
+						} else if (body >=13.6 && body <13.8 ){
+							weight_status = "Underweight";
+						} else if (body >=13.9 && body <21.8){
+							weight_status = "Acceptable Weight";
+						} else if(body >=21.9 && body <26.0){
+							weight_status = "Overweight";
+						} else if (body >=26.1){
+							weight_status = "Severely Overweight";
+						}
+					} else if (age == 10){
+						if(body <13.8){
+							weight_status = "Severely Underweight";
+						} else if (body >=13.9 &&  body <14.1){
+							weight_status = "Underweight";
+						} else if (body >=14.2 && body < 22.7 ){
+							weight_status = "Acceptable Weight";
+						} else if(body >=22.8 && body < 27.3){
+							weight_status = "Overweight";
+						} else if (body >=27.4 ){
+							weight_status = "Severely Overweight";
+						}
+					} else if (age == 11){
+						if(body <14.1){
+							weight_status = "Severely Underweight";
+						} else if (body >= 14.2 && body < 14.5){
+							weight_status = "Underweight";
+						} else if (body >=14.6 && body < 23.6){
+							weight_status = "Acceptable Weight";
+						} else if(body >=23.7 && body < 28.3){
+							weight_status = "Overweight";
+						} else if (body >=28.4){
+							weight_status = "Severely Overweight";
+						}
+					} else if (age == 12){
+						if(body <14.4){
+							weight_status = "Severely Underweight";
+						} else if (body >=14.5 && body <14.8){
+							weight_status = "Underweight";
+						} else if (body >=14.9 && body <24.3){
+							weight_status = "Acceptable Weight";
+						} else if(body >=24.4 && body <29.2){
+							weight_status = "Overweight";
+						} else if (body >=29.3){
+							weight_status = "Severely Overweight";
+						}
+					} else if (age == 13){
+						if(body <14.7){
+							weight_status = "Severely Underweight";
+						} else if (body >=14.8 && body < 15.1){
+							weight_status = "Underweight";
+						} else if (body >=15.2 && body < 25.0){
+							weight_status = "Acceptable Weight";
+						} else if(body >=25.1 && body < 30.0){
+							weight_status = "Overweight";
+						} else if (body >=30.1){
+							weight_status = "Severely Overweight";
+						}
+					}else if (age == 14){
+						if(body <15.0){
+							weight_status = "Severely Underweight";
+						} else if (body >=15.1 && body <15.4){
+							weight_status = "Underweight";
+						} else if (body >=15.5 && body < 25.5){
+							weight_status = "Acceptable Weight";
+						} else if(body >=25.6 && body < 30.6){
+							weight_status = "Overweight";
+						} else if (body >=30.7){
+							weight_status = "Severely Overweight";
+						}
+					} else if (age == 15){
+						if(body <15.3){
+							weight_status = "Severely Underweight";
+						} else if (body >=15.4 && body < 15.8){
+							weight_status = "Underweight";
+						} else if (body >=15.9 && body <26.1){
+							weight_status = "Acceptable Weight";
+						} else if(body >=26.2 && body < 31.2){  
+							weight_status = "Overweight";
+						} else if (body >=31.3){
+							weight_status = "Severely Overweight";	
+						}
+					} else if (age == 16){
+						if(body <15.6){				
+							weight_status = "Severely Underweight";
+						} else if (body >=15.7 && body <16.1 ){
+							weight_status = "Underweight";
+						} else if (body >=16.2 && body <26.5 ){
+							weight_status = "Acceptable Weight";
+						} else if(body >=26.6 && body <31.7 ){
+							weight_status = "Overweight";
+						} else if (body >=31.8){
+							weight_status = "Severely Overweight";
+						}
+					} else if (age == 17){
+						if(body <15.9  ){
+							weight_status = "Severely Underweight";
+						} else if (body >=16.0 && body < 16.3){
+							weight_status = "Underweight";
+						} else if (body >=16.4 && body < 27.0){
+							weight_status = "Acceptable Weight";
+						} else if(body >= 27.1 && body < 32.1){
+							weight_status = "Overweight";
+						} else if (body >=32.2){
+							weight_status = "Severely Overweight";
+						}
+					} else if (age == 18){
+						if(body <16.1  ){
+							weight_status = "Severely Underweight";
+						} else if (body >=16.2 && body < 16.6 ){
+							weight_status = "Underweight";
+						} else if (body >=16.7 && body < 27.4 ){
+							weight_status = "Acceptable Weight";
+						} else if(body >=27.5 && body <32.4 ){
+							weight_status = "Overweight";
+						} else if (body >=32.5 ){
+							weight_status = "Severely Overweight";
+						}
+					}
+				} else if (mPrefs.getString("gender", "").equals("Female")){
+					if(age == 6 ){	
+						if (body <12.6){	
+							weight_status = "Severely Underweight";		
+						} else if (body >=12.7 && body < 12.8){
+							weight_status = "Underweight";
+						} else if (body >=12.9 && body< 18.3){	 
+							weight_status = "Acceptable Weight";
+						} else if (body >= 18.4 && body < 20.5 ){
+							weight_status = "Overweight";
+						} else if (body >=20.6 ){
+							weight_status = "Severely Overweight";
+						}
+					} else if (age == 7){
+						if (body <12.8){
+							weight_status = "Severely Underweight";
+						} else if (body >=12.9 && body< 13.1 ){
+							weight_status = "Underweight";
+						} else if (body >=13.2 && body< 19.1 ){		 	 
+							weight_status = "Acceptable Weight";
+						} else if (body >= 19.2 && body< 21.8   ){
+							weight_status = "Overweight";
+						} else if (body>=21.9){
+							weight_status = "Severely Overweight";
+						}
+					} else if (age == 8){
+						if (body <13.1){
+							weight_status = "Severely Underweight";
+						} else if (body >=13.2 && body<13.4){
+							weight_status = "Underweight";
+						} else if (body >= 13.5 && body< 20.1  ){
+							weight_status = "Acceptable Weight";
+						} else if (body >= 20.2 && body< 23.1  ){
+							weight_status = "Overweight";
+						} else if (body>=23.2  ){
+							weight_status = "Severely Overweight";
+						}
+					} else if (age == 9){
+						if (body <13.4){
+							weight_status = "Severely Underweight";
+						} else if (body >=13.5 && body<13.7 ){
+							weight_status = "Underweight";
+						} else if (body >= 13.8 && body< 21.0 ){
+							weight_status = "Acceptable Weight";
+						} else if (body >= 21.1 && body< 24.4    ){
+							weight_status = "Overweight";
+						} else if (body>= 24.5 ){
+							weight_status = "Severely Overweight";
+						}
+					} else if (age == 10){
+						if (body <13.7){
+							weight_status = "Severely Underweight";
+						} else if (body >=13.8 && body<14.1 ){
+							weight_status = "Underweight";
+						} else if (body >= 14.2 && body< 21.9  ){ 
+							weight_status = "Acceptable Weight";
+						} else if (body >= 22 && body< 25.6 ){
+							weight_status = "Overweight";	
+						} else if (body>= 26.7 ){
+							weight_status = "Severely Overweight";
+						}
+					} else if (age == 11){	
+						if (body <14.1){
+							weight_status = "Severely Underweight";
+						} else if (body >=14.2 && body< 14.4){
+							weight_status = "Underweight";
+						} else if (body >= 14.5 && body< 22.7 ){
+							weight_status = "Acceptable Weight";
+						} else if (body >= 22.8 && body< 26.6){
+							weight_status = "Overweight";
+						} else if (body>= 26.7 ){
+							weight_status = "Severely Overweight";
+						}
+					} else if (age == 12){
+						if (body <14.4){
+							weight_status = "Severely Underweight";
+						 } else if (body >=14.5 && body <14.8){
+							 weight_status = "Underweight";
+						 } else if (body >= 14.9 && body< 23.4 ){
+							 weight_status = "Acceptable Weight";
+						 } else if (body >= 23.5 && body< 27.5){
+							 weight_status = "Overweight";
+						 } else if (body>= 27.6 ){
+							 weight_status = "Severely Overweight";
+						 }
+					} else if (age == 13){
+						if (body <14.8){
+							weight_status = "Severely Underweight";
+						} else if (body >=14.9 && body <15.2){
+							weight_status = "Underweight";
+						} else if (body >= 15.3 && body< 24.0){
+							weight_status = "Acceptable Weight";
+						} else if (body > 24.1 && body< 28.3){
+							weight_status = "Overweight";
+						} else if (body>= 28.4 ){
+							weight_status = "Severely Overweight";
+						}
+					} else if (age == 14){
+						if (body <15.1){
+							weight_status = "Severely Underweight";
+						} else if (body >=15.2 && body< 15.5){
+							weight_status = "Underweight";
+						} else if (body >= 15.6 && body< 24.6){ 
+							weight_status = "Acceptable Weight";
+						} else if (body > 24.7 && body< 28.9){
+							weight_status = "Overweight";
+						} else if (body>= 29){
+							weight_status = "Severely Overweight";
+						}
+					} else if (age == 15){
+						if (body <15.4){
+							weight_status = "Severely Underweight";
+						} else if (body >=15.5 && body< 15.8){
+							weight_status = "Underweight";
+						} else if (body >= 15.9 && body< 25.0){
+							weight_status = "Acceptable Weight";
+						} else if (body >= 25.1 && body< 29.4){
+							weight_status = "Overweight";
+						} else if (body>= 29.5){
+							weight_status = "Severely Overweight";
+						}
+					} else if (age == 16){
+						if (body <15.7){
+							weight_status = "Severely Underweight";
+						} else if (body >=15.8 && body< 16.1){
+							weight_status = "Underweight";
+						} else if (body >= 16.2 && body< 25.4){
+							weight_status = "Acceptable Weight";
+						} else if (body >= 25.5 && body< 29.7 ){
+							weight_status = "Overweight";
+						} else if (body>= 29.8){
+							weight_status = "Severely Overweight";
+						}
+					} else if (age == 17){
+						if (body <15.9){
+							weight_status = "Severely Underweight";
+						} else if (body >=16.0 && body< 16.3){
+							weight_status = "Underweight";
+						} else if (body >= 16.4 && body< 25.9){
+							weight_status = "Acceptable Weight";
+						} else if (body >= 26.0 && body< 30.0 ){
+							weight_status = "Overweight";
+						} else if (body>= 31.0){
+							weight_status = "Severely Overweight";
+						}
+					} else if (age == 18){
+						if (body <16.1){
+							weight_status = "Severely Underweight";
+						} else if (body >=16.2 && body< 16.5){
+							weight_status = "Underweight";
+						} else if (body >= 16.6 && body< 25.9){
+							weight_status = "Acceptable Weight";
+						} else if (body >= 26.0 && body< 30.3 ){
+							weight_status = "Overweight";
+						} else if (body>= 30.4 ){
+							weight_status = "Severely Overweight";
+						}
+					}	
+				}
+				return weight_status;
+			}
 		});
 		mDialog.show();
 	}
@@ -523,6 +1173,7 @@ public class UserProfileActivity extends Activity implements OnClickListener,
 				switch (mRG.getCheckedRadioButtonId()) {
 				case R.id.radio_primary:
 					mPrefsEdit.putString("education", mRB.getText().toString()).commit();
+					
 					break;
 				case R.id.radio_secondary:
 					mPrefsEdit.putString("education", mRB2.getText().toString()).commit();
@@ -811,7 +1462,8 @@ public class UserProfileActivity extends Activity implements OnClickListener,
             options.inJustDecodeBounds = false;
             return BitmapFactory.decodeByteArray(res, 0, res.length,options);
         }
-         public int calculateInSampleSize(BitmapFactory.Options options, int reqWidth, int reqHeight) {
+    
+    public int calculateInSampleSize(BitmapFactory.Options options, int reqWidth, int reqHeight) {
             // Raw height and width of image
             final int height = options.outHeight;
             final int width = options.outWidth;
@@ -825,6 +1477,10 @@ public class UserProfileActivity extends Activity implements OnClickListener,
                 }
             }
             return inSampleSize;
-        }
+	}
+    
+    
+    
+    
 
 }

@@ -1,23 +1,32 @@
 package com.myhealthmemo;
 
 import android.app.Activity;
-import android.content.Context;
-import android.location.Location;
-import android.location.LocationListener;
-import android.location.LocationManager;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.widget.Toast;
+import android.view.View;
+import android.view.View.OnClickListener;
+import android.widget.RelativeLayout;
 
 public class AddActivity extends Activity {
-	Context context;
 
+	RelativeLayout thirdLayer;
+	Intent mIntent;
+	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_add);
+		thirdLayer = (RelativeLayout) findViewById(R.id.thirdlayer);
+		thirdLayer.setOnClickListener(new OnClickListener(){
+			@Override
+			public void onClick(View v){
+				mIntent = new Intent(AddActivity.this, Activity_List_of_Activities.class);
+				startActivity(mIntent);
+			}
+		});
 		setupActionBar();
 	}
 

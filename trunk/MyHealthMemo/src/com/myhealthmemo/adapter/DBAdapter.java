@@ -13,8 +13,6 @@ import com.myhealthmemo.model.ActivityDiaryDetails;
 import com.myhealthmemo.model.DailySummary;
 import com.myhealthmemo.model.DietDiaryDetails;
 import com.myhealthmemo.model.Food;
-import com.myhealthmemo.model.Ingredient;
-
 
 public class DBAdapter {
 	// database configuration
@@ -32,20 +30,8 @@ public class DBAdapter {
 	private static final String FOOD_COLUMN_DIETARY_FIBRE = "dietary_Fibre";
 	private static final String FOOD_COLUMN_SODIUM = "sodium";
 	private static final String FOOD_COLUMN_FATS = "fats";
-	private static final String FOOD_COLUMN_MEAT_CATEGORY_ID = "meat_Category_ID";
-	private static final String FOOD_COLUMN_VEGETABLE_CATEGORY_ID = "vegetable_Category_ID";
-	private static final String FOOD_COLUMN_RICE_CEREAL_CATEGORY_ID = "rice_Cereal_Category_ID";
 	private static final String FOOD_COLUMN_IMAGE = "image";
 	private static final String TAG = "DBAdapter";
-	
-	
-	//Ingredient table configuration
-	private static final String INGREDIENT_TABLE_NAME ="Ingredient"; // Ingredient table name
-	private static final String INGREDIENT_COLUMN_ID ="i_ID";
-	private static final String INGREDIENT_COLUMN_INGREDIENT_NAME ="ingredient_Name";
-	private static final String INGREDIENT_COLUMN_INGREDIENT_TYPE ="ingredient_Type";
-	private static final String INGREDIENT_COLUMN_CALORIES_PER_SERVING_SIZE ="calories_Per_Serving_Size";
-	private static final String INGREDIENT_COLUMN_PER_SERVING_IN_GRAM ="per_Serving_In_Gram";
 	
 	
 	//Diet_Diary_detail table configuration
@@ -58,8 +44,9 @@ public class DBAdapter {
 	
 	
 	//Activity table configuration
-	private static final String ACTIVITY_TABLE_NAME = "Activity";
+	private static final String ACTIVITY_TABLE_NAME = "Activities";
 	private static final String ACTIVITY_COLUMN_ID = "a_Id";
+	private static final String ACTIVITY_COLUMN_ACTIVITY_CATEGORY = "activity_Category";
 	private static final String ACTIVITY_COLUMN_ACTIVITY_NAME = "activity_Name";
 	private static final String ACTIVITY_COLUMN_MET_VALUE = "met_Value";
 	private static final String ACTIVITY_COLUMN_ACTIVITY_IMAGE = "activity_Image";
@@ -121,25 +108,22 @@ public class DBAdapter {
 			// Database schema upgrade code goes here
             //FOOD 
 			String buildSQL = "DROP TABLE IF EXISTS " + FOOD_TABLE_NAME;
-			//INGREDIENT
-			String buildSQL2 = "DROP TABLE IF EXISTS " + INGREDIENT_TABLE_NAME;
 			//DIET_DIARY_DETAILS
-			String buildSQL3 = "DROP TABLE IF EXISTS " + DIETDIARYDETAILS_TABLE_NAME;
+			String buildSQL2 = "DROP TABLE IF EXISTS " + DIETDIARYDETAILS_TABLE_NAME;
 			//ACTIVITY
-			String buildSQL4 = "DROP TABLE IF EXISTS " + ACTIVITY_TABLE_NAME;
+			String buildSQL3 = "DROP TABLE IF EXISTS " + ACTIVITY_TABLE_NAME;
 			//ACTIVITY_DIARY_DETAILS
-			String buildSQL5 ="DROP TABLE IF EXISTS " + ACTIVITYDIARYDETAILS_TABLE_NAME;
+			String buildSQL4 ="DROP TABLE IF EXISTS " + ACTIVITYDIARYDETAILS_TABLE_NAME;
 			//DAILY_SUMMARY
-			String buildSQL6 = "DROP TABLE IF EXISTS " + DAILYSUMMARY_TABLE_NAME;
+			String buildSQL5 = "DROP TABLE IF EXISTS " + DAILYSUMMARY_TABLE_NAME;
 
-			Log.d(TAG, "onUpgrade SQL: " + buildSQL + buildSQL2 + buildSQL3 + buildSQL4 + buildSQL5 + buildSQL6);
+			Log.d(TAG, "onUpgrade SQL: " + buildSQL + buildSQL2 + buildSQL3 + buildSQL4 + buildSQL5);
 
 			sqLiteDatabase.execSQL(buildSQL);       // drop previous table
 			sqLiteDatabase.execSQL(buildSQL2);
 			sqLiteDatabase.execSQL(buildSQL3);
 			sqLiteDatabase.execSQL(buildSQL4);
 			sqLiteDatabase.execSQL(buildSQL5);
-			sqLiteDatabase.execSQL(buildSQL6);
 
 			onCreate(sqLiteDatabase);               // create the table from the beginning
 			
@@ -165,9 +149,8 @@ public class DBAdapter {
 //***************************** CREATE/INSERT METHOD******************************//
 
 		//Create/ insert Food table data
-		public long insertData ( String aId, String aFoodName, double aCarbohydrates, double aProtein, double aDietary_Fibre, double aSodium, double aFats, int aMeat_Category_ID, int aVegetable_Category_ID, int aRice_Cereal_Category_ID, String aImage ){ 
-			// we are using ContentValues to avoid sql format errors
-            
+		public long insertFoodData (int aId, String aFoodName, double aCarbohydrates, double aProtein, double aDietary_Fibre, double aSodium, double aFats, byte[] aImage ){ 
+			// We are using ContentValues to avoid sql format errors
 			ContentValues contentValues = new ContentValues();
 			contentValues.put(FOOD_COLUMN_ID, aId); 
 			contentValues.put(FOOD_COLUMN_FOOD_NAME, aFoodName);  
@@ -176,29 +159,12 @@ public class DBAdapter {
 		    contentValues.put(FOOD_COLUMN_DIETARY_FIBRE,  aDietary_Fibre);
 		    contentValues.put(FOOD_COLUMN_SODIUM,  aSodium);
 		    contentValues.put(FOOD_COLUMN_FATS,  aFats);
-		    contentValues.put(FOOD_COLUMN_MEAT_CATEGORY_ID,  aMeat_Category_ID);
-		    contentValues.put(FOOD_COLUMN_VEGETABLE_CATEGORY_ID,  aVegetable_Category_ID);
-		    contentValues.put(FOOD_COLUMN_RICE_CEREAL_CATEGORY_ID, aRice_Cereal_Category_ID);
 		    contentValues.put(FOOD_COLUMN_IMAGE, aImage);
     	    return db.insert(FOOD_TABLE_NAME, null, contentValues);
     	
 		}
 		
-		//Create/ insert Ingredient table data
-		
-		public long insertIngredientData(String bIngredientName, String bIngredientType, int bCaloriesPerServingSize, double bPerServingInGram){
-			
-			ContentValues contentValues2 = new ContentValues();
-		
-			contentValues2.put(INGREDIENT_COLUMN_INGREDIENT_NAME, bIngredientName);
-			contentValues2.put(INGREDIENT_COLUMN_INGREDIENT_TYPE, bIngredientType);
-			contentValues2.put(INGREDIENT_COLUMN_CALORIES_PER_SERVING_SIZE, bCaloriesPerServingSize);
-			contentValues2.put(INGREDIENT_COLUMN_PER_SERVING_IN_GRAM, bPerServingInGram);
-			
-			return db.insert(INGREDIENT_TABLE_NAME, null, contentValues2);
-		}
-		
-		//Create / insert Diet_Diary_Details data
+		//Create/ insert Diet_Diary_Details data
 		public long insertDietDiaryData(String cddDate, String cId, double cServingSize, int cCaloriesIntake, String cMealType){
 			ContentValues contentValues3 = new ContentValues();
 			
@@ -212,10 +178,11 @@ public class DBAdapter {
 		}
 		
 		//Create/ insert Activity data
-		public long insertActivityData(int dId,  String dActivityName, int dMetValue, String dActivityImage){
+		public long insertActivityData(int dId,  String dActivityCategory, String dActivityName, double dMetValue, byte[] dActivityImage){
 			ContentValues contentValues4 = new ContentValues();
 			
 			contentValues4.put(ACTIVITY_COLUMN_ID, dId);
+			contentValues4.put(ACTIVITY_COLUMN_ACTIVITY_CATEGORY, dActivityCategory);
 			contentValues4.put(ACTIVITY_COLUMN_ACTIVITY_NAME, dActivityName);
 			contentValues4.put(ACTIVITY_COLUMN_MET_VALUE, dMetValue);
 			contentValues4.put(ACTIVITY_COLUMN_ACTIVITY_IMAGE, dActivityImage);
@@ -223,7 +190,7 @@ public class DBAdapter {
 			return db.insert(ACTIVITY_TABLE_NAME, null, contentValues4);
 		}
 		
-		//cREATE / INSERT ActivityDiaryDetails data
+		//Create/ insert ActivityDiaryDetails data
 		public long insertActivityDiaryDetailsData(String eDate, int eId, int eDuration, int eCaloriesBurned, int eDistance, double eSpeed){
 			ContentValues contentValues5 = new ContentValues();
 			
@@ -237,7 +204,7 @@ public class DBAdapter {
 		}
 		
 		
-		//create /Insert DailySummary data
+		//Create/ insert DailySummary data
 		public long insertDailySummaryData(String fDate, int fTotalCaloriesIntake, int fTotalCaloriesBurned, double fOldWeight, double fNewWeight, double fWeightChange, int fRdaRemaining){
 			ContentValues contentValues6 = new ContentValues();
 			
@@ -258,38 +225,24 @@ public class DBAdapter {
 		//get all FOOD TABLE data
 		public Cursor getAllData() {
 			return db.query(FOOD_TABLE_NAME, new String[]{
-					FOOD_COLUMN_ID,
-					FOOD_COLUMN_FOOD_NAME, 
-					FOOD_COLUMN_CARBOHYDRATES,
-					FOOD_COLUMN_PROTEIN,
-					FOOD_COLUMN_SODIUM,
-					FOOD_COLUMN_FATS,
-					FOOD_COLUMN_MEAT_CATEGORY_ID,
-					FOOD_COLUMN_VEGETABLE_CATEGORY_ID,
-					FOOD_COLUMN_RICE_CEREAL_CATEGORY_ID,
-					FOOD_COLUMN_IMAGE}, null, null, null, null, null);
+				FOOD_COLUMN_ID,
+				FOOD_COLUMN_FOOD_NAME, 
+				FOOD_COLUMN_CARBOHYDRATES,
+				FOOD_COLUMN_PROTEIN,
+				FOOD_COLUMN_SODIUM,
+				FOOD_COLUMN_FATS,
+				FOOD_COLUMN_IMAGE}, null, null, null, null, null);
     		
         }
-		
-		//get all INGREDIENT TABLE data
-		public Cursor getAllIngredientData(){
-			return db.query(INGREDIENT_TABLE_NAME, new String[]{
-					INGREDIENT_COLUMN_ID,
-					INGREDIENT_COLUMN_INGREDIENT_NAME,
-					INGREDIENT_COLUMN_INGREDIENT_TYPE,
-					INGREDIENT_COLUMN_CALORIES_PER_SERVING_SIZE,
-					INGREDIENT_COLUMN_PER_SERVING_IN_GRAM}, null, null, null, null, null);
-					
-	   }
 		
 		//get all DietDiaryDetails TABLE data
 		public Cursor getAllDietDiaryDetailsData(){
 			return db.query(DIETDIARYDETAILS_TABLE_NAME, new String[]{
-					DIETDIARYDETAILS_COLUMN_DATE,
-					DIETDIARYDETAILS_COLUMN_FID,
-					DIETDIARYDETAILS_COLUMN_SERVING_SIZE,
-					DIETDIARYDETAILS_COLUMN_MEAL_TYPE,
-					DIEDIARYDETAILS_COLUMN_CALORIES_INTAKE},null, null, null, null, null);
+				DIETDIARYDETAILS_COLUMN_DATE,
+				DIETDIARYDETAILS_COLUMN_FID,
+				DIETDIARYDETAILS_COLUMN_SERVING_SIZE,
+				DIETDIARYDETAILS_COLUMN_MEAL_TYPE,
+				DIEDIARYDETAILS_COLUMN_CALORIES_INTAKE},null, null, null, null, null);
 			
 		}
 		
@@ -297,6 +250,7 @@ public class DBAdapter {
 		public Cursor getAllActivityData(){
 			return db.query(ACTIVITY_TABLE_NAME, new String[]{
 				ACTIVITY_COLUMN_ID,
+				ACTIVITY_COLUMN_ACTIVITY_CATEGORY,
 				ACTIVITY_COLUMN_ACTIVITY_NAME,
 				ACTIVITY_COLUMN_MET_VALUE,
 				ACTIVITY_COLUMN_ACTIVITY_IMAGE}, null,null,null,null,null);
@@ -306,32 +260,31 @@ public class DBAdapter {
 		//get all ActivityDiaryDetails data
 		public Cursor getAllActivityDiaryDetails(){
 			return db.query(ACTIVITYDIARYDETAILS_TABLE_NAME, new String[]{
-			ACTIVITYDIARYDETAILS_COLUMN_DATE,
-			ACTIVITYDIARYDETAILS_COLUMN_ID,
-			ACTIVITYDIARYDETAILS_COLUMN_DURATION,
-			ACTIVITYDIARYDETAILS_COLUMN_CALORIESBURNED,
-			ACTIVITYDIARYDETAILS_COLUMN_DISTANCE,
-			ACTIVITYDIARYDETAILS_COLUMN_SPEED}, null,null,null,null,null);
+				ACTIVITYDIARYDETAILS_COLUMN_DATE,
+				ACTIVITYDIARYDETAILS_COLUMN_ID,
+				ACTIVITYDIARYDETAILS_COLUMN_DURATION,
+				ACTIVITYDIARYDETAILS_COLUMN_CALORIESBURNED,
+				ACTIVITYDIARYDETAILS_COLUMN_DISTANCE,
+				ACTIVITYDIARYDETAILS_COLUMN_SPEED}, null,null,null,null,null);
 
 		}
 		
 		//get all DailySummary Data
 		public Cursor getAllDailySummary(){
-			return db.query(DAILYSUMMARY_TABLE_NAME, new String[]{
-					
-			DAILYSUMMARY_COLUMN_DATE,
-			DAILYSUMMARY_COLUMN_TOTAL_CALORIES_INTAKE,
-			DAILYSUMMARY_COLUMN_TOTAL_CALORIES_BURNED,
-			DAILYSUMMARY_COLUMN_OLD_WEIGHT,
-			DAILYSUMMARY_COLUMN_NEW_WEIGHT,
-			DAILYSUMMARY_COLUMN_WEIGHT_CHANGE,
-			DAILYSUMMARY_COLUMN_RDA_REMAINING}, null,null,null,null,null);
+			return db.query(DAILYSUMMARY_TABLE_NAME, new String[]{		
+				DAILYSUMMARY_COLUMN_DATE,
+				DAILYSUMMARY_COLUMN_TOTAL_CALORIES_INTAKE,
+				DAILYSUMMARY_COLUMN_TOTAL_CALORIES_BURNED,
+				DAILYSUMMARY_COLUMN_OLD_WEIGHT,
+				DAILYSUMMARY_COLUMN_NEW_WEIGHT,
+				DAILYSUMMARY_COLUMN_WEIGHT_CHANGE,
+				DAILYSUMMARY_COLUMN_RDA_REMAINING}, null,null,null,null,null);
 		}
 		
  //************************** GET SINGLE ITEM METHOD******************************//   	
     	
 		//get food item data
-		public Cursor getFood(String get_ID) {
+		public Cursor getFood(int get_ID) {
 	
 			String selectQuery = "SELECT * FROM " + FOOD_TABLE_NAME + "WHERE " +FOOD_COLUMN_ID + "= " + get_ID; 
 			Log.e(TAG,selectQuery);
@@ -340,36 +293,17 @@ public class DBAdapter {
 			if(c != null)
 				c.moveToFirst();
 			Food fod= new Food();
-			fod.setF_ID(c.getString(c.getColumnIndex(FOOD_COLUMN_ID)));
+			fod.setF_ID(c.getInt(c.getColumnIndex(FOOD_COLUMN_ID)));
 			fod.setCarbohydrates(c.getDouble(c.getColumnIndex(FOOD_COLUMN_CARBOHYDRATES)));
 			fod.setProtein(c.getDouble(c.getColumnIndex(FOOD_COLUMN_PROTEIN)));
 			fod.setDietary_Fibre(c.getDouble(c.getColumnIndex(FOOD_COLUMN_DIETARY_FIBRE)));
 			fod.setSodium(c.getDouble(c.getColumnIndex(FOOD_COLUMN_SODIUM)));
 			fod.setFats(c.getDouble(c.getColumnIndex(FOOD_COLUMN_FATS)));
-			fod.setMeat_Category_ID(c.getString(c.getColumnIndex(FOOD_COLUMN_MEAT_CATEGORY_ID)));
-			fod.setVegetable_Category_ID(c.getString(c.getColumnIndex(FOOD_COLUMN_VEGETABLE_CATEGORY_ID)));
-			fod.setRice_Cereal_Category_ID(c.getString(c.getColumnIndex(FOOD_COLUMN_RICE_CEREAL_CATEGORY_ID)));
-			fod.setImage(c.getString(c.getColumnIndex(FOOD_COLUMN_IMAGE)));
+			fod.setImage(c.getBlob(c.getColumnIndex(FOOD_COLUMN_IMAGE)));
 			return c;
 	
 		}
-		//get ingredient item data
-		public Cursor getIngredient(String get_IngredientID){
-			String selectQuery = "SELECT * FROM " + INGREDIENT_TABLE_NAME + "WHERE " +INGREDIENT_COLUMN_ID + "= " + get_IngredientID; 
-			Log.e(TAG,selectQuery);
-			Cursor c = db.rawQuery(selectQuery, null);
-			
-			if(c!=null)
-				c.moveToFirst();
-			Ingredient ing = new Ingredient();
-			ing.setI_ID(c.getInt(c.getColumnIndex(INGREDIENT_COLUMN_ID)));
-			ing.setIngredient_Name(c.getString(c.getColumnIndex(INGREDIENT_COLUMN_INGREDIENT_NAME)));
-			ing.setIngredient_Type(c.getString(c.getColumnIndex(INGREDIENT_COLUMN_INGREDIENT_TYPE)));
-			ing.setCalories_Per_Serving_Size(c.getInt(c.getColumnIndex(INGREDIENT_COLUMN_CALORIES_PER_SERVING_SIZE)));
-			ing.setPer_Serving_In_Gram(c.getDouble(c.getColumnIndex(INGREDIENT_COLUMN_PER_SERVING_IN_GRAM)));
-			return c;
-		}
-		
+
 		//get DIETDIARYDETAILS item data
 		public Cursor getDietDiaryDetails(String get_DietDiaryDetailsDate){
 			String selectQuery = "SELECT * FROM " + DIETDIARYDETAILS_TABLE_NAME + "WHERE " +DIETDIARYDETAILS_COLUMN_DATE + "= " + get_DietDiaryDetailsDate; 
@@ -398,9 +332,10 @@ public class DBAdapter {
 				c.moveToFirst();
 			Activity act = new Activity();
 			act.setA_Id(c.getInt(c.getColumnIndex(ACTIVITY_COLUMN_ID)));
+			act.setActivity_Category(c.getString(c.getColumnIndex(ACTIVITY_COLUMN_ACTIVITY_CATEGORY)));
 			act.setActivity_Name(c.getString(c.getColumnIndex(ACTIVITY_COLUMN_ACTIVITY_NAME)));
 			act.setMet_Value(c.getInt(c.getColumnIndex(ACTIVITY_COLUMN_MET_VALUE)));
-			act.setActivity_Image(c.getString(c.getColumnIndex(ACTIVITY_COLUMN_ACTIVITY_IMAGE)));
+			act.setActivity_Image(c.getBlob(c.getColumnIndex(ACTIVITY_COLUMN_ACTIVITY_IMAGE)));
 			return c;
 		}
 		
@@ -453,25 +388,11 @@ public class DBAdapter {
 			values.put(FOOD_COLUMN_DIETARY_FIBRE, updateFd.getDietary_Fibre());
 			values.put(FOOD_COLUMN_SODIUM, updateFd.getSodium());
 			values.put(FOOD_COLUMN_FATS, updateFd.getFats());
-			values.put(FOOD_COLUMN_MEAT_CATEGORY_ID, updateFd.getMeat_Category_ID());
-			values.put(FOOD_COLUMN_VEGETABLE_CATEGORY_ID, updateFd.getVegetable_Category_ID());
-			values.put(FOOD_COLUMN_RICE_CEREAL_CATEGORY_ID, updateFd.getRice_Cereal_Category_ID());
 			values.put(FOOD_COLUMN_IMAGE, updateFd.getImage());
 	
 			//update row
 			return db.update(FOOD_TABLE_NAME, values, FOOD_COLUMN_ID + "= ?", new String[] {String.valueOf(updateFd.getF_ID())});
 	
-		}
-		//Update Ingredient data
-		public int updateIngredient(Ingredient updateIng){
-			ContentValues values2 = new ContentValues();
-			values2.put(INGREDIENT_COLUMN_INGREDIENT_NAME, updateIng.getIngredient_Name());
-			values2.put(INGREDIENT_COLUMN_INGREDIENT_TYPE, updateIng.getIngredient_Type());
-			values2.put(INGREDIENT_COLUMN_CALORIES_PER_SERVING_SIZE, updateIng.getCalories_Per_Serving_Size());
-			values2.put(INGREDIENT_COLUMN_PER_SERVING_IN_GRAM, updateIng.getPer_Serving_In_Gram());
-			
-			//update row
-			return db.update(INGREDIENT_TABLE_NAME, values2, INGREDIENT_COLUMN_ID + "= ?", new String[] { String.valueOf(updateIng.getI_ID())});
 		}
 		
 		//Update DietDiaryDetails data
@@ -491,6 +412,7 @@ public class DBAdapter {
 		public int updateActivity(Activity updateAct){
 			ContentValues values4 = new ContentValues();
 			values4.put(ACTIVITY_COLUMN_ID, updateAct.getA_Id());
+			values4.put(ACTIVITY_COLUMN_ACTIVITY_CATEGORY, updateAct.getActivity_Category());
 			values4.put(ACTIVITY_COLUMN_ACTIVITY_NAME, updateAct.getActivity_Name());
 			values4.put(ACTIVITY_COLUMN_MET_VALUE, updateAct.getMet_Value());
 			values4.put(ACTIVITY_COLUMN_ACTIVITY_IMAGE, updateAct.getActivity_Image());
@@ -536,11 +458,6 @@ public class DBAdapter {
 		public void deleteFood(long deleteId){
 			db.delete(FOOD_TABLE_NAME, FOOD_COLUMN_ID + "= ?", new String[] { String.valueOf(deleteId)});
 			db.close();
-		}
-		
-		//Delete Ingredient data
-		public void deleteIngredient(long deleteIng){
-			db.delete(INGREDIENT_TABLE_NAME, INGREDIENT_COLUMN_ID+ "= ?", new String[]{String.valueOf(deleteIng)});
 		}
 		
 		//Delete DietDiaryDetails data

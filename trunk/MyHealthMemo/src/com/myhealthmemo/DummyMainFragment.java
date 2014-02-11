@@ -6,7 +6,8 @@ import java.util.ArrayList;
 import java.util.Date;
 
 import org.joda.time.DateTime;
-import com.myhealthmemo.adapter.DateUtils;
+
+import com.myhealthmemo.common.DateUtils;
 import com.myhealthmemo.piechart.PieChart;
 import com.myhealthmemo.piechart.PieChart.OnSelectedLisenter;
 import android.annotation.SuppressLint;

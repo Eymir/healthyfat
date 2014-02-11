@@ -24,7 +24,7 @@ public class WeightTrackerBMIFragment extends Fragment {
 	private ImageView mImageView;
 	private SharedPreferences mPrefs;
 	private SharedPreferences.Editor mPrefsEdit;
-	private String gender,bmi;
+	private String gender,bmi,weight_status;
 	private int age;
 	
 	@Override
@@ -39,511 +39,51 @@ public class WeightTrackerBMIFragment extends Fragment {
 	    mTextView2 = (TextView) rootView.findViewById(R.id.textView2);
 	    gender = mPrefs.getString("gender", "");
 		bmi = mPrefs.getString("bmi", "");
+		weight_status = mPrefs.getString("weight_status", "");
 		age = calculateAge(mPrefs.getString("dob",""));
 		mTextView.setText(bmi);
 	    displayGraph();
-	    
-	    
 		return rootView;
 	}
+	
 	public void displayGraph(){
-	String Text = mTextView.getText().toString();
-	
-
-	double body = Double.parseDouble(bmi);
-	if(gender.equals("Male") )
-	{
-	 if(age == 6 ){
-		 if (body < 12.9){
-			 mImageView.setImageDrawable(getResources().getDrawable(R.drawable.boy_severelyunderweight));
-			 showText(0);
-			 
-		 } else if (body >=12.9 && body < 13.2){
-			 mImageView.setImageDrawable(getResources().getDrawable(R.drawable.boy_underweight));
-			 showText(1);
-			 
-		 } else if (body >=13.2 && body < 18.9){
-			 mImageView.setImageDrawable(getResources().getDrawable(R.drawable.boy_acceptableweight));
-			 showText(2);
-			 
-		 }else if (body >= 18.9 && body <21.5 ){
-			 mImageView.setImageDrawable(getResources().getDrawable(R.drawable.boy_overweight));
-			 showText(3);
-			 
-		 }else if (body >=21.5 ){
-			 mImageView.setImageDrawable(getResources().getDrawable(R.drawable.boy_severelyoverweight));
-			 showText(4);
-			
-		 }
-	 } else if (age == 7){
-		 if(body <13.1 ){
-			 mImageView.setImageDrawable(getResources().getDrawable(R.drawable.boy_severelyunderweight));
-			 showText(0);
-			 
-		 }else if (body >=13.1 && body <13.3 ){
-			 mImageView.setImageDrawable(getResources().getDrawable(R.drawable.boy_underweight));
-			 showText(1);
-			 
-		 }else if (body >=13.3 && body <19.7 ){
-			 mImageView.setImageDrawable(getResources().getDrawable(R.drawable.boy_acceptableweight));
-			 showText(2);
-			 
-		 }else if(body >=19.7 && body < 23.1 ){
-			 mImageView.setImageDrawable(getResources().getDrawable(R.drawable.boy_overweight));
-			 showText(3);
-			 
-		 }else if (body >=23.1 ){
-			 mImageView.setImageDrawable(getResources().getDrawable(R.drawable.boy_severelyoverweight));
-			 showText(4);
-			 
-		 }
-	 } else if (age == 8){
-		 if(body <13.3   ){
-			 mImageView.setImageDrawable(getResources().getDrawable(R.drawable.boy_severelyunderweight));
-			 showText(0);
-		 }else if (body >=13.3 && body <13.6  ){
-			 mImageView.setImageDrawable(getResources().getDrawable(R.drawable.boy_underweight));
-			 showText(1);
-		 }else if (body >=13.6 && body <20.9  ){
-			 mImageView.setImageDrawable(getResources().getDrawable(R.drawable.boy_acceptableweight));
-			 showText(2);
-		 }else if(body >=20.9 && body <24.7  ){
-			 mImageView.setImageDrawable(getResources().getDrawable(R.drawable.boy_overweight));
-			 showText(3);
-		 } else if (body >= 24.7){
-			 mImageView.setImageDrawable(getResources().getDrawable(R.drawable.boy_severelyoverweight));
-			 showText(4);
-		 }
-	 } else if (age == 9){
-		 if(body <13.5){
-			 mImageView.setImageDrawable(getResources().getDrawable(R.drawable.boy_severelyunderweight));
-			 showText(0);
-			 
-		 }else if (body >=13.5 && body <13.9 ){
-			 mImageView.setImageDrawable(getResources().getDrawable(R.drawable.boy_underweight));
-			 showText(1);
-			
-		 }else if (body >=13.9 && body <21.9){
-			 mImageView.setImageDrawable(getResources().getDrawable(R.drawable.boy_acceptableweight));
-			 showText(2);
-			 
-		 }else if(body >=21.9 && body <26.1){
-			 mImageView.setImageDrawable(getResources().getDrawable(R.drawable.boy_overweight));
-			 showText(3);
-
-		 }else if (body >=26.1){
-			 mImageView.setImageDrawable(getResources().getDrawable(R.drawable.boy_severelyoverweight));
-			 showText(4);
-			 
-		 }
-	 } else if (age == 10){
-		 if(body <13.9){
-			 mImageView.setImageDrawable(getResources().getDrawable(R.drawable.boy_severelyunderweight));
-			 showText(0);
-			 
-		 }else if (body >=13.9 &&  body <14.4){
-			 mImageView.setImageDrawable(getResources().getDrawable(R.drawable.boy_underweight));
-			 showText(1);
-			 
-		 }else if (body >=14.4 && body < 22.8 ){
-			 mImageView.setImageDrawable(getResources().getDrawable(R.drawable.boy_acceptableweight));
-			 showText(2);
-			 
-		 }else if(body >=22.8 && body < 27.4){
-			 mImageView.setImageDrawable(getResources().getDrawable(R.drawable.boy_overweight));
-			 showText(3);
-
-		 }else if (body >=27.4 ){
-			 mImageView.setImageDrawable(getResources().getDrawable(R.drawable.boy_severelyoverweight));
-			 showText(4);
-		 }
-	 } else if (age == 11){
-		 if(body <14.2){
-			 mImageView.setImageDrawable(getResources().getDrawable(R.drawable.boy_severelyunderweight));
-			 showText(0);
-
-		 }else if (body >= 14.2 && body < 14.6){
-			 mImageView.setImageDrawable(getResources().getDrawable(R.drawable.boy_underweight));
-			 showText(1);
-
-		 }else if (body >=14.6 && body < 23.8){
-			 mImageView.setImageDrawable(getResources().getDrawable(R.drawable.boy_acceptableweight));
-			 showText(2);
-
-		 }else if(body >=23.8 && body < 28.4){
-			 mImageView.setImageDrawable(getResources().getDrawable(R.drawable.boy_overweight));
-			 showText(3);
-
-		 }else if (body >=28.4){
-			 mImageView.setImageDrawable(getResources().getDrawable(R.drawable.boy_severelyoverweight));
-			 showText(4);
-
-		 }
-	 } else if (age == 12){
-		 if(body <14.6){
-			 mImageView.setImageDrawable(getResources().getDrawable(R.drawable.boy_severelyunderweight));
-			 showText(0);
-
-		 }else if (body >=14.6 && body <14.9){
-			 mImageView.setImageDrawable(getResources().getDrawable(R.drawable.boy_underweight));
-			 showText(1);
-
-		 }else if (body >=14.9 && body <24.5){
-			 mImageView.setImageDrawable(getResources().getDrawable(R.drawable.boy_acceptableweight));
-			 showText(2);
-	
-		 }else if(body >=24.5 && body <29.3){
-			 mImageView.setImageDrawable(getResources().getDrawable(R.drawable.boy_overweight));
-			 showText(3);
-		 
-		 }else if (body >=29.3){
-			 mImageView.setImageDrawable(getResources().getDrawable(R.drawable.boy_severelyoverweight));
-			 showText(4);
-		 }
-	 } else if (age == 13){
-		 if(body <14.8){
-			 mImageView.setImageDrawable(getResources().getDrawable(R.drawable.boy_severelyunderweight));
-			 showText(0);
-
-		 }else if (body >=14.8 && body < 15.2){
-			 mImageView.setImageDrawable(getResources().getDrawable(R.drawable.boy_underweight));
-			 showText(1);
-
-		 }else if (body >=15.2 && body < 25.1){
-			 mImageView.setImageDrawable(getResources().getDrawable(R.drawable.boy_acceptableweight));
-			 showText(2);
-
-		 }else if(body >=25.1 && body < 30.1){
-			 mImageView.setImageDrawable(getResources().getDrawable(R.drawable.boy_overweight));
-			 showText(3);
-
-		 }else if (body >=30.1){
-			 mImageView.setImageDrawable(getResources().getDrawable(R.drawable.boy_severelyoverweight));
-			 showText(4);
-
-		 }
-	}else if (age == 14){
-		 if(body <15.1){
-			 mImageView.setImageDrawable(getResources().getDrawable(R.drawable.boy_severelyunderweight));
-			 showText(0);
-
-		 }else if (body >=15.1 && body <15.5){
-			 mImageView.setImageDrawable(getResources().getDrawable(R.drawable.boy_underweight));
-			 showText(1);
-
-		 }else if (body >=15.5 && body < 25.6){
-			 mImageView.setImageDrawable(getResources().getDrawable(R.drawable.boy_acceptableweight));
-			 showText(2);
-			 
-		 }else if(body >=25.6 && body < 30.7){
-			 mImageView.setImageDrawable(getResources().getDrawable(R.drawable.boy_overweight));
-			 showText(3);
-			 
-		 }else if (body >=30.7){
-			 mImageView.setImageDrawable(getResources().getDrawable(R.drawable.boy_severelyoverweight));
-			 showText(4);
-		 }
-	 } else if (age == 15){
-		 if(body <15.4){
-			 mImageView.setImageDrawable(getResources().getDrawable(R.drawable.boy_severelyunderweight));
-			 showText(0);
-		 }else if (body >=15.4 && body < 15.9){
-			 mImageView.setImageDrawable(getResources().getDrawable(R.drawable.boy_underweight));
-			 showText(1);
-			 
-		 }else if (body >=15.9 && body <26.2){
-			 mImageView.setImageDrawable(getResources().getDrawable(R.drawable.boy_acceptableweight));
-			 showText(2);
-			 
-		 }else if(body >=26.2 && body < 31.3){
-			 mImageView.setImageDrawable(getResources().getDrawable(R.drawable.boy_overweight));
-			 showText(3);
-			 
-		 }else if (body >=31.3){
-			 mImageView.setImageDrawable(getResources().getDrawable(R.drawable.boy_severelyoverweight));
-			 showText(4);
-		 }
-	 } else if (age == 16){
-		 if(body <15.7){
-			 mImageView.setImageDrawable(getResources().getDrawable(R.drawable.boy_severelyunderweight));
-			 showText(0);
-		 }else if (body >=15.7 && body <16.2 ){
-			 mImageView.setImageDrawable(getResources().getDrawable(R.drawable.boy_underweight));
-			 showText(1);
-		 }else if (body >=16.2 && body <26.6 ){
-			 mImageView.setImageDrawable(getResources().getDrawable(R.drawable.boy_acceptableweight));
-			 showText(2);
-		 }else if(body >=26.6 && body <31.8 ){
-			 mImageView.setImageDrawable(getResources().getDrawable(R.drawable.boy_overweight));
-			 showText(3);
-		 }else if (body >=31.8){
-			 mImageView.setImageDrawable(getResources().getDrawable(R.drawable.boy_severelyoverweight));
-			 showText(4);
-		 }
-	 } else if (age == 17){
-		 if(body <16  ){
-			 mImageView.setImageDrawable(getResources().getDrawable(R.drawable.boy_severelyunderweight));
-			 showText(1);
-		 }else if (body >=16 && body < 16.4){
-			 mImageView.setImageDrawable(getResources().getDrawable(R.drawable.boy_underweight));
-			 showText(2);
-		 }else if (body >=16.4 && body < 27.1){
-			 mImageView.setImageDrawable(getResources().getDrawable(R.drawable.boy_acceptableweight));
-			 showText(3);
-		 }else if(body >= 27 && body < 32.2){
-			 mImageView.setImageDrawable(getResources().getDrawable(R.drawable.boy_overweight));
-			 showText(4);
-		 }else if (body >=32.2){
-			 mImageView.setImageDrawable(getResources().getDrawable(R.drawable.boy_severelyoverweight));
-			 showText(5);
-		 }
-	 } else if (age == 18){
-		 if(body <16.2  ){
-			 mImageView.setImageDrawable(getResources().getDrawable(R.drawable.boy_severelyunderweight));
-			 showText(0);
-		 }else if (body >=16.2 && body < 16.6 ){
-			 mImageView.setImageDrawable(getResources().getDrawable(R.drawable.boy_underweight));
-			 showText(1);
-		 }else if (body >=16.6 && body < 27.5 ){
-			 mImageView.setImageDrawable(getResources().getDrawable(R.drawable.boy_acceptableweight));
-			 showText(2);
-		 }else if(body >=27.5 && body <32.5 ){
-			 mImageView.setImageDrawable(getResources().getDrawable(R.drawable.boy_overweight));
-			 showText(3);
-		 }else if (body >=32.5 ){
-			 mImageView.setImageDrawable(getResources().getDrawable(R.drawable.boy_severelyoverweight));
-			 showText(4);
-		 }
-	 
-        
-	} else if (gender.equals("Female")){
-		if(age == 6 ){
-			if (body <12.7){
-				 mImageView.setImageDrawable(getResources().getDrawable(R.drawable.girl_severelyunderweight));
-				 showText(0);
-			 } else if (body >=12.7 && body < 13){
-				 mImageView.setImageDrawable(getResources().getDrawable(R.drawable.girl_underweight));
-				 showText(1);
-			 } else if (body >=13 && body< 18.7){
-				 mImageView.setImageDrawable(getResources().getDrawable(R.drawable.girl_acceptableweight));
-				 showText(2);
-			 }else if (body >= 18.7 && body < 20.9  ){
-				 mImageView.setImageDrawable(getResources().getDrawable(R.drawable.girl_overweight));
-				 showText(3);
-			 }else if (body >=20.9 ){
-				 mImageView.setImageDrawable(getResources().getDrawable(R.drawable.girl_severelyoverweight));
-				 showText(4);
-			 }
-		} else if (age == 7){
-			if (body <12.8){
-				 mImageView.setImageDrawable(getResources().getDrawable(R.drawable.girl_severelyunderweight));
-				 showText(0);
-			 } else if (body >=12.8 && body< 13.5 ){
-				 mImageView.setImageDrawable(getResources().getDrawable(R.drawable.girl_underweight));
-				 showText(1);
-			 } else if (body >=13.5 && body< 19.2 ){
-				 mImageView.setImageDrawable(getResources().getDrawable(R.drawable.girl_acceptableweight));
-				 showText(2);
-			 }else if (body >= 19.2 && body< 22   ){
-				 mImageView.setImageDrawable(getResources().getDrawable(R.drawable.girl_overweight));
-				 showText(3);
-			 }else if (body>=22  ){
-				 mImageView.setImageDrawable(getResources().getDrawable(R.drawable.girl_severelyoverweight));
-				 showText(4);
-				 			
-			 }
-		} else if (age == 8){
-			if (body <13.2){
-				 mImageView.setImageDrawable(getResources().getDrawable(R.drawable.girl_severelyunderweight));
-				 showText(0);
-			 } else if (body >=13.2 && body<13.6 ){
-				 mImageView.setImageDrawable(getResources().getDrawable(R.drawable.girl_underweight));
-				 showText(1);
-			 } else if (body >= 13.6 && body< 20.2  ){
-				 mImageView.setImageDrawable(getResources().getDrawable(R.drawable.girl_acceptableweight));
-				 showText(2);
-			 }else if (body >= 20.2 && body< 23.2    ){
-				 mImageView.setImageDrawable(getResources().getDrawable(R.drawable.girl_overweight));
-				 showText(3);
-			 }else if (body>=23.2  ){
-				 mImageView.setImageDrawable(getResources().getDrawable(R.drawable.girl_severelyoverweight));
-				 showText(4);
-			 }
-		} else if (age == 9){
-			if (body <13.6){
-				 mImageView.setImageDrawable(getResources().getDrawable(R.drawable.girl_severelyunderweight));
+		if(gender.equals("Male")){
+			if(weight_status.equals("Severely Underweight")){
+				mImageView.setImageDrawable(getResources().getDrawable(R.drawable.boy_severelyunderweight));
 				showText(0);
-			 } else if (body >=13.6 && body<13.9 ){
-				 mImageView.setImageDrawable(getResources().getDrawable(R.drawable.girl_underweight));
-				 showText(1);
-			 } else if (body >= 13.9 && body< 21.1  ){
-				 mImageView.setImageDrawable(getResources().getDrawable(R.drawable.girl_acceptableweight));
-				 showText(2);
-			 }else if (body >= 21.1 && body< 24.7    ){
-				 mImageView.setImageDrawable(getResources().getDrawable(R.drawable.girl_overweight));
-				 showText(3);
-			 }else if (body>= 24.7 ){
-				 mImageView.setImageDrawable(getResources().getDrawable(R.drawable.girl_severelyoverweight));
-				 showText(4);
-			 }
-		} else if (age == 10){
-			if (body <13.8){
-				 mImageView.setImageDrawable(getResources().getDrawable(R.drawable.girl_severelyunderweight));
-				 showText(0);
-			 } else if (body >=13.8 && body<14.2 ){
-				 mImageView.setImageDrawable(getResources().getDrawable(R.drawable.girl_underweight));
-				 showText(1);
-			 } else if (body >= 14.2 && body< 22  ){
-				 mImageView.setImageDrawable(getResources().getDrawable(R.drawable.girl_acceptableweight));
-				 showText(2);
-			 }else if (body >= 22 && body< 26.8 ){
-				 mImageView.setImageDrawable(getResources().getDrawable(R.drawable.girl_overweight));
-				 showText(3);
-			 }else if (body>= 26.8 ){
-				 mImageView.setImageDrawable(getResources().getDrawable(R.drawable.girl_severelyoverweight));
-				 showText(4);
-			 }
-		} else if (age == 11){
-			if (body <14){
-				 mImageView.setImageDrawable(getResources().getDrawable(R.drawable.girl_severelyunderweight));
-				 showText(0);
-			 } else if (body >=14 && body< 14.5){
-				 mImageView.setImageDrawable(getResources().getDrawable(R.drawable.girl_underweight));
-				 showText(1);
-			 } else if (body >= 14.5 && body< 22.8 ){
-				 mImageView.setImageDrawable(getResources().getDrawable(R.drawable.girl_acceptableweight));
-				 showText(2);
-			 }else if (body >= 22.8 && body< 26.8 ){
-				 mImageView.setImageDrawable(getResources().getDrawable(R.drawable.girl_overweight));
-				 showText(3);
-			 }else if (body>= 26.8 ){
-				 mImageView.setImageDrawable(getResources().getDrawable(R.drawable.girl_severelyoverweight));
-				showText(4);
-			 }
-		} else if (age == 12){
-			if (body <14.3){
-				 mImageView.setImageDrawable(getResources().getDrawable(R.drawable.girl_severelyunderweight));
-				 showText(0);
-			 } else if (body >=14.3 && body <15){
-				 mImageView.setImageDrawable(getResources().getDrawable(R.drawable.girl_underweight));
-				 showText(1);
-			 } else if (body >= 15 && body< 23.7 ){
-				 mImageView.setImageDrawable(getResources().getDrawable(R.drawable.girl_acceptableweight));
-				 showText(2);
-			 }else if (body >= 23.7 && body< 27.7){
-				 mImageView.setImageDrawable(getResources().getDrawable(R.drawable.girl_overweight));
-				 showText(3);
-			 }else if (body>= 27.7 ){
-				 mImageView.setImageDrawable(getResources().getDrawable(R.drawable.girl_severelyoverweight));
-				showText(4);
-			 }
-		} else if (age == 13){
-			if (body <15){
-				 mImageView.setImageDrawable(getResources().getDrawable(R.drawable.girl_severelyunderweight));
-				showText(0);
-			 } else if (body >=15 && body <15.3){
-				 mImageView.setImageDrawable(getResources().getDrawable(R.drawable.girl_underweight));
-				 showText(1);
-			 } else if (body >= 15.3 && body< 24){
-				 mImageView.setImageDrawable(getResources().getDrawable(R.drawable.girl_acceptableweight));
+			} else if(weight_status.equals("Underweight")){
+				mImageView.setImageDrawable(getResources().getDrawable(R.drawable.boy_underweight));
+				showText(1);
+			} else if(weight_status.equals("Acceptable Weight")){
+				mImageView.setImageDrawable(getResources().getDrawable(R.drawable.boy_acceptableweight));
 				showText(2);
-			 }else if (body > 24.7 && body< 28.3){
-				 mImageView.setImageDrawable(getResources().getDrawable(R.drawable.girl_overweight));
+			} else if(weight_status.equals("Overweight")){
+				mImageView.setImageDrawable(getResources().getDrawable(R.drawable.boy_overweight));
 				showText(3);
-			 }else if (body>= 28.3 ){
-				 mImageView.setImageDrawable(getResources().getDrawable(R.drawable.girl_severelyoverweight));
+			} else if(weight_status.equals("Severely Overweight")){
+				mImageView.setImageDrawable(getResources().getDrawable(R.drawable.boy_severelyoverweight));
 				showText(4);
-			 }
-		} else if (age == 14){
-			if (body <15.2){
-				 mImageView.setImageDrawable(getResources().getDrawable(R.drawable.girl_severelyunderweight));
+			}
+		} else if(gender.equals("Female")){
+			if(weight_status.equals("Severely Underweight")){
+				mImageView.setImageDrawable(getResources().getDrawable(R.drawable.girl_severelyunderweight));
 				showText(0);
-			 } else if (body >=15.2 && body< 15.8){
-				 mImageView.setImageDrawable(getResources().getDrawable(R.drawable.girl_underweight));
-				 showText(1);
-			 } else if (body >= 15.8 && body< 24.7){
-				 mImageView.setImageDrawable(getResources().getDrawable(R.drawable.girl_acceptableweight));
-				 showText(2);
-			 }else if (body > 24.7 && body< 29){
-				 mImageView.setImageDrawable(getResources().getDrawable(R.drawable.girl_overweight));
-				 showText(3);
-			 }else if (body>= 29){
-				 mImageView.setImageDrawable(getResources().getDrawable(R.drawable.girl_severelyoverweight));
-				 showText(4);
-			 }
-		} else if (age == 15){
-			if (body <15.3){
-				 mImageView.setImageDrawable(getResources().getDrawable(R.drawable.girl_severelyunderweight));
-				 showText(0);
-			 } else if (body >=15.3 && body< 15.9){
-				 mImageView.setImageDrawable(getResources().getDrawable(R.drawable.girl_underweight));
-				 showText(1);
-			 } else if (body >= 15.9 && body< 25){
-				 mImageView.setImageDrawable(getResources().getDrawable(R.drawable.girl_acceptableweight));
-				 showText(2);
-			 }else if (body >= 25 && body< 29.5){
-				 mImageView.setImageDrawable(getResources().getDrawable(R.drawable.girl_overweight));
-				 showText(3);
-			 }else if (body>= 29.5){
-				 mImageView.setImageDrawable(getResources().getDrawable(R.drawable.girl_severelyoverweight));
-				 showText(4);
-			 }
-		} else if (age == 16){
-			if (body <15.7){
-				 mImageView.setImageDrawable(getResources().getDrawable(R.drawable.girl_severelyunderweight));
-				 showText(0);
-			 } else if (body >=15.7 && body< 16.2){
-				 mImageView.setImageDrawable(getResources().getDrawable(R.drawable.girl_underweight));
-				 showText(1);
-			 } else if (body >= 16.2 && body< 25.7){
-				 mImageView.setImageDrawable(getResources().getDrawable(R.drawable.girl_acceptableweight));
-				 showText(2);
-			 }else if (body >= 25.7 && body< 30.1 ){
-				 mImageView.setImageDrawable(getResources().getDrawable(R.drawable.girl_overweight));
-				 showText(3);
-			 }else if (body>= 30.1){
-				 mImageView.setImageDrawable(getResources().getDrawable(R.drawable.girl_severelyoverweight));
-				 showText(4);
-			 }
-		} else if (age == 17){
-			if (body <16){
-				 mImageView.setImageDrawable(getResources().getDrawable(R.drawable.girl_severelyunderweight));
-				 showText(0);
-			 } else if (body >=16 && body< 16.3){
-				 mImageView.setImageDrawable(getResources().getDrawable(R.drawable.girl_underweight));
-				 showText(1);
-			 } else if (body >= 16.3 && body< 25.8){
-				 mImageView.setImageDrawable(getResources().getDrawable(R.drawable.girl_acceptableweight));
-				 showText(2);
-			 }else if (body >= 25.8 && body< 30 ){
-				 mImageView.setImageDrawable(getResources().getDrawable(R.drawable.girl_overweight));
-				 showText(3);
-			 }else if (body>= 30){
-				 mImageView.setImageDrawable(getResources().getDrawable(R.drawable.girl_severelyoverweight));
-				 showText(4);
-			 }
-		} else if (age == 18){
-			if (body <16.1){
-				 mImageView.setImageDrawable(getResources().getDrawable(R.drawable.girl_severelyunderweight));
-				 showText(0);
-			 } else if (body >=16.1 && body< 16.8){
-				 mImageView.setImageDrawable(getResources().getDrawable(R.drawable.girl_underweight));
-				 showText(1);
-			 } else if (body >= 16.8 && body< 26){
-				 mImageView.setImageDrawable(getResources().getDrawable(R.drawable.girl_acceptableweight));
-				 showText(2);
-			 }else if (body >= 26 && body< 30.2 ){
-				 mImageView.setImageDrawable(getResources().getDrawable(R.drawable.girl_overweight));
-				 showText(3);
-			 }else if (body>= 30.2 ){
-				 mImageView.setImageDrawable(getResources().getDrawable(R.drawable.girl_severelyoverweight));
-				 showText(4);
-			 }
+			} else if(weight_status.equals("Underweight")){
+				mImageView.setImageDrawable(getResources().getDrawable(R.drawable.girl_underweight));
+				showText(1);
+			} else if(weight_status.equals("Acceptable Weight")){
+				mImageView.setImageDrawable(getResources().getDrawable(R.drawable.girl_acceptableweight));
+				showText(2);
+			} else if(weight_status.equals("Overweight")){
+				mImageView.setImageDrawable(getResources().getDrawable(R.drawable.girl_overweight));
+				showText(3);
+			} else if(weight_status.equals("Severely Overweight")){
+				mImageView.setImageDrawable(getResources().getDrawable(R.drawable.girl_severelyoverweight));
+				showText(4);
+			}
 		}
 	}
-	}
 	
-}
 	@Override
 	public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
 		inflater.inflate(R.menu.weight, menu);
